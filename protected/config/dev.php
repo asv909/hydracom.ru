@@ -16,7 +16,8 @@ return CMap::mergeArray(
             ),
         ),
         'params' => array(
-            'SeleniumTestsEnvironment' => '/index-test.php'
+            'SeleniumTestsEnvironment' => '/index-test.php',
+            'param' => '249?6H3xyz!',
         ),
     )
 );

@@ -8,7 +8,7 @@ return array(
 
     'components'=>array(
         'db'=>array(
-            'connectionString'=>'mysql:host=localhost;dbname=hydracom',//test
+            'connectionString'=>'mysql:host=localhost;dbname=hydracom',//test',//hydracom',
             'emulatePrepare'=>true,
             'username'=>'root',
             'password'=>'ertrd2007',
