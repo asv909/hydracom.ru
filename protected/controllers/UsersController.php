@@ -5,7 +5,7 @@
  *
  * @author asv
  */
-class UsersController extends Controller {
+class UserController extends Controller {
     
     public function actionNew() {
         $user=new User;
