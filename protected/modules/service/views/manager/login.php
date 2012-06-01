@@ -1,6 +1,6 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'login_form',
-    'action' => Helpers::createUrl('/service/manager/login'), 
+    'action' => Helpers::createUrl('/manager_login'), 
 ))?>
 
 <p>Для входа в систему введите в поля формы <br/>Ваши логин, пароль и нажмите кнопку <br/>"Войти в систему"</p>

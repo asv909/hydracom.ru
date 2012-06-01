@@ -1,10 +1,9 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Description of ServiceModule
+ *
+ * @author asv
  */
-
-
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
 /**
@@ -33,4 +32,3 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertTextPresent('Здравствуйте Сергей Владимирович!');
     }
 }
-?>

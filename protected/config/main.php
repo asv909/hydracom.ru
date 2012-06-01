@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Description of main.php - main configuration of application
+ *
+ * @author asv
+ */
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => 'HYDRACOM',
@@ -29,6 +33,7 @@ return array(
             'rules' => array(
                 '/' => 'home/index',
                 'manager' => 'service/manager/index',
+                'manager_login' => 'service/manager/login',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Description of UserIdentity
  *
@@ -7,22 +6,29 @@
  */
 class ManagerIdentity extends CUserIdentity 
 {
-    private $_id;
+        private $_id;
     
     public function authenticate() 
     {
-        $record=Manager::model()->findByAttributes(array('login'=>$this->username));
-        if($record===null)
-            $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if($record->hash!==Helpers::checkHash($this->username, $this->password,$record->salt))
-            $this->errorCode=self::ERROR_PASSWORD_INVALID;
+        if(!isset($this->username))
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        elseif(!isset($this->password)) 
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
         {
-            $this->_id=$record->id;
-            $this->setState('manager_name', $record->name . ' ' . $record->middlename);
-            $this->errorCode=self::ERROR_NONE;
+            $record=Manager::model()->findByAttributes(array('login'=>$this->username));
+            if($record===null)
+                $this->errorCode=self::ERROR_USERNAME_INVALID;
+            elseif($record->hash!==Helpers::checkHash($this->username, $this->password,$record->salt))
+                $this->errorCode=self::ERROR_PASSWORD_INVALID;
+            else
+            {
+                $this->_id=$record->id;
+                $this->setState('manager_name', $record->name . ' ' . $record->middlename);
+                $this->errorCode=self::ERROR_NONE;
+            }
         }
-        return !$this->errorCode;
+        return !$this->errorCode;    
     }
  
     public function getId() 

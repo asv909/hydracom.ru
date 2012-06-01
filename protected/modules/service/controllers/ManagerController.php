@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Description of UsersController
  *
@@ -10,7 +9,7 @@ class ManagerController extends Controller
     public function actionIndex() 
     {
         if(Yii::app()->user->isGuest) 
-            $this->redirect(Yii::app()->user->returnUrl='service/manager/login');
+            $this->redirect(Yii::app()->user->returnUrl = 'manager_login');
         else 
         {
             $greetings = 'Здравствуйте ' . Yii::app()->user->manager_name . '!';
@@ -20,12 +19,14 @@ class ManagerController extends Controller
 
     public function actionLogin() 
     {
+        if(!Yii::app()->user->isGuest) 
+            $this->redirect(Yii::app()->user->returnUrl = 'manager');
         $manager = new Manager;
         if(isset($_POST['Manager']))
         {
-            $manager->attributes=$_POST['Manager'];
-            if($manager->validate())
-                $this->redirect(Yii::app()->user->returnUrl='/manager');
+            $manager->attributes = $_POST['Manager'];
+            if($manager->validate() && $manager->login())
+                $this->redirect(Yii::app()->user->returnUrl);
         }
         $this->render('login', array('login_form' => $manager));
     }
@@ -33,6 +34,6 @@ class ManagerController extends Controller
     public function actionLogout() 
     {
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->user->returnUrl='/manager');
+        $this->redirect(Yii::app()->homeUrl);
     }
 }

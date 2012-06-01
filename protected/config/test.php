@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Description of test.php - test configuration of application
+ *
+ * @author asv
+ */
 return CMap::mergeArray(
     require(dirname(__FILE__).'/main.php'),
     array(

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Description of ServiceModule
  *
@@ -12,7 +11,6 @@ class ServiceModule extends CWebModule
         $this->setImport(array(
             'service.models.*',
             'service.components.*',
-        ));
+            ));
     } 
-    
 }
