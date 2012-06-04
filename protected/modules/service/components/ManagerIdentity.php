@@ -16,16 +16,16 @@ class ManagerIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
         {
-            $record=Manager::model()->findByAttributes(array('login'=>$this->username));
+            $record=Manager::model()->findByAttributes(array('login' => $this->username));
             if($record===null)
-                $this->errorCode=self::ERROR_USERNAME_INVALID;
-            elseif($record->hash!==Helpers::checkHash($this->username, $this->password,$record->salt))
-                $this->errorCode=self::ERROR_PASSWORD_INVALID;
+                $this->errorCode = self::ERROR_USERNAME_INVALID;
+            elseif($record->hash!==Helpers::checkHash($this->username, $this->password, $record->salt))
+                $this->errorCode = self::ERROR_PASSWORD_INVALID;
             else
             {
-                $this->_id=$record->id;
+                $this->_id = $record->id;
                 $this->setState('manager_name', $record->name . ' ' . $record->middlename);
-                $this->errorCode=self::ERROR_NONE;
+                $this->errorCode = self::ERROR_NONE;
             }
         }
         return !$this->errorCode;    

@@ -6,6 +6,33 @@
  */
 class ManagerController extends Controller 
 {
+/*    public function filters() 
+    {
+        return array('accessControl');
+    }
+ 
+    public function accessRules() 
+    {
+        return array(
+            array('allow',
+                'actions' => array('captcha'),
+                'users' => array('*'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+ 
+    public function actions() 
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+            ),
+        );
+    }
+ */   
     public function actionIndex() 
     {
         if(Yii::app()->user->isGuest) 

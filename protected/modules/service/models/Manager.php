@@ -9,7 +9,7 @@ class Manager extends CActiveRecord
         public $username;
         public $password;
         public $rememberMe = false;
-
+        
         private $_identity;
 
     static public function model($className = __CLASS__) 
@@ -25,30 +25,35 @@ class Manager extends CActiveRecord
     public function rules() 
     {
         return array(
-            array('username, password', 'required'),
+            array('username, password', 'required', 
+                    'message' => 'Необходимо заполнить поле {attribute}!'),
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
-        );
+            //array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd')),
+            );
     }
     
     public function attributeLabels()
     {
         return array(
+            'username' => 'Логин',
+            'password' => 'Пароль',
             'rememberMe' => 'Запомнить меня на 30 дней',
+            'verifyCode' => 'Код защиты от роботов',
             );
-    }    
-
+    }
+    
     /**
     * @param string $attribute имя поля, которое будем валидировать
     * @param array $params дополнительные параметры для правила валидации
     */
-    public function authenticate($attribute,$params)
+    public function authenticate($attribute, $params)
     {
         if(!$this->hasErrors())
         {
-            $this->_identity=new ManagerIdentity($this->username,$this->password);
+            $this->_identity = new ManagerIdentity($this->username,$this->password);
             if(!$this->_identity->authenticate())
-                $this->addError('password','Неправильное имя пользователя или пароль.');
+                $this->addError('password', 'Неправильное имя пользователя или пароль.');
         }
     }    
     
@@ -56,13 +61,13 @@ class Manager extends CActiveRecord
     {
         if($this->_identity===null)
         {
-            $this->_identity=new ManagerIdentity($this->username,$this->password);
+            $this->_identity = new ManagerIdentity($this->username, $this->password);
             $this->_identity->authenticate();
         }
         if($this->_identity->errorCode===ManagerIdentity::ERROR_NONE)
         {
-            $duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
-            Yii::app()->user->login($this->_identity,$duration);
+            $duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days
+            Yii::app()->user->login($this->_identity, $duration);
             return true;
         }
         else

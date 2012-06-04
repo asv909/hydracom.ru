@@ -13,6 +13,7 @@ class Helpers
 
     static function checkHash($login, $secretword, $salt) 
     {
+        sleep(1);
         return sha1($login . $secretword . $salt . Yii::app()->params->param);  
     }    
 }
