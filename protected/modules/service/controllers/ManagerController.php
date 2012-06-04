@@ -6,7 +6,7 @@
  */
 class ManagerController extends Controller 
 {
-/*    public function filters() 
+    public function filters() 
     {
         return array('accessControl');
     }
@@ -15,7 +15,7 @@ class ManagerController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('captcha,'),
+                'actions' => array('captcha', 'index', 'login', 'logout'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -23,7 +23,7 @@ class ManagerController extends Controller
             ),
         );
     }
-*/ 
+ 
     public function actions() 
     {
         return array(
@@ -49,6 +49,7 @@ class ManagerController extends Controller
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
         $manager = new Manager;
+        $this->performAjaxValidation($manager);
         if(isset($_POST['Manager']))
         {
             $manager->attributes = $_POST['Manager'];
@@ -56,6 +57,15 @@ class ManagerController extends Controller
                 $this->redirect(Yii::app()->user->returnUrl);
         }
         $this->render('login', array('login_form' => $manager));
+    }
+
+    protected function performAjaxValidation($manager)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='login_form')
+        {
+            echo CActiveForm::validate($manager);
+            Yii::app()->end();
+        }
     }
     
     public function actionLogout() 

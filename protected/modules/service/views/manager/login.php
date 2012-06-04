@@ -1,7 +1,12 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'login_form',
-    'action' => Helpers::createUrl('/manager_login'), 
+    'action' => Helpers::createUrl('/manager_login'),
+    'enableAjaxValidation'=>true,
+    'enableClientValidation'=>true,
+    'focus'=>array($login_form, 'username'),
 ))?>
+
+<?php echo $form->errorSummary($login_form, 'При заполнении формы были допущены следующие ошибки:'); ?>
 
 <p>Вход в систему:</p>
 
@@ -28,7 +33,7 @@
         <?php echo $form->labelEx($login_form, 'verifyCode') ?><br/>
         <?php $this->widget('CCaptcha', array('buttonLabel'=>'Обновить код', 'buttonType' => 'button')) ?>
         <?php echo $form->textField($login_form, 'verifyCode') ?>
-        <?php echo $form->error($login_form, 'verifyCode');?>
+        <!--?php echo $form->error($login_form, 'verifyCode');?-->
     <?php endif ?>
 </p>
 
