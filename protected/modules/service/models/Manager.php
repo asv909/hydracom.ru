@@ -9,6 +9,7 @@ class Manager extends CActiveRecord
         public $username;
         public $password;
         public $rememberMe = false;
+        public $verifyCode;
         
         private $_identity;
 
@@ -29,7 +30,10 @@ class Manager extends CActiveRecord
                     'message' => 'Необходимо заполнить поле {attribute}!'),
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
-            //array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd')),
+            array('verifyCode', 'captcha', 
+                    'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd'),
+                    'message' => 'Код защиты указан не верно!'
+                ),
             );
     }
     
@@ -39,7 +43,7 @@ class Manager extends CActiveRecord
             'username' => 'Логин',
             'password' => 'Пароль',
             'rememberMe' => 'Запомнить меня на 30 дней',
-            'verifyCode' => 'Код защиты от роботов',
+            'verifyCode' => 'Код защиты от ботов',
             );
     }
     

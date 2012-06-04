@@ -15,7 +15,7 @@ class ManagerController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('captcha'),
+                'actions' => array('captcha,'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -23,7 +23,7 @@ class ManagerController extends Controller
             ),
         );
     }
- 
+*/ 
     public function actions() 
     {
         return array(
@@ -32,7 +32,7 @@ class ManagerController extends Controller
             ),
         );
     }
- */   
+   
     public function actionIndex() 
     {
         if(Yii::app()->user->isGuest) 
