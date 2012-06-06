@@ -31,9 +31,9 @@
 <p>
     <?php if(extension_loaded('gd') && Yii::app()->user->isGuest): ?>
         <?php echo $form->labelEx($login_form, 'verifyCode') ?><br/>
-        <?php $this->widget('CCaptcha', array('buttonLabel'=>'Обновить код', 'buttonType' => 'button')) ?>
+        <?php $this->widget('CCaptcha', array('clickableImage' => TRUE, 'showRefreshButton' => FALSE //'buttonLabel'=>'Обновить код', 'buttonType' => 'button'
+            )) ?>
         <?php echo $form->textField($login_form, 'verifyCode') ?>
-        <!--?php echo $form->error($login_form, 'verifyCode');?-->
     <?php endif ?>
 </p>
 

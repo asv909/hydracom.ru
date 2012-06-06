@@ -28,6 +28,7 @@ class AuthenticateManagerTest extends WebTestCase
         $this->type('css=#Manager_username','asv909');
         $this->type('css=#Manager_password','ErTrd-2007');
         $this->click('css=#Manager_rememberMe');
+   //     $this->click('css=#Manager_verifyCode', CCaptchaAction->getVerifyCode());
         $this->clickAndWait('css=#login_manager_button');
         $this->assertTextPresent('Здравствуйте Сергей Владимирович!');
     }

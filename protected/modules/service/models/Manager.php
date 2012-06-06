@@ -26,13 +26,15 @@ class Manager extends CActiveRecord
     public function rules() 
     {
         return array(
+            array('username, password', 'length', 'max' => 12),
+            array('verifyCode', 'length', 'max' => 7),
             array('username, password', 'required', 
-                    'message' => 'Необходимо заполнить поле {attribute}!'),
+                    'message' => "Необходимо заполнить поле {attribute}!"),
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
             array('verifyCode', 'captcha', 
                     'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd'),
-                    'message' => 'Код защиты указан не верно!'
+                    'message' => "Код защиты указан не верно!"
                 ),
             );
     }
