@@ -51,5 +51,7 @@ return array(
         ),
     'params' => array(
         'param' => '249?6H3xyz!',
+        'IP' => '127.0.0.1',
+//        'selenium' => TRUE,
         ),        
     );

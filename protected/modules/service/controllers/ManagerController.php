@@ -6,6 +6,8 @@
  */
 class ManagerController extends Controller 
 {
+    public $session = array();
+    
     public function filters() 
     {
         return array('accessControl');
@@ -26,11 +28,23 @@ class ManagerController extends Controller
  
     public function actions() 
     {
-        return array(
+        if(isset(Yii::app()->params->selenium)) 
+        {
+            return array(
             'captcha' => array(
                 'class' => 'CCaptchaAction',
-            ),
-        );
+                'fixedVerifyCode' => 'dolotut',
+                ),
+            );
+        }
+        else 
+        {
+            return array(
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+                ),
+            );
+        }
     }
    
     public function actionIndex() 
@@ -46,12 +60,31 @@ class ManagerController extends Controller
 
     public function actionLogin() 
     {
+        $session=new CHttpSession;
+        $session->open();
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
+        if($_SERVER['REMOTE_ADDR']!==Yii::app()->params->IP)
+        {
+            $this->render('access_deny', array('greetings' => "Ваш статус не соответствует одному из критериев допуска!"));
+            Yii::app()->end();
+        }
         $manager = new Manager;
         $this->performAjaxValidation($manager);
         if(isset($_POST['Manager']))
         {
+            $i = $session->get('attempt_to_authorize', 1);
+            if($i>3) 
+            {
+                $session->close();
+                $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
+                Yii::app()->end();
+            }
+            else 
+            {
+                $i=$i+1;
+                $session->add('attempt_to_authorize', $i);
+            }
             $manager->attributes = $_POST['Manager'];
             if($manager->validate() && $manager->login())
                 $this->redirect(Yii::app()->user->returnUrl);
