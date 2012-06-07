@@ -6,7 +6,7 @@
  */
 class ManagerController extends Controller 
 {
-    public $session = array();
+    public $session;
     
     public function filters() 
     {
@@ -73,7 +73,7 @@ class ManagerController extends Controller
         $this->performAjaxValidation($manager);
         if(isset($_POST['Manager']))
         {
-            $i = $session->get('attempt_to_authorize', 1);
+            $i = $session->get('attempt_to_authenticate', 1);
             if($i>3) 
             {
                 $session->close();
@@ -83,7 +83,7 @@ class ManagerController extends Controller
             else 
             {
                 $i=$i+1;
-                $session->add('attempt_to_authorize', $i);
+                $session->add('attempt_to_authenticate', $i);
             }
             $manager->attributes = $_POST['Manager'];
             if($manager->validate() && $manager->login())
