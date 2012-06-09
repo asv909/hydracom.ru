@@ -6,8 +6,6 @@
  */
 class ManagerController extends Controller 
 {
-    public $session;
-    
     public function filters() 
     {
         return array('accessControl');
@@ -55,41 +53,34 @@ class ManagerController extends Controller
         {
             $greetings = 'Здравствуйте ' . Yii::app()->user->manager_name . '!';
             $this->render('index', array('greetings' => $greetings));
+            Yii::app()->end();
         }
     }
 
     public function actionLogin() 
     {
-        $session=new CHttpSession;
-        $session->open();
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
-        if($_SERVER['REMOTE_ADDR']!==Yii::app()->params->IP)
+        if($_SERVER['REMOTE_ADDR']!==Yii::app()->params->officeIP)
         {
-            $this->render('access_deny', array('greetings' => "Ваш статус не соответствует одному из критериев допуска!"));
+            $this->render('access_deny', array('greetings' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
             Yii::app()->end();
         }
         $manager = new Manager;
         $this->performAjaxValidation($manager);
         if(isset($_POST['Manager']))
         {
-            $i = $session->get('attempt_to_authenticate', 1);
-            if($i>3) 
+            if(Helpers::restrictNumberOfAttempts(Yii::app()->params->num_of_attempts, Yii::app()->params->timeout_attempts))
             {
-                $session->close();
                 $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
                 Yii::app()->end();
-            }
-            else 
-            {
-                $i=$i+1;
-                $session->add('attempt_to_authenticate', $i);
-            }
+            }    
             $manager->attributes = $_POST['Manager'];
             if($manager->validate() && $manager->login())
                 $this->redirect(Yii::app()->user->returnUrl);
         }
         $this->render('login', array('login_form' => $manager));
+        Yii::app()->end();
     }
 
     protected function performAjaxValidation($manager)
