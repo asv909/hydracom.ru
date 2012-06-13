@@ -11,16 +11,17 @@ class Helpers
         return Yii::app()->params->testenv . $url;
     }
 
-    static function checkHash($login, $secretword, $salt) 
+    static function checkHash($login, $secretword, $salt, $suffix) 
     {
+        //$suffix = Yii::app()->controller->module->suffix;
         sleep(1);
-        return sha1($login . $secretword . $salt . Yii::app()->params->param);  
+        return sha1($login . $secretword . $salt . $suffix);  
     }
     
-    static function restrictNumberOfAttempts($num_of_attempts = 3, $timeout_attempts = 300) 
+    static function restrictNumberOfAttempts($num_of_attempts = 3, $timeout = 300) 
     {
         $session = new CHttpSession;
-        $session->setTimeout($timeout_attempts);
+        $session->setTimeout($timeout);
         $session->open();
         $attempt = $session->get('count_of_attempts', 0) + 1;
         if($attempt > $num_of_attempts)
@@ -28,7 +29,7 @@ class Helpers
             if($session->get('restrict_time', 0)===0)
                 $session->add('restrict_time', time());
             $elapsed_time = time()-$session->get('restrict_time', 0); 
-            if($elapsed_time > $timeout_attempts) 
+            if($elapsed_time > $timeout) 
             {
                 $session->remove('restrict_time');
                 $session->add('count_of_attempts', 1);

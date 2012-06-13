@@ -50,10 +50,6 @@ return array(
             ),
         ),
     'params' => array(
-        'param' => '249?6H3xyz!',
-        'officeIP' => '127.0.0.1',
-        'num_of_attempts' => 3,
-        'timeout_attempts' => 30,
-        'selenium' => TRUE,
+        //'selenium' => TRUE,
         ),        
     );

@@ -6,6 +6,13 @@
  */
 class ManagerController extends Controller 
 {
+/*    public $params = array(
+            'param' => '249?6H3xyz!',
+            'officeIP' => '127.0.0.1',
+            'num_of_attempts' => 3,
+            'timeout_attempts' => 30, 
+            );
+ */   
     public function filters() 
     {
         return array('accessControl');
@@ -61,7 +68,7 @@ class ManagerController extends Controller
     {
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
-        if($_SERVER['REMOTE_ADDR']!==Yii::app()->params->officeIP)
+        if($_SERVER['REMOTE_ADDR'] !== $this->module->restrict_authen['office_IP'])
         {
             $this->render('access_deny', array('greetings' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
             Yii::app()->end();
@@ -70,7 +77,7 @@ class ManagerController extends Controller
         $this->performAjaxValidation($manager);
         if(isset($_POST['Manager']))
         {
-            if(Helpers::restrictNumberOfAttempts(Yii::app()->params->num_of_attempts, Yii::app()->params->timeout_attempts))
+            if(Helpers::restrictNumberOfAttempts($this->module->restrict_authen['num_of_attempts'], $this->module->restrict_authen['timeout']))
             {
                 $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
                 Yii::app()->end();

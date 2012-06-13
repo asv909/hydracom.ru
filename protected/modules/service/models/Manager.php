@@ -8,7 +8,7 @@ class Manager extends CActiveRecord
 {
         public $username;
         public $password;
-        public $rememberMe = false;
+        public $rememberMe = FALSE;
         public $verifyCode;
         
         private $_identity;

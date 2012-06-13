@@ -19,7 +19,7 @@ class ManagerIdentity extends CUserIdentity
             $record=Manager::model()->findByAttributes(array('login' => $this->username));
             if($record===null)
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
-            elseif($record->hash!==Helpers::checkHash($this->username, $this->password, $record->salt))
+            elseif($record->hash!==Helpers::checkHash($this->username, $this->password, $record->salt, Yii::app()->controller->module->suffix))
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             else
             {
