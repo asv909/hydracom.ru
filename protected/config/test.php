@@ -20,7 +20,6 @@ return CMap::mergeArray(
                 ),
             ),
         'params' => array(
-            'param' => '249?6H3xyz!',
             'testenv' => '/index-test.php',
             ),
         )

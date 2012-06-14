@@ -11,14 +11,13 @@ class Helpers
         return Yii::app()->params->testenv . $url;
     }
 
-    static function checkHash($login, $secretword, $salt, $suffix) 
+    static function createHash($login, $secretword, $salt, $suffix) 
     {
-        //$suffix = Yii::app()->controller->module->suffix;
         sleep(1);
         return sha1($login . $secretword . $salt . $suffix);  
     }
     
-    static function restrictNumberOfAttempts($num_of_attempts = 3, $timeout = 300) 
+    static function restrictNumberOfAttempts($num_of_attempts = 5, $timeout = 600) 
     {
         $session = new CHttpSession;
         $session->setTimeout($timeout);

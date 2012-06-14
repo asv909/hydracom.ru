@@ -6,13 +6,6 @@
  */
 class ManagerController extends Controller 
 {
-/*    public $params = array(
-            'param' => '249?6H3xyz!',
-            'officeIP' => '127.0.0.1',
-            'num_of_attempts' => 3,
-            'timeout_attempts' => 30, 
-            );
- */   
     public function filters() 
     {
         return array('accessControl');
@@ -33,7 +26,7 @@ class ManagerController extends Controller
  
     public function actions() 
     {
-        if(isset(Yii::app()->params->selenium)) 
+        if(isset(Yii::app()->params->test)) 
         {
             return array(
             'captcha' => array(

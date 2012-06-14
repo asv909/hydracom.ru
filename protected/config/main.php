@@ -50,6 +50,6 @@ return array(
             ),
         ),
     'params' => array(
-        //'selenium' => TRUE,
+        'test' => TRUE,
         ),        
     );

@@ -29,26 +29,25 @@ class Manager extends CActiveRecord
             array('username, password', 'length', 'max' => 12),
             array('verifyCode', 'length', 'max' => 7),
             array('username, password', 'required', 
-                    'message' => "Необходимо заполнить поле {attribute}!"),
+                'message' => "Необходимо заполнить поле {attribute}!"),
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
             array('verifyCode', 'captcha', 
-                    'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd'),
-                    'message' => "Код защиты указан не верно!"
-                ),
-            );
+                'allowEmpty' => !Yii::app()->user->isGuest || !extension_loaded('gd'),
+                'message' => "Код защиты указан не верно!"),
+        );
     }
-    
+   
     public function attributeLabels()
     {
         return array(
             'username' => 'Логин',
             'password' => 'Пароль',
             'rememberMe' => 'Запомнить меня на 30 дней',
-            'verifyCode' => 'Код защиты от ботов',
+            'verifyCode' => 'Код защиты',
             );
     }
-    
+
     /**
     * @param string $attribute имя поля, которое будем валидировать
     * @param array $params дополнительные параметры для правила валидации
