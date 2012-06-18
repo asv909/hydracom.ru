@@ -6,7 +6,10 @@
  */
 class ManagerIdentity extends CUserIdentity 
 {
-        private $_id;
+    private $record;
+    private $hash;
+    
+    private $_id;
     
     public function authenticate() 
     {
@@ -15,16 +18,15 @@ class ManagerIdentity extends CUserIdentity
         elseif(!isset($this->password)) 
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
-        {
-            $record=Manager::model()->findByAttributes(array('login' => $this->username));
-            if($record===null)
+        {   
+            if($this->record===null)
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
-            elseif($record->hash!==Helpers::createHash($this->username, $this->password, $record->salt, Yii::app()->controller->module->suffix))
+            elseif($this->record->hash!==$this->hash)
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             else
             {
-                $this->_id = $record->id;
-                $this->setState('manager_name', $record->name . ' ' . $record->middlename);
+                $this->_id = $this->record->id;
+                $this->setState('manager_name', $this->record->name . ' ' . $this->record->middlename);
                 $this->errorCode = self::ERROR_NONE;
             }
         }
@@ -34,5 +36,15 @@ class ManagerIdentity extends CUserIdentity
     public function getId() 
     {
         return $this->_id;
+    }
+    
+    public function setRecord($record) 
+    {
+        $this->record = $record;
+    }
+
+    public function setHash($hash) 
+    {
+        $this->hash = $hash;
     }
 }

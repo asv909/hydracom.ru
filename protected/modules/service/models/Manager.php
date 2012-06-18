@@ -12,6 +12,7 @@ class Manager extends CActiveRecord
         public $verifyCode;
         
         private $_identity;
+        private $record;
 
     static public function model($className = __CLASS__) 
     {
@@ -57,6 +58,9 @@ class Manager extends CActiveRecord
         if(!$this->hasErrors())
         {
             $this->_identity = new ManagerIdentity($this->username,$this->password);
+            $this->record = $this->findByAttributes(array('login' => $this->username));
+            $this->_identity->setRecord($this->record);
+            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->record->salt, Yii::app()->controller->module->suffix));
             if(!$this->_identity->authenticate())
                 $this->addError('password', 'Неправильное имя пользователя или пароль.');
         }
@@ -77,5 +81,14 @@ class Manager extends CActiveRecord
         }
         else
             return false;
+    }
+    
+    public function set_identity($identity)
+    {
+        if(!isset($identity) || !is_object($identity))
+            return FALSE;
+        
+        $this->_identity = $identity;
+        return TRUE;
     }
 }

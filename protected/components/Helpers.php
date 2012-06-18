@@ -6,9 +6,9 @@
  */
 class Helpers 
 {
-    static function createUrl($url) 
+    static function createUrl($resource_name) 
     {
-        return Yii::app()->params->testenv . $url;
+        return Yii::app()->params->testenv . $resource_name;
     }
 
     static function createHash($login, $secretword, $salt, $suffix) 
