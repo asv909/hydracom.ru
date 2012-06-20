@@ -44,29 +44,38 @@ class ManagerTest extends CDbTestCase {
 
     public function testAuthenticate() 
     {
-        // with valid data
+        // for valid data
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertTrue($this->manager->authenticate());
-        // with unknown username
+        // for unknown username
         $username = $this->manager->username;
         $this->manager->username = "unknown";
         $this->assertFalse($this->manager->authenticate());
         $this->manager->username = $username;
-        // with wrong password
+        // for wrong password having length > 12 char so that 1st condition if(!$this->hasErrors()) would FALSE
         $password = $this->manager->password;
         $this->manager->password = "wrong_password";
         $this->assertFalse($this->manager->authenticate());
         $this->manager->password = $password;
+        // for wrong password < 12 char
+        $this->valid_data['password'] = "wrong_pass";
+        $this->manager = new Manager;
+        $this->manager->attributes = $this->valid_data;
+        $this->assertFalse($this->manager->authenticate());
     }
 
     public function testLogin() 
     {
-        //Only for case $rememberMe=false
+        //оnly for case $rememberMe=FALSE
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->manager->authenticate();
         $this->assertTrue($this->manager->login());
+        //to 1st condition if($this->_identity===null) would TRUE
+        $this->manager = new Manager;
+        $this->manager->attributes = $this->valid_data;
+        $this->assertFalse($this->manager->login());
     }
     
     public function testAttributeLabels() 
@@ -84,6 +93,12 @@ class ManagerTest extends CDbTestCase {
         $this->manager = new Manager;
         $this->assertType('array', $this->manager->rules());
         $this->assertNotEmpty($this->manager->rules());        
+    }
+    
+    public function testModel()
+    {
+        $this->manager = new Manager;
+        $this->assertNotEmpty($this->manager->model());
     }
 }
 ?>
