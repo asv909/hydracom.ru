@@ -38,4 +38,7 @@
     <?php echo CHtml::submitButton('Войти в систему', array('id' => 'login_manager_button')) ?>
 </p>
 
+<p>
+<?php echo $form->errorSummary($login_form, 'При заполнении формы были допущены следующие ошибки:'); ?>
+</p>
 <?php $this->endWidget(); ?>
