@@ -6,8 +6,6 @@
     'focus'=>array($login_form, 'username'),
 ))?>
 
-<?php echo $form->errorSummary($login_form, 'При заполнении формы были допущены следующие ошибки:'); ?>
-
 <p>Вход в систему:</p>
 
 <p>

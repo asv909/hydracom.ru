@@ -84,3 +84,4 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertTextPresent('Код защиты указан не верно!');
     }    
 }
+?>

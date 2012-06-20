@@ -86,5 +86,4 @@ class ManagerIdentityTest extends CTestCase
         $this->valid_data['password'] = $valid_password;
     }
 }
-
 ?>

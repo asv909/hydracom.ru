@@ -11,7 +11,6 @@ class ServiceModule extends CWebModule
         'num_of_attempts' => 3,
         'timeout' => 30,
         );
-    public $suffix = '249?6H3xyz!'; 
     
     public function init() 
     {
@@ -21,3 +20,4 @@ class ServiceModule extends CWebModule
             ));
     } 
 }
+?>

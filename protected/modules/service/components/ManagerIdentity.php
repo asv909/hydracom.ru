@@ -8,7 +8,6 @@ class ManagerIdentity extends CUserIdentity
 {
     private $record;
     private $hash;
-    
     private $_id;
     
     public function authenticate() 
@@ -48,3 +47,4 @@ class ManagerIdentity extends CUserIdentity
         $this->hash = $hash;
     }
 }
+?>

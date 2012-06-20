@@ -32,3 +32,4 @@ class ControllerTest extends CTestCase
         $this->assertTrue(file_exists(dirname(__FILE__) . '/../../../../../../modules/service/views/layouts/' . $this->layout_name . '.php'), "Файл шаблона, используемого по умолчанию, не обнаружен");
     }
 }
+?>

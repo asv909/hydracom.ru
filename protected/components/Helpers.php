@@ -50,3 +50,4 @@ class Helpers
         return $restrict;
     }
 }
+?>

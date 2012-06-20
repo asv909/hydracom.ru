@@ -13,6 +13,7 @@ class Manager extends CActiveRecord
         
         private $_identity;
         private $record;
+        private $suffix = "249?6H3xyz!";
 
     static public function model($className = __CLASS__) 
     {
@@ -49,21 +50,27 @@ class Manager extends CActiveRecord
             );
     }
 
-    /**
-    * @param string $attribute имя поля, которое будем валидировать
-    * @param array $params дополнительные параметры для правила валидации
-    */
-    public function authenticate($attribute, $params)
+    public function authenticate()
     {
         if(!$this->hasErrors())
         {
             $this->_identity = new ManagerIdentity($this->username,$this->password);
             $this->record = $this->findByAttributes(array('login' => $this->username));
+            if(!isset($this->record))
+            {
+                $this->addError('username', 'Пользователь с таким логином в системе не зарегистрирован!');
+                return FALSE;                
+            }
             $this->_identity->setRecord($this->record);
-            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->record->salt, Yii::app()->controller->module->suffix));
+            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->record->salt, $this->suffix));
             if(!$this->_identity->authenticate())
-                $this->addError('password', 'Неправильное имя пользователя или пароль.');
+            {
+                $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
+                return FALSE;
+            }
+            return TRUE;
         }
+        return FALSE;
     }    
     
     public function login()
@@ -75,20 +82,13 @@ class Manager extends CActiveRecord
         }
         if($this->_identity->errorCode===ManagerIdentity::ERROR_NONE)
         {
-            $duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days
-            Yii::app()->user->login($this->_identity, $duration);
-            return true;
+            $duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days or 0 if $rememberMe is TRUE or FALSE
+            if($duration!==0)
+                Yii::app()->user->login($this->_identity, $duration);
+            return TRUE;
         }
         else
-            return false;
-    }
-    
-    public function set_identity($identity)
-    {
-        if(!isset($identity) || !is_object($identity))
             return FALSE;
-        
-        $this->_identity = $identity;
-        return TRUE;
     }
 }
+?>

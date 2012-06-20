@@ -26,7 +26,7 @@ class ManagerController extends Controller
  
     public function actions() 
     {
-        if(isset(Yii::app()->params->test)) 
+        if(isset(Yii::app()->params->test) && Yii::app()->params->test) 
         {
             return array(
             'captcha' => array(
@@ -98,3 +98,4 @@ class ManagerController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
 }
+?>

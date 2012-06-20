@@ -1,6 +1,8 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../modules/service/models/Manager.php';
+require_once dirname(__FILE__) . '/../../../../../../modules/service/components/ManagerIdentity.php';
+require_once dirname(__FILE__) . '/../../../../../../components/Helpers.php';
 
 /**
  * Test class for Manager.
@@ -11,23 +13,20 @@ class ManagerTest extends CDbTestCase {
     /**
      * @var manager
      */
-    protected $manager;
-    /**
-     * @var valid
-     */    
+    private $manager;
     private $valid_data = array(
         'username' => 'asv909',
         'password' => 'ErTrd-2007',
         'rememberMe' => FALSE,
-        //'verifyCode' => 'dolotut'
-        
-    );    
-
+        'verifyCode' => 'dolotut'
+        );
+    
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp() 
+    {
         parent::setUp();
     }
 
@@ -35,61 +34,56 @@ class ManagerTest extends CDbTestCase {
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() {
-        
+    protected function tearDown() {}
+
+    public function testTableNameIsExist() 
+    {
+        $this->manager = new Manager;
+        $this->assertEquals($this->manager->tableName(),$this->manager->tableSchema->name);
     }
 
-    /**
-     * @todo Implement testModel().
-     */
-    public function testModel() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testAuthenticate() 
+    {
+        // with valid data
+        $this->manager = new Manager;
+        $this->manager->attributes = $this->valid_data;
+        $this->assertTrue($this->manager->authenticate());
+        // with unknown username
+        $username = $this->manager->username;
+        $this->manager->username = "unknown";
+        $this->assertFalse($this->manager->authenticate());
+        $this->manager->username = $username;
+        // with wrong password
+        $password = $this->manager->password;
+        $this->manager->password = "wrong_password";
+        $this->assertFalse($this->manager->authenticate());
+        $this->manager->password = $password;
     }
 
-    /**
-     * @todo Implement testTableName().
-     */
-    public function testTableName() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testLogin() 
+    {
+        //Only for case $rememberMe=false
+        $this->manager = new Manager;
+        $this->manager->attributes = $this->valid_data;
+        $this->manager->authenticate();
+        $this->assertTrue($this->manager->login());
     }
-
-    /**
-     * @todo Implement testRules().
-     */
-    public function testRules() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    
+    public function testAttributeLabels() 
+    {
+        $this->manager = new Manager;
+        $this->assertType('array', $this->manager->attributeLabels());
+        $this->assertNotEmpty($this->manager->attributeLabels());
+        $attr_labels = $this->manager->attributeLabels();
+        $this->assertEquals('Логин', $attr_labels['username']);
+        $this->assertEquals('Пароль', $attr_labels['password']);
     }
-
-    /**
-     * @todo Implement testAttributeLabels().
-     */
-    public function testAttributeLabels() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    
+    public function testRules() 
+    {
+        $this->manager = new Manager;
+        $this->assertType('array', $this->manager->rules());
+        $this->assertNotEmpty($this->manager->rules());        
     }
-
-
-    /**
-     * @todo Implement testLogin().
-     */
-    public function testLogin() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
 }
-
 ?>
