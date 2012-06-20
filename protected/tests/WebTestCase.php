@@ -22,5 +22,11 @@ class WebTestCase extends CWebTestCase
             parent::setUp();
             $this->setBrowserUrl(TEST_BASE_URL);
 	}
+
+        public function forTesting()
+        {
+            $this->setUp();
+            return TRUE;
+        }
 }
 ?>
