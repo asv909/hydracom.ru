@@ -68,6 +68,7 @@ class Manager extends CActiveRecord
                 $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
                 return FALSE;
             }
+            Yii::app()->user->login($this->_identity);
             return TRUE;
         }
         return FALSE;

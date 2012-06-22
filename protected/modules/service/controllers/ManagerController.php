@@ -76,7 +76,9 @@ class ManagerController extends Controller
                 Yii::app()->end();
             }    
             $manager->attributes = $_POST['Manager'];
+            $info1 = Yii::app()->user->isGuest;
             if($manager->validate() && $manager->login())
+                $info2 = Yii::app()->user->isGuest;    
                 $this->redirect(Yii::app()->user->returnUrl);
         }
         $this->render('login', array('login_form' => $manager));
