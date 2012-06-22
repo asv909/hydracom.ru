@@ -50,7 +50,6 @@ return array(
             ),
         ),
     'params' => array(
-        'testenv' => '',
         'test' => TRUE,
         ),        
     );
