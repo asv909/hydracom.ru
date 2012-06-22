@@ -34,12 +34,14 @@ class HelpersTest extends CTestCase
 
     public function testRestrictNumberOfAttempts()
     {
-        $num_of_attempts = 2;
-        $timeout = 5;
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($num_of_attempts, $timeout));
-        $this->assertTrue(Helpers::restrictNumberOfAttempts($num_of_attempts, $timeout));
-        sleep($timeout+1);
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($num_of_attempts, $timeout));
+        $restricts = array(
+            'numberOfAttempts' => 2,
+            'timeout' => 5
+        );
+        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts));
+        $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts));
+        sleep($restricts['timeout']+1);
+        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts));
     }
 }
 ?>

@@ -6,9 +6,9 @@
  */
 class ServiceModule extends CWebModule 
 {
-    public $restrict_authen = array(
-        'office_IP' => '127.0.0.1',
-        'num_of_attempts' => 3,
+    public $restrictAuthenticate = array(
+        'officeIP' => '127.0.0.1',
+        'numberOfAttempts' => 3,
         'timeout' => 30,
         );
     

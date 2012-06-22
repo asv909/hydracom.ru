@@ -43,21 +43,20 @@ class Helpers
 
     /**
      * <var>restrictNumberOfAttempts</var> function is used to restrict number of authenticate attempt and setting timeout between series of attempts. Function return TRUE or FALSE depending on the number attempt of authorization exceeded or no and timeout between series of attempts has expired or no.
-     * @param integer $numberOfAttempts this is number of attempts for one series
-     * @param integer $timeout this is timeout between series of attempts
+     * @param array $restricts this is $restrictAuthenticate array from ServiceModule.php
      * @return boolean TRUE or FALSE
      */
-    static function restrictNumberOfAttempts($numberOfAttempts = 5, $timeout = 600) 
+    static function restrictNumberOfAttempts($restricts) 
     {
         $session = new CHttpSession;
-        $session->setTimeout($timeout);
+        $session->setTimeout($restricts['timeout']);
         $session->open();
         $attempt = $session->get('countOfAttempts', 0) + 1;
-        if($attempt >= $numberOfAttempts)
+        if($attempt >= $restricts['numberOfAttempts'])
         {
             if($session->get('restrictTime', 0)===0)
                 $session->add('restrictTime', time());
-            if((time()-$session->get('restrictTime', 0)) >= $timeout) 
+            if((time()-$session->get('restrictTime', 0)) >= $restricts['timeout']) 
             {
                 $session->remove('restrictTime');
                 $session->add('countOfAttempts', 1);

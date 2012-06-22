@@ -64,7 +64,7 @@ class ManagerController extends ServiceController
     {
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
-        if($_SERVER['REMOTE_ADDR'] !== $this->module->restrict_authen['office_IP'])
+        if($_SERVER['REMOTE_ADDR'] !== $this->module->restrictAuthenticate['officeIP'])
         {
             $this->render('access_deny', array('greetings' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
             Yii::app()->end();
@@ -80,7 +80,7 @@ class ManagerController extends ServiceController
                 Yii::app()->user->login($identity, $identity->rememberTime);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
-            if(Helpers::restrictNumberOfAttempts($this->module->restrict_authen['num_of_attempts'], $this->module->restrict_authen['timeout']))
+            if(Helpers::restrictNumberOfAttempts($this->module->restrictAuthenticate))
             {
                 $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
                 Yii::app()->end();
