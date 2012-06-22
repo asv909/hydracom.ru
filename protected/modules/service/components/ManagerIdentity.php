@@ -9,6 +9,7 @@ class ManagerIdentity extends CUserIdentity
     private $record;
     private $hash;
     private $_id;
+    public $rememberTime;
     
     public function authenticate() 
     {

@@ -6,6 +6,7 @@
  */
 class ManagerController extends Controller 
 {
+    public $identity;
     private $manager;
     
     public function filters() 
@@ -73,8 +74,12 @@ class ManagerController extends Controller
         if(isset($_POST['Manager']))
         {
             $this->manager->attributes = $_POST['Manager'];
-            if($this->manager->validate() && $this->manager->login())
+            if($this->manager->validate())// && $this->manager->login())
+            {
+                $identity = $this->manager->login();
+                Yii::app()->user->login($identity, $identity->rememberTime);
                 $this->redirect(Yii::app()->user->returnUrl);
+            }
             if(Helpers::restrictNumberOfAttempts($this->module->restrict_authen['num_of_attempts'], $this->module->restrict_authen['timeout']))
             {
                 $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));

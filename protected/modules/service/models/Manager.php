@@ -82,9 +82,11 @@ class Manager extends CActiveRecord
         }
         if($this->_identity->errorCode===ManagerIdentity::ERROR_NONE)
         {
-            $duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days or 0 if $rememberMe is TRUE or FALSE
-            Yii::app()->user->login($this->_identity, $duration);
-            return TRUE;
+            $duration = $this->rememberMe ? 3600*24*30 : 0;
+            $this->_identity->rememberTime = $duration;
+            //Yii::app()->user->login($this->_identity, $duration);
+            //return TRUE;
+            return $this->_identity;
         }
         else
             return FALSE;
