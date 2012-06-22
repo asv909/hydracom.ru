@@ -68,11 +68,10 @@ class Manager extends CActiveRecord
                 $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
                 return FALSE;
             }
-            Yii::app()->user->login($this->_identity);
             return TRUE;
         }
         return FALSE;
-    }    
+    }
     
     public function login()
     {
@@ -84,8 +83,13 @@ class Manager extends CActiveRecord
         if($this->_identity->errorCode===ManagerIdentity::ERROR_NONE)
         {
             $duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days or 0 if $rememberMe is TRUE or FALSE
-            if($duration!==0)
+            if(!$duration)
+                Yii::app()->user->login($this->_identity);
+            else 
+            {
+                Yii::app()->user->allowAutoLogin = TRUE;
                 Yii::app()->user->login($this->_identity, $duration);
+            }
             return TRUE;
         }
         else

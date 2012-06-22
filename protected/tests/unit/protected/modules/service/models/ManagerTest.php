@@ -67,11 +67,13 @@ class ManagerTest extends CDbTestCase {
 
     public function testLogin() 
     {
-        //оnly for case $rememberMe=FALSE
+        /*
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->manager->authenticate();
         $this->assertTrue($this->manager->login());
+         * 
+         */
         //to 1st condition if($this->_identity===null) would TRUE
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;

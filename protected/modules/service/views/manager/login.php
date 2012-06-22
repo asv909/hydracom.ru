@@ -2,7 +2,6 @@
     'id' => 'login_form',
     'action' => Helpers::createUrl('/manager_login'),
     'enableAjaxValidation'=>true,
-    'enableClientValidation'=>true,
     'focus'=>array($login_form, 'username'),
 ))?>
 
