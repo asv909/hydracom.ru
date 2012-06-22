@@ -1,37 +1,70 @@
 <?php
 /**
- * Description of Helpers
- *
- * @author asv
+ * Helpers class file
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @link http://www.eurotrade-et.ru/
+ * @copyright Copyright &copy; 2012 RGK LLC
+ */
+
+
+/**
+ * <var>Helpers</var> class is a set of static functions allocated to a separate class for reuse.
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @package HYDRACOM application.
+ * @since 1.0
  */
 class Helpers 
 {
-    static function createUrl($resource_name) 
+    /**
+     * <var>createUrl</var> function is used to the construction of the route depending on the setting in the configuration property values 'testenv'. Function return appropriate URL.
+     * @param string $route usually this is the route
+     * @return string URL
+     */
+    static function createUrl($route) 
     {
-        return Yii::app()->params->testenv . $resource_name;
+            return Yii::app()->params->testenv . $route;
     }
 
+    /**
+     * <var>createHash</var> function is used to compute the hash value for set of some parameters. Function return computed <var>sha1()</var> hash string.
+     * @param string $login this is user name, taken from $POST['form']
+     * @param string $secretword this is user password, taken from $POST['form']
+     * @param string $salt this is user salt, taken from appropriate DB-record
+     * @param string $suffix this is special string for added security, taken from variable $suffix that was set within class of appropriate model
+     * @return string hash string
+     */
     static function createHash($login, $secretword, $salt, $suffix) 
     {
         sleep(1);
         return sha1($login . $secretword . $salt . $suffix);  
     }
     
-    static function restrictNumberOfAttempts($num_of_attempts = 5, $timeout = 600) 
+    /**
+     * <var>restrictNumberOfAttempts</var> function is used to restrict number of authenticate attempt and setting timeout between series of attempts. Function return TRUE or FALSE depending on the number attempt of authorization exceeded or no and timeout between series of attempts has expired or no     
+     * @param integer $numberOfAttempts this is number of attempts for one series
+     * @param integer $timeout this is timeout between series of attempts
+     * @return boolean TRUE or FALSE
+     */
+    static function restrictNumberOfAttempts($numberOfAttempts = 5, $timeout = 600) 
     {
         $session = new CHttpSession;
         $session->setTimeout($timeout);
         $session->open();
-        $attempt = $session->get('count_of_attempts', 0) + 1;
-        if($attempt > $num_of_attempts)
+        
+        $attempt = $session->get('countOfAttempts', 0) + 1;
+        if($attempt > $numberOfAttempts)
         {
-            if($session->get('restrict_time', 0)===0)
-                $session->add('restrict_time', time());
-            $elapsed_time = time()-$session->get('restrict_time', 0); 
-            if($elapsed_time > $timeout) 
+            if($session->get('restrictTime', 0)===0)
+                $session->add('restrictTime', time());
+            
+            $elapsedTime = time()-$session->get('restrictTime', 0); 
+            if($elapsedTime > $timeout) 
             {
-                $session->remove('restrict_time');
-                $session->add('count_of_attempts', 1);
+                $session->remove('restrictTime');
+                $session->add('countOfAttempts', 1);
                 $session->close();
                 $restrict = FALSE;
             }
@@ -43,7 +76,7 @@ class Helpers
         }
         else 
         {
-            $session->add('count_of_attempts', $attempt);
+            $session->add('countOfAttempts', $attempt);
             $session->close();
             $restrict = FALSE;
         }

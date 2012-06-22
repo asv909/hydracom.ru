@@ -7,29 +7,29 @@ require_once dirname(__FILE__) . '/../../../../../../modules/service/components/
  */
 class ControllerTest extends CTestCase 
 {
-    public $controller;
-    public $layout_name = 'main'; //this value must be equivalent to $layout within /../../../../../../modules/service/components/Controller.php
-    
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+     *
+     * @var type 
      */
-    protected function setUp() 
-    {
+    private $_controller;
+    private $_layoutName = 'main'; //this value must be equivalent to $layout within /../../../../../../modules/service/components/Controller.php
+    
+    protected function setUp() {
         parent::setUp();
     }
 
+    protected function tearDown() {
+    }
+    
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
+     * Testing that $layout are located in the Controller.php and $_layoutName is equivalent
+     * Checking that file of layout exists
      */
-    protected function tearDown() {}
-
-    public function testLayoutFileExists() 
+    public function testLayoutNameAndFileExists() 
     {
-        $this->controller = new Controller('manager', 'service');
-        $this->assertEquals($this->layout_name, $this->controller->layout, "Имя используемого по умолчанию шаблона не совпадает с 'main'");
-        $this->assertTrue(file_exists(dirname(__FILE__) . '/../../../../../../modules/service/views/layouts/' . $this->layout_name . '.php'), "Файл шаблона, используемого по умолчанию, не обнаружен");
+        $this->_controller = new Controller('manager', 'service');
+        $this->assertEquals($this->_layoutName, $this->_controller->layout, "Имя используемого по умолчанию шаблона не совпадает с 'main'");
+        $this->assertTrue(file_exists(dirname(__FILE__) . '/../../../../../../modules/service/views/layouts/' . $this->_layoutName . '.php'), "Файл шаблона, используемого по умолчанию, не обнаружен");
     }
 }
 ?>

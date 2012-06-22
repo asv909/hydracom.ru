@@ -59,8 +59,10 @@ class ManagerController extends Controller
 
     public function actionLogin() 
     {
+        $info1 = Yii::app()->user->isGuest;
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
+        $info2 = Yii::app()->user->returnUrl;
         if($_SERVER['REMOTE_ADDR'] !== $this->module->restrict_authen['office_IP'])
         {
             $this->render('access_deny', array('greetings' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
