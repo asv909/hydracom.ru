@@ -6,6 +6,9 @@
  */
 class ManagerController extends Controller 
 {
+    private $_identity;
+    public $manager;
+    
     public function filters() 
     {
         return array('accessControl');
@@ -66,8 +69,8 @@ class ManagerController extends Controller
             $this->render('access_deny', array('greetings' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
             Yii::app()->end();
         }
-        $manager = new Manager;
-        $this->performAjaxValidation($manager);
+        $this->manager = new Manager;
+        $this->performAjaxValidation($this->manager);
         if(isset($_POST['Manager']))
         {
             if(Helpers::restrictNumberOfAttempts($this->module->restrict_authen['num_of_attempts'], $this->module->restrict_authen['timeout']))
@@ -75,13 +78,11 @@ class ManagerController extends Controller
                 $this->render('access_deny', array('greetings' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
                 Yii::app()->end();
             }    
-            $manager->attributes = $_POST['Manager'];
-            $info1 = Yii::app()->user->isGuest;
-            if($manager->validate() && $manager->login())
-                $info2 = Yii::app()->user->isGuest;    
+            $this->manager->attributes = $_POST['Manager'];
+            if($this->manager->validate() && $this->manager->login())
                 $this->redirect(Yii::app()->user->returnUrl);
         }
-        $this->render('login', array('login_form' => $manager));
+        $this->render('login', array('login_form' => $this->manager));
         Yii::app()->end();
     }
 
