@@ -36,13 +36,12 @@ class ManagerTest extends CDbTestCase {
      */
     protected function tearDown() {}
 
-    public function testModel()
+    public function testTableNameIsExist() 
     {
         $this->manager = new Manager;
-        $this->assertNotEmpty($this->manager->model());
         $this->assertEquals($this->manager->tableName(),$this->manager->tableSchema->name);
     }
-    
+
     public function testAuthenticate() 
     {
         // for valid data
@@ -85,9 +84,7 @@ class ManagerTest extends CDbTestCase {
         $this->assertType('array', $this->manager->attributeLabels());
         $this->assertNotEmpty($this->manager->attributeLabels());
         $attr_labels = $this->manager->attributeLabels();
-        $this->assertArrayHasKey('username', $attr_labels);
         $this->assertEquals('Логин', $attr_labels['username']);
-        $this->assertArrayHasKey('password', $attr_labels);
         $this->assertEquals('Пароль', $attr_labels['password']);
     }
     
@@ -95,10 +92,13 @@ class ManagerTest extends CDbTestCase {
     {
         $this->manager = new Manager;
         $this->assertType('array', $this->manager->rules());
-        $this->assertNotEmpty($this->manager->rules());
-        $rules = $this->manager->rules();
-        $this->assertEquals('password', $rules[4][0]);
-        $this->assertEquals('authenticate', $rules[4][1]);
+        $this->assertNotEmpty($this->manager->rules());        
+    }
+    
+    public function testModel()
+    {
+        $this->manager = new Manager;
+        $this->assertNotEmpty($this->manager->model());
     }
 }
 ?>
