@@ -1,11 +1,11 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../modules/service/components/Controller.php';
+require_once dirname(__FILE__) . '/../../../../../../modules/service/components/ServiceController.php';
 
 /**
  * Test class for Controller of service module
  */
-class ControllerTest extends CTestCase 
+class ServiceControllerTest extends CTestCase 
 {
     public $controller;
     public $layout_name = 'main'; //this value must be equivalent to $layout within /../../../../../../modules/service/components/Controller.php

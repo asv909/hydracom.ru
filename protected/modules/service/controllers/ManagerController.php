@@ -4,7 +4,7 @@
  *
  * @author asv
  */
-class ManagerController extends Controller 
+class ManagerController extends ServiceController 
 {
     public $identity;
     private $manager;

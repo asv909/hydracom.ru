@@ -4,7 +4,7 @@
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
- * @copyright Copyright &#169; 2012 RGK LLC
+ * @copyright Copyright © 2012 RGK LLC
  */
 
 /**
@@ -15,7 +15,7 @@
  * @package HYDRACOM application.modules.service.
  * @since 1.0
  */
-class Controller extends CController 
+class ServiceController extends CController 
 {
     /**
      * @var string the default layout for the controller view. 
