@@ -8,36 +8,21 @@ require_once dirname(__FILE__) . '/../../../../components/Helpers.php';
  */
 class HelpersTest extends CTestCase 
 {
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp() 
-    {
+    protected function setUp(){
         parent::setUp();
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown() {}
+    protected function tearDown(){
+    }
 
-    /**
-     * @todo Implement testCreateUrl().
-     */
-    public function testCreateUrl() 
+    public function testCreateUrl()
     {
         $resource_name = "/test";
         $expected = "/index-test.php/test";
         $this->assertSame($expected, Helpers::createUrl($resource_name));
     }
 
-    /**
-     * @todo Implement testCreateHash().
-     */
-    public function testCreateHash() 
+    public function testCreateHash()
     {
         $expected = "cf798d919ced9e86f70814173745990e97b09bbd"; // reference hash of $username and $password that you see below
         $username = "asv909";
@@ -47,12 +32,9 @@ class HelpersTest extends CTestCase
         $this->assertSame($expected, Helpers::createHash($username, $password, $salt, $suffix));
     }
 
-    /**
-     * @todo Implement testRestrictNumberOfAttempts().
-     */
-    public function testRestrictNumberOfAttempts() 
+    public function testRestrictNumberOfAttempts()
     {
-        $num_of_attempts = 1;
+        $num_of_attempts = 2;
         $timeout = 5;
         $this->assertFalse(Helpers::restrictNumberOfAttempts($num_of_attempts, $timeout));
         $this->assertTrue(Helpers::restrictNumberOfAttempts($num_of_attempts, $timeout));

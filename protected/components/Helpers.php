@@ -23,12 +23,12 @@ class Helpers
         $session->setTimeout($timeout);
         $session->open();
         $attempt = $session->get('count_of_attempts', 0) + 1;
-        if($attempt > $num_of_attempts)
+        if($attempt >= $num_of_attempts)
         {
             if($session->get('restrict_time', 0)===0)
                 $session->add('restrict_time', time());
             $elapsed_time = time()-$session->get('restrict_time', 0); 
-            if($elapsed_time > $timeout) 
+            if($elapsed_time >= $timeout) 
             {
                 $session->remove('restrict_time');
                 $session->add('count_of_attempts', 1);

@@ -12,7 +12,7 @@ class Manager extends CActiveRecord
         public $verifyCode;
         
         private $_identity;
-        private $record;
+        private $_record;
         private $suffix = "249?6H3xyz!";
 
     static public function model($className = __CLASS__) 
@@ -55,14 +55,14 @@ class Manager extends CActiveRecord
         if(!$this->hasErrors())
         {
             $this->_identity = new ManagerIdentity($this->username,$this->password);
-            $this->record = $this->findByAttributes(array('login' => $this->username));
-            if(!isset($this->record))
+            $this->_record = $this->findByAttributes(array('login' => $this->username));
+            if(!isset($this->_record))
             {
                 $this->addError('username', 'Пользователь с таким логином в системе не зарегистрирован!');
                 return FALSE;                
             }
-            $this->_identity->setRecord($this->record);
-            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->record->salt, $this->suffix));
+            $this->_identity->setRecord($this->_record);
+            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->_record->salt, $this->suffix));
             if(!$this->_identity->authenticate())
             {
                 $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
