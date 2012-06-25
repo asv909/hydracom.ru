@@ -30,6 +30,7 @@
         <?php echo $form->labelEx($login_form, 'verifyCode') ?><br/>
         <?php $this->widget('CCaptcha', array('clickableImage' => TRUE, 'showRefreshButton' => FALSE)) ?>
         <?php echo $form->textField($login_form, 'verifyCode') ?>
+        <?php echo $form->error($login_form,'verifyCode'); ?>
     <?php endif ?>
 </p>
 

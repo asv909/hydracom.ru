@@ -1,22 +1,42 @@
 <?php
 /**
- * Description of Manager
- *
- * @author asv
+ * Manager class file
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @link http://www.eurotrade-et.ru/
+ * @copyright Copyright &copy; 2012 RGK LLC
+ */
+
+/**
+ * <var>Manager</var> class is an AR-model for a database table `manager` and 
+ * implements the business logic for managers authentication.
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @package HYDRACOM application.
+ * @since 1.0
  */
 class Manager extends CActiveRecord 
 {
-        public $username;
-        public $password;
-        public $rememberMe = FALSE;
-        public $verifyCode;
-        
-        private $_identity;
-        private $_record;
-        private $_suffix = "249?6H3xyz!";
+    /**
+     * @var string $username is text from appropriate field of managers login form
+     * @var string $password is text from appropriate field of managers login form
+     * @var boolean $rememberMe is TRUE or FALSE from appropriate checkbox of managers login form
+     * @var string $verifyCode is text from appropriate field of managers login form (captcha)
+     */
+    public $username;
+    public $password;
+    public $rememberMe = FALSE;
+    public $verifyCode;
+    
+    /**
+     * @var type 
+     */    
+    private $_identity;
+    private $_record;
+    private $_suffix = "249?6H3xyz!";
 
-    static public function model($className = __CLASS__) 
-    {
+    static public function model($className = __CLASS__) {
         return parent::model($className);
     }
 
