@@ -33,7 +33,7 @@ return array(
             'rules' => array(
                 '/' => 'home/index',
                 'manager' => 'service/manager/index',
-                'manager_login' => 'service/manager/login',
+                'login' => 'service/manager/login',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

@@ -1,6 +1,6 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'login_form',
-    'action' => Helpers::createUrl('/manager_login'),
+    'action' => Helpers::createUrl('/login'),
     'enableAjaxValidation'=>true,
     'focus'=>array($login_form, 'username'),
 ))?>

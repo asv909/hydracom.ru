@@ -1,14 +1,28 @@
 <?php
 /**
- * Description of UserIdentity
- *
- * @author asv
+ * ManagerIdentity class file
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @link http://www.eurotrade-et.ru/
+ * @copyright Copyright &copy; 2012 RGK LLC
+ */
+
+/**
+ * <var>ManagerIdentity</var> class extends a base class for representing 
+ * identities that are authenticated based on a username and a password, 
+ * and implement authenticate with the actual authentication scheme.
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @package HYDRACOM application.
+ * @since 1.0
  */
 class ManagerIdentity extends CUserIdentity 
 {
-    private $record;
-    private $hash;
+    private $_record;
+    private $_hash;
     private $_id;
+
     public $rememberTime;
     
     public function authenticate() 
@@ -19,14 +33,14 @@ class ManagerIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
         {   
-            if($this->record===null)
+            if($this->_record===null)
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
-            elseif($this->record->hash!==$this->hash)
+            elseif($this->_record->hash!==$this->_hash)
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             else
             {
-                $this->_id = $this->record->id;
-                $this->setState('manager_name', $this->record->name . ' ' . $this->record->middlename);
+                $this->_id = $this->_record->id;
+                $this->setState('managerName', $this->_record->name . ' ' . $this->_record->middlename);
                 $this->errorCode = self::ERROR_NONE;
             }
         }
@@ -40,12 +54,11 @@ class ManagerIdentity extends CUserIdentity
     
     public function setRecord($record) 
     {
-        $this->record = $record;
+        $this->_record = $record;
     }
 
     public function setHash($hash) 
     {
-        $this->hash = $hash;
+        $this->_hash = $hash;
     }
 }
-?>

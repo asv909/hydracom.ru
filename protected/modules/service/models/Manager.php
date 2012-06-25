@@ -13,7 +13,7 @@ class Manager extends CActiveRecord
         
         private $_identity;
         private $_record;
-        private $suffix = "249?6H3xyz!";
+        private $_suffix = "249?6H3xyz!";
 
     static public function model($className = __CLASS__) 
     {
@@ -62,7 +62,7 @@ class Manager extends CActiveRecord
                 return FALSE;                
             }
             $this->_identity->setRecord($this->_record);
-            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->_record->salt, $this->suffix));
+            $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->_record->salt, $this->_suffix));
             if(!$this->_identity->authenticate())
             {
                 $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
@@ -84,12 +84,9 @@ class Manager extends CActiveRecord
         {
             $duration = $this->rememberMe ? 3600*24*30 : 0;
             $this->_identity->rememberTime = $duration;
-            //Yii::app()->user->login($this->_identity, $duration);
-            //return TRUE;
             return $this->_identity;
         }
         else
             return FALSE;
     }
 }
-?>
