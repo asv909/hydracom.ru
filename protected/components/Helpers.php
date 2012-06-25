@@ -48,34 +48,33 @@ class Helpers
      */
     static function restrictNumberOfAttempts($restricts) 
     {
-        $session = new CHttpSession;
-        $session->setTimeout($restricts['timeout']);
-        $session->open();
-        $attempt = $session->get('countOfAttempts', 0) + 1;
-        if($attempt >= $restricts['numberOfAttempts'])
+        $session_ = new CHttpSession;
+        $session_->setTimeout($restricts['timeout']);
+        $session_->open();
+        $attempt_ = $session_->get('countOfAttempts', 0) + 1;
+        if($attempt_ >= $restricts['numberOfAttempts'])
         {
-            if($session->get('restrictTime', 0)===0)
-                $session->add('restrictTime', time());
-            if((time()-$session->get('restrictTime', 0)) >= $restricts['timeout']) 
+            if($session_->get('restrictTime', 0)===0)
+                $session_->add('restrictTime', time());
+            if((time()-$session_->get('restrictTime', 0)) >= $restricts['timeout']) 
             {
-                $session->remove('restrictTime');
-                $session->add('countOfAttempts', 1);
-                $session->close();
+                $session_->remove('restrictTime');
+                $session_->add('countOfAttempts', 1);
+                $session_->close();
                 return FALSE;
             }
             else 
             {
-                $session->close();
+                $session_->close();
                 return TRUE;
             }
         }
         else 
         {
-            $session->add('countOfAttempts', $attempt);
-            $session->close();
+            $session_->add('countOfAttempts', $attempt_);
+            $session_->close();
             return FALSE;
         }
         return FALSE;
     }
 }
-?>

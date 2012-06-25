@@ -17,31 +17,30 @@ class HelpersTest extends CTestCase
 
     public function testCreateUrl()
     {
-        $resource_name = "/test";
-        $expected = "/index-test.php/test";
-        $this->assertSame($expected, Helpers::createUrl($resource_name));
+        $resourceName_ = "/test";
+        $expected_ = "/index-test.php/test";
+        $this->assertSame($expected_, Helpers::createUrl($resourceName_));
     }
 
     public function testCreateHash()
     {
-        $expected = "cf798d919ced9e86f70814173745990e97b09bbd"; // reference hash of $username and $password that you see below
-        $username = "asv909";
-        $password = "ErTrd-2007";
-        $salt = "4fc5c61db89199.64581532"; // reference salt of $username and $password that you see above
-        $suffix = "249?6H3xyz!"; // this value must be equivalent to $suffix within /../../../../../../modules/service/ServiceModule.php
-        $this->assertSame($expected, Helpers::createHash($username, $password, $salt, $suffix));
+        $expected_ = "cf798d919ced9e86f70814173745990e97b09bbd"; // reference hash of $username and $password that you see below
+        $username_ = "asv909";
+        $password_ = "ErTrd-2007";
+        $salt_ = "4fc5c61db89199.64581532"; // reference salt of $username and $password that you see above
+        $suffix_ = "249?6H3xyz!"; // this value must be equivalent to $suffix within /../../../../../../modules/service/ServiceModule.php
+        $this->assertSame($expected_, Helpers::createHash($username_, $password_, $salt_, $suffix_));
     }
 
     public function testRestrictNumberOfAttempts()
     {
-        $restricts = array(
+        $restricts_ = array(
             'numberOfAttempts' => 2,
             'timeout' => 5
         );
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts));
-        $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts));
-        sleep($restricts['timeout']+1);
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts));
+        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts_));
+        $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts_));
+        sleep($restricts_['timeout']+1);
+        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts_));
     }
 }
-?>

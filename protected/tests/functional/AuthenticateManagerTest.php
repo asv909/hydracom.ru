@@ -1,32 +1,16 @@
 <?php
-/**
- * Description of ServiceModule
- *
- * @author asv
- */
+
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
-/**
- * Description of AuthenticateManagerTest
- *
- * @author asv
- */
 class AuthenticateManagerTest extends WebTestCase 
 {
-    function setUp() 
-    {
+    function setUp() {
         parent::setUp();
         $this->setTimeout(2);
         $this->setBrowser("*googlechrome");
         $this->setBrowserUrl("http://hydracom.ru/");
     }
 
-    /**
-     * Description of testSuccessfulLogin
-     * Openning page of services section, checking that login form is present, 
-     * filling form with valid data, clicking button and if welcome 
-     * message is present then all is ok
-     */
     function testSuccessfulLogin() 
     {
         $this->open("manager");
@@ -39,11 +23,6 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertTextPresent('Здравствуйте Сергей Владимирович!');
     }
     
-    /**
-     * Description of testUnsuccessfulLogin
-     * Openning page of services section, checking that login form is present, 
-     * clicking button and if login form is present again then all is ok
-     */
     public function testUnsuccessfulLogin() 
     {
         $this->open('manager');
@@ -51,11 +30,6 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertElementPresent('css=#login_form');
     }
     
-    /**
-     *
-     * 
-     * 
-     */ 
     public function testUsernameOrPasswordIsEmpty() 
     {
         $this->open('manager');
@@ -69,11 +43,6 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertTextPresent('Необходимо заполнить поле Пароль!');
     }
     
-    /**
-     *
-     * 
-     * 
-     */ 
     public function testCaptchaDoesNotMatch() 
     {
         $this->open('manager');
@@ -84,4 +53,3 @@ class AuthenticateManagerTest extends WebTestCase
         $this->assertTextPresent('Код защиты указан не верно!');
     }    
 }
-?>
