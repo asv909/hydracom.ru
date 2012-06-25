@@ -98,7 +98,7 @@ class ManagerController extends ServiceController
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
         //check restrict on IP address
-        if($_SERVER['REMOTE_ADDR'] !== $this->module->restrictAuthenticate['officeIP'])
+        if(isset($this->module->restrictAuthenticate['officeIP']) && $this->module->restrictAuthenticate['officeIP']!=="" && $_SERVER['REMOTE_ADDR']!==$this->module->restrictAuthenticate['officeIP'])
         {
             $this->render('forbidden', array('message' => "Ваш текущий статус не соответствует одному из критериев допуска!"));
             Yii::app()->user->logout();
