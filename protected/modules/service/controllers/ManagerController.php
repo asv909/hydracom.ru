@@ -75,7 +75,8 @@ class ManagerController extends ServiceController
     }
 
     /**
-     * Index action gives main page for service module or redirect to login page
+     * Index action gives to browser main page for service module, but if is it Guest, in 
+     * that case redirect to login page
      */
     public function actionIndex() 
     {
@@ -90,14 +91,27 @@ class ManagerController extends ServiceController
     }
 
     /**
-     * Login action gives the manager login form, validate form's data, 
+     * Validates model and returns the results in JSON format for AJAX validation.
+     * @param CActiveRecord $manager current instance of the object model the Manager
+     */
+    protected function performAjaxValidation($manager)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='login_form')
+        {
+            echo CActiveForm::validate($manager);
+            Yii::app()->end();
+        }
+    }
+    
+    /**
+     * Login action gives to brouser the manager login form, validate form's data, 
      * authenticate manager
      */
     public function actionLogin() 
     {
         if(!Yii::app()->user->isGuest) 
             $this->redirect(Yii::app()->user->returnUrl = 'manager');
-        //check restrict on IP address
+        //check the restriction by IP-address
         if(isset($this->module->restrictAuthenticate['officeIP']) && 
                 $this->module->restrictAuthenticate['officeIP']!=="" && 
                 $_SERVER['REMOTE_ADDR']!==$this->module->restrictAuthenticate['officeIP'])
@@ -120,7 +134,7 @@ class ManagerController extends ServiceController
                 Yii::app()->user->login($identity_, $identity_->rememberTime);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
-            //check restrict on number of attempts 
+            //check limits on the number of authentication attempts
             if(Helpers::restrictNumberOfAttempts($this->module->restrictAuthenticate))
             {
                 $this->render('forbidden', array('message' => "Вы исчерпали лимит попыток аутентификации, попробуйте позже!"));
@@ -131,15 +145,6 @@ class ManagerController extends ServiceController
         
         $this->render('login', array('login_form' => $this->_manager));
         Yii::app()->end();
-    }
-
-    protected function performAjaxValidation($manager)
-    {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='login_form')
-        {
-            echo CActiveForm::validate($manager);
-            Yii::app()->end();
-        }
     }
     
     public function actionLogout() 

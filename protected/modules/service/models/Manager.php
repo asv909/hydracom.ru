@@ -30,21 +30,32 @@ class Manager extends CActiveRecord
     public $verifyCode;
     
     /**
-     * @var type 
+     * //@var object $_identity used for storage instance of ManagerIdentity class
      */    
     private $_identity;
     private $_record;
     private $_suffix = "249?6H3xyz!";
 
+    /**
+     * 
+     * @param string $className active record class name
+     * @return CActiveRecord the static model of the specified AR class.
+     */
     static public function model($className = __CLASS__) {
         return parent::model($className);
     }
 
+    /**
+     * @return string the name of the associated database table
+     */
     public function tableName() 
     {
         return 'manager';
     }
 
+    /**
+     * @return array array of arrays the validation rules for attributes
+     */
     public function rules() 
     {
         return array(
@@ -59,7 +70,10 @@ class Manager extends CActiveRecord
                 'message' => "Код защиты указан не верно!"),
         );
     }
-   
+
+    /**
+     * @return array the attribute labels are mainly used in error messages of validation
+     */
     public function attributeLabels()
     {
         return array(
@@ -70,6 +84,10 @@ class Manager extends CActiveRecord
             );
     }
 
+    /**
+     * Authenticate manager in system
+     * //@return boolean 
+     */
     public function authenticate()
     {
         if(!$this->hasErrors())
