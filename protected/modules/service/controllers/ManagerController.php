@@ -18,7 +18,7 @@
 class ManagerController extends ServiceController 
 {
     /**
-     * @var object is instance of the model class Manager. 
+     * @var Manager is instance of the Manager class. 
      */
     private $_manager;
     
@@ -49,7 +49,7 @@ class ManagerController extends ServiceController
     }
  
     /**
-     * Setting external action classe captcha
+     * Setting external action for class captcha
      * Note: for test mode set 'fixedVerifyCode' property
      * @return array 
      */
@@ -92,7 +92,7 @@ class ManagerController extends ServiceController
 
     /**
      * Validates model and returns the results in JSON format for AJAX validation.
-     * @param CActiveRecord $manager current instance of the object model the Manager
+     * @param Manager $manager current instance of the object model the Manager
      */
     protected function performAjaxValidation($manager)
     {
@@ -104,8 +104,7 @@ class ManagerController extends ServiceController
     }
     
     /**
-     * Login action gives to brouser the manager login form, validate form's data, 
-     * authenticate manager
+     * Login action gives to brouser the manager login form, validate form's data and authenticate user (manager)
      */
     public function actionLogin() 
     {
@@ -131,8 +130,11 @@ class ManagerController extends ServiceController
             if($this->_manager->validate())
             {
                 $identity_ = $this->_manager->login();
-                Yii::app()->user->login($identity_, $identity_->rememberTime);
-                $this->redirect(Yii::app()->user->returnUrl);
+                if($identity_!==NULL)
+                {
+                    Yii::app()->user->login($identity_, $identity_->rememberTime);
+                    $this->redirect(Yii::app()->user->returnUrl);
+                }
             }
             //check limits on the number of authentication attempts
             if(Helpers::restrictNumberOfAttempts($this->module->restrictAuthenticate))
@@ -146,7 +148,10 @@ class ManagerController extends ServiceController
         $this->render('login', array('login_form' => $this->_manager));
         Yii::app()->end();
     }
-    
+
+    /**
+     * Logout and redirect to home page
+     */
     public function actionLogout() 
     {
         Yii::app()->user->logout();

@@ -27,17 +27,28 @@ class ManagerTest extends CDbTestCase {
         $this->assertEquals($this->manager->tableName(),$this->manager->tableSchema->name);
     }
 
+    public function testAutenticateAfterWrongValidation()
+    {
+        $this->manager = new Manager;
+        $this->manager->addError('password', "Необходимо заполнить поле!");
+        $this->assertFalse($this->manager->authenticate());
+    }
+    
+        public function testAuthenticateWithUnknownUsername() 
+    {
+        $this->manager = new Manager;
+        $username = $this->manager->username;
+        $this->manager->username = "unknown";
+        $this->assertFalse($this->manager->authenticate());
+        $this->manager->username = $username;
+    }
+    
     public function testAuthenticate() 
     {
         // for valid data
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertTrue($this->manager->authenticate());
-        // for unknown username
-        $username = $this->manager->username;
-        $this->manager->username = "unknown";
-        $this->assertFalse($this->manager->authenticate());
-        $this->manager->username = $username;
         // for wrong password having length > 12 char so that 1st condition if(!$this->hasErrors()) would FALSE
         $password = $this->manager->password;
         $this->manager->password = "wrong_password";
@@ -49,7 +60,7 @@ class ManagerTest extends CDbTestCase {
         $this->manager->attributes = $this->valid_data;
         $this->assertFalse($this->manager->authenticate());
     }
-
+    
     public function testLogin() 
     {
         /*
@@ -62,7 +73,7 @@ class ManagerTest extends CDbTestCase {
         //to 1st condition if($this->_identity===null) would TRUE
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
-        $this->assertFalse($this->manager->login());
+        $this->assertNotEmpty($this->manager->login());
     }
     
     public function testAttributeLabels() 
@@ -88,4 +99,3 @@ class ManagerTest extends CDbTestCase {
         $this->assertNotEmpty($this->manager->model());
     }
 }
-?>

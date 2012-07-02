@@ -6,7 +6,7 @@ class AuthenticateManagerTest extends WebTestCase
 {
     function setUp() {
         parent::setUp();
-        $this->setTimeout(2);
+        $this->setTimeout(3);
         $this->setBrowser("*googlechrome");
         $this->setBrowserUrl("http://hydracom.ru/");
     }

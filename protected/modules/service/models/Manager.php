@@ -20,24 +20,41 @@ class Manager extends CActiveRecord
 {
     /**
      * @var string $username is text from appropriate field of managers login form
+     */
+    public $username = NULL;
+    
+    /**
      * @var string $password is text from appropriate field of managers login form
+     */
+    public $password = NULL;
+    
+    /**
      * @var boolean $rememberMe is TRUE or FALSE from appropriate checkbox of managers login form
+     */
+    public $rememberMe = FALSE;
+
+    /**
      * @var string $verifyCode is text from appropriate field of managers login form (captcha)
      */
-    public $username;
-    public $password;
-    public $rememberMe = FALSE;
     public $verifyCode;
     
     /**
-     * //@var object $_identity used for storage instance of ManagerIdentity class
+     * @var ManagerIdentity $_identity used for storage instance of ManagerIdentity class
      */    
-    private $_identity;
-    private $_record;
+    private $_identity = NULL;
+    
+    /**
+     * @var CActiveRecord $_record used for storage single db-record appropriate username or NULL if record doesn't find
+     */
+    private $_record = NULL;
+
+    /**
+     * @var string $_suffix is a special string for additional security
+     */
     private $_suffix = "249?6H3xyz!";
 
     /**
-     * 
+     * Override of parent method
      * @param string $className active record class name
      * @return CActiveRecord the static model of the specified AR class.
      */
@@ -46,6 +63,7 @@ class Manager extends CActiveRecord
     }
 
     /**
+     * Define and return DB-table name
      * @return string the name of the associated database table
      */
     public function tableName() 
@@ -54,7 +72,8 @@ class Manager extends CActiveRecord
     }
 
     /**
-     * @return array array of arrays the validation rules for attributes
+     * Determines and returns the validation rules
+     * @return array array of arrays with the validation rules for attributes
      */
     public function rules() 
     {
@@ -72,6 +91,7 @@ class Manager extends CActiveRecord
     }
 
     /**
+     * Determines and returns the attributes and labels for form fields
      * @return array the attribute labels are mainly used in error messages of validation
      */
     public function attributeLabels()
@@ -85,15 +105,29 @@ class Manager extends CActiveRecord
     }
 
     /**
+     * Sets the error messages depending on the outcome of the authentication
+     */
+    private function setErrorMessage()
+    {
+        if($this->_identity->errorCode===ManagerIdentity::ERROR_UNKNOWN_IDENTITY)
+            $this->addError('password', 'Аутентификация не выполнена ...');
+        if($this->_identity->errorCode===ManagerIdentity::ERROR_USERNAME_INVALID)
+            $this->addError('username', 'Введенный Вами логин не зарегистрирован в системе!');
+        if($this->_identity->errorCode===ManagerIdentity::ERROR_PASSWORD_INVALID)
+            $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');        
+    }
+
+    /**
      * Authenticate manager in system
-     * //@return boolean 
+     * @return boolean result of the authentication 
      */
     public function authenticate()
     {
         if(!$this->hasErrors())
         {
             $this->_identity = new ManagerIdentity($this->username,$this->password);
-            $this->_record = $this->findByAttributes(array('login' => $this->username));
+            if(!isset($this->_record))
+                $this->_record = $this->findByAttributes(array('login' => $this->username));
             if(!isset($this->_record))
             {
                 $this->addError('username', 'Пользователь с таким логином в системе не зарегистрирован!');
@@ -103,28 +137,25 @@ class Manager extends CActiveRecord
             $this->_identity->setHash(Helpers::createHash($this->username, $this->password, $this->_record->salt, $this->_suffix));
             if(!$this->_identity->authenticate())
             {
-                $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
+                $this->setErrorMessage();
                 return FALSE;
             }
             return TRUE;
         }
         return FALSE;
     }
-    
+
+    /**
+     *
+     * @return ManagerIdentity sets {@link rememberTime} property and return instanse of ManagerIdentity
+     */
     public function login()
     {
-        if($this->_identity===null)
-        {
-            $this->_identity = new ManagerIdentity($this->username, $this->password);
-            $this->_identity->authenticate();
-        }
-        if($this->_identity->errorCode===ManagerIdentity::ERROR_NONE)
+        if($this->authenticate())
         {
             $duration = $this->rememberMe ? 3600*24*30 : 0;
             $this->_identity->rememberTime = $duration;
-            return $this->_identity;
         }
-        else
-            return FALSE;
+        return $this->_identity;
     }
 }
