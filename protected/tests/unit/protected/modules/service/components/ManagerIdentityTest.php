@@ -21,7 +21,7 @@ class ManagerIdentityTest extends CTestCase
 
 
     /**
-     * @var ManagerIdentity
+     * @var ManagerIdentity $_identity
      */
     protected $_identity;
 
@@ -32,9 +32,6 @@ class ManagerIdentityTest extends CTestCase
     protected function tearDown() {
     }
 
-    /**
-     * @todo Implement testAuthenticate().
-     */
     public function testAuthenticate() 
     {
         $this->_identity = new ManagerIdentity($this->valid_data['username'], $this->valid_data['password']);

@@ -19,12 +19,11 @@
 class ServiceModule extends CWebModule 
 {
     /**
-     * <var>restrictAuthenticate</var> an array of key-value pairs are used to 
-     * restrict authentication of managers.
-     * Note, the key <var>officeIP</var> allows authentication only from the 
-     * specified IP-address. The key <var>timeout</var> sets the duration of 
-     * the pause between the series of attempts. The number of attempts for a 
-     * series set in a <var>numberOfAttempts</var>.
+     * @var array @restrictAuthenticate an array of key-value pairs are used to restrict authentication of managers.
+     * 
+     * Note, the key <var>'officeIP'</var> allows authentication only from the specified IP-address. 
+     * The key <var>'timeout'</var> sets the duration of the pause between the series of attempts. 
+     * The number of attempts for a series set in a key <var>'numberOfAttempts'</var>.
      */
     public $restrictAuthenticate = array(
         'officeIP' => '127.0.0.1',

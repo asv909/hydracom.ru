@@ -18,7 +18,7 @@
 class ManagerController extends ServiceController 
 {
     /**
-     * @var Manager is instance of the Manager class. 
+     * @var Manager $_manager is instance of the Manager class. 
      */
     private $_manager;
     
@@ -50,6 +50,7 @@ class ManagerController extends ServiceController
  
     /**
      * Setting external action for class captcha
+     * 
      * Note: for test mode set 'fixedVerifyCode' property
      * @return array 
      */
@@ -75,8 +76,7 @@ class ManagerController extends ServiceController
     }
 
     /**
-     * Index action gives to browser main page for service module, but if is it Guest, in 
-     * that case redirect to login page
+     * Index action gives to browser main page for service module, but if is it Guest, in that case redirect to login page
      */
     public function actionIndex() 
     {
@@ -91,7 +91,7 @@ class ManagerController extends ServiceController
     }
 
     /**
-     * Validates model and returns the results in JSON format for AJAX validation.
+     * AJAX-validates form data and returns the results to brouser in JSON format
      * @param Manager $manager current instance of the object model the Manager
      */
     protected function performAjaxValidation($manager)

@@ -20,22 +20,22 @@
 class ManagerIdentity extends CUserIdentity 
 {
     /**
-     * @var СActiveRecord used for storage single db-record appropriate username
+     * @var СActiveRecord $_record used for storage single db-record appropriate username
      */
     private $_record;
     
     /**
-     * @var string is hash-string for appropriate pair username and password
+     * @var string $_hash is hash-string for appropriate pair username and password
      */
     private $_hash;
     
     /**
-     * @var integer is user ID, such as primary key value of appropriate db-record
+     * @var integer $_id is user ID, such as primary key value of appropriate db-record
      */
     private $_id;
 
     /**
-     * @var integer sets the amount of time during will be act the autologin which based on cookies 
+     * @var integer $rememberTime sets the amount of time during will be act the autologin which based on cookies 
      */
     public $rememberTime;
 
@@ -61,7 +61,7 @@ class ManagerIdentity extends CUserIdentity
 
     /**
      * Getter for ID of current user identity
-     * @return integer ID 
+     * @return integer identity ID 
      */
     public function getId() 
     {

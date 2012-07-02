@@ -29,10 +29,10 @@ class Helpers
 
     /**
      * <var>createHash</var> function is used to compute the hash value for set of some parameters. Function return computed <var>sha1()</var> hash string.
-     * @param string $string1 this is user name, taken from $POST['form']
-     * @param string $string2 this is user password, taken from $POST['form']
-     * @param string $string3 this is user salt, taken from appropriate DB-record
-     * @param string $string4 this is special string for added security, taken from variable $suffix that was set within class of appropriate model
+     * @param string $string1 is user name, taken from $POST['form']
+     * @param string $string2 is user password, taken from $POST['form']
+     * @param string $string3 is user salt, taken from appropriate DB-record
+     * @param string $string4 is special string for added security, taken from variable $suffix that was set within class of appropriate model
      * @return string hash string
      */
     static function createHash($string1, $string2, $string3, $string4)
@@ -43,8 +43,8 @@ class Helpers
 
     /**
      * <var>restrictNumberOfAttempts</var> function is used to restrict number of authenticate attempt and setting timeout between series of attempts. Function return TRUE or FALSE depending on the number attempt of authorization exceeded or no and timeout between series of attempts has expired or no.
-     * @param array $restricts this is $restrictAuthenticate array from ServiceModule.php
-     * @return boolean TRUE or FALSE
+     * @param array $restricts is $restrictAuthenticate array from ServiceModule.php
+     * @return boolean TRUE if restrict or FALSE otherwise
      */
     static function restrictNumberOfAttempts($restricts) 
     {

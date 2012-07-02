@@ -36,7 +36,7 @@ class Manager extends CActiveRecord
     /**
      * @var string $verifyCode is text from appropriate field of managers login form (captcha)
      */
-    public $verifyCode;
+    public $verifyCode = NULL;
     
     /**
      * @var ManagerIdentity $_identity used for storage instance of ManagerIdentity class
@@ -92,7 +92,7 @@ class Manager extends CActiveRecord
 
     /**
      * Determines and returns the attributes and labels for form fields
-     * @return array the attribute labels are mainly used in error messages of validation
+     * @return array array of the attribute labels are mainly used in error messages of validation
      */
     public function attributeLabels()
     {
@@ -146,8 +146,8 @@ class Manager extends CActiveRecord
     }
 
     /**
-     *
-     * @return ManagerIdentity sets {@link rememberTime} property and return instanse of ManagerIdentity
+     * Sets <var>rememberTime</var> property and return current instance of ManagerIdentity.
+     * @return ManagerIdentity 
      */
     public function login()
     {
