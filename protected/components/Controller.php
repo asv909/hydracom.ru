@@ -21,5 +21,5 @@ class Controller extends CController
     /**
      * @var string $layout the default layout for the controller view. 
      */
-    public $layout='main';
+    public $layout = 'main';
 }

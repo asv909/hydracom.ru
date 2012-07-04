@@ -20,13 +20,19 @@ class ManagerTest extends CDbTestCase {
 
     protected function tearDown() {
     }
-
+    
+    /**
+     * @group manager
+     */
     public function testTableNameIsExist() 
     {
         $this->manager = new Manager;
         $this->assertEquals($this->manager->tableName(),$this->manager->tableSchema->name);
     }
 
+    /**
+     * @group manager
+     */
     public function testAutenticateAfterWrongValidation()
     {
         $this->manager = new Manager;
@@ -34,6 +40,9 @@ class ManagerTest extends CDbTestCase {
         $this->assertFalse($this->manager->authenticate());
     }
     
+    /**
+     * @group manager
+     */
         public function testAuthenticateWithUnknownUsername() 
     {
         $this->manager = new Manager;
@@ -43,6 +52,9 @@ class ManagerTest extends CDbTestCase {
         $this->manager->username = $username;
     }
     
+    /**
+     * @group manager
+     */    
     public function testAuthenticate() 
     {
         // for valid data
@@ -61,6 +73,9 @@ class ManagerTest extends CDbTestCase {
         $this->assertFalse($this->manager->authenticate());
     }
     
+    /**
+     * @group manager
+     */    
     public function testLogin() 
     {
         $this->manager = new Manager;
@@ -68,6 +83,9 @@ class ManagerTest extends CDbTestCase {
         $this->assertNotEmpty($this->manager->login());
     }
     
+    /**
+     * @group manager
+     */    
     public function testAttributeLabels() 
     {
         $this->manager = new Manager;
@@ -78,6 +96,9 @@ class ManagerTest extends CDbTestCase {
         $this->assertEquals('Пароль', $attr_labels['password']);
     }
     
+    /**
+     * @group manager
+     */    
     public function testRules() 
     {
         $this->manager = new Manager;
@@ -85,6 +106,9 @@ class ManagerTest extends CDbTestCase {
         $this->assertNotEmpty($this->manager->rules());        
     }
     
+    /**
+     * @group manager
+     */    
     public function testModel()
     {
         $this->manager = new Manager;

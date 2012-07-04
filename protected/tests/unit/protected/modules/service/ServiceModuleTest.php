@@ -17,6 +17,9 @@ class ServiceModuleTest extends CTestCase
     protected function tearDown() {
     }
 
+    /**
+     * @group manager
+     */    
     public function testInit() 
     {
         $key_1_ = 'officeIP';
@@ -26,5 +29,6 @@ class ServiceModuleTest extends CTestCase
         $this->assertArrayHasKey($key_1_, $_serviceModule->restrictAuthenticate);
         $this->assertArrayHasKey($key_2_, $_serviceModule->restrictAuthenticate);
         $this->assertArrayHasKey($key_3_, $_serviceModule->restrictAuthenticate);
+        $this->assertNotEmpty($_serviceModule->rememberTime);
     }
 }

@@ -15,6 +15,9 @@ class HelpersTest extends CTestCase
     protected function tearDown(){
     }
 
+    /**
+     * @group manager
+     */    
     public function testCreateUrl()
     {
         $resourceName_ = "/test";
@@ -22,6 +25,9 @@ class HelpersTest extends CTestCase
         $this->assertSame($expected_, Helpers::createUrl($resourceName_));
     }
 
+    /**
+     * @group manager
+     */    
     public function testCreateHash()
     {
         $expected_ = "cf798d919ced9e86f70814173745990e97b09bbd"; // reference hash of $username and $password that you see below
@@ -32,6 +38,9 @@ class HelpersTest extends CTestCase
         $this->assertSame($expected_, Helpers::createHash($username_, $password_, $salt_, $suffix_));
     }
 
+    /**
+     * @group manager
+     */    
     public function testRestrictNumberOfAttempts()
     {
         $restricts_ = array(

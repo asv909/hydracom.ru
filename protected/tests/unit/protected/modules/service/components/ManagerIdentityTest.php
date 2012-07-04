@@ -32,6 +32,9 @@ class ManagerIdentityTest extends CTestCase
     protected function tearDown() {
     }
 
+    /**
+     * @group manager
+     */    
     public function testAuthenticate() 
     {
         $this->_identity = new ManagerIdentity($this->valid_data['username'], $this->valid_data['password']);

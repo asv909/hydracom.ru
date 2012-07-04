@@ -18,6 +18,9 @@ class ControllerTest extends CTestCase
     protected function tearDown() {
     }
 
+    /**
+     * @group common
+     */    
     public function testLayoutFileExists() 
     {
         $this->_controller = new Controller('test');

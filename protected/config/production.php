@@ -4,17 +4,16 @@
 // CWebApplication properties configured here will be replace the same 
 // from main.php 
 return CMap::mergeArray(
-    require(dirname(__FILE__).'/main.php'),
+    require(dirname(__FILE__) . '/main.php'),
     array(
         'components' => array(
             'db' => array(
                 'connectionString' => 'mysql:host=???.???.???.???;dbname=hydracom',
-                'emulatePrepare' => true,
-                'username' => '******',
-                'password' => '************',
-                'charset' => 'utf8',
+                'emulatePrepare'   => true,
+                'username'         => '******',
+                'password'         => '************',
+                'charset'          => 'utf8',
             ),
         ),
     )
 );
-?>

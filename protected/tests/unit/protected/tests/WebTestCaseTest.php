@@ -17,6 +17,9 @@ class WebTestCaseTest extends CTestCase
     protected function tearDown() {
     }
 
+    /**
+     * @group common
+     */    
     public function testForTesting() 
     {
         $this->object = new WebTestCase;

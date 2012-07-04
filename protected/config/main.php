@@ -5,52 +5,51 @@
  * @author asv
  */
 return array(
-    'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name' => 'HYDRACOM',
+    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'name'     => 'HYDRACOM',
 
-    'preload' => array('log'),
+    'preload'  => array('log'),
 
-    'import' => array(
+    'import'   => array(
         'application.models.*',
         'application.components.*',
-        ),
+    ),
 
     'modules' => array(
         'service',
-        ),
+    ),
 
     'components' => array(
         'request' => array(
-            'enableCsrfValidation' => true,
+            'enableCsrfValidation'   => true,
             'enableCookieValidation' => true,
-            ),
+        ),
         'user' => array(
             'allowAutoLogin' => true,
-            ),
+        ),
         'urlManager' => array(
-            'urlFormat' => 'path',
+            'urlFormat'      => 'path',
             'showScriptName' => false,
-            'rules' => array(
-                '/' => 'home/index',
+            'rules'          => array(
+                '/'       => 'home/index',
                 'manager' => 'service/manager/index',
-                'login' => 'service/manager/login',
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                'login'   => 'service/manager/login',
+                '<controller:\w+>/<id:\d+>'              => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                ),
+                '<controller:\w+>/<action:\w+>'          => '<controller>/<action>',
             ),
+        ),
         'log' => array(
-            'class' => 'CLogRouter',
+            'class'  => 'CLogRouter',
             'routes' => array(
                 array(
-                    'class' => 'CFileLogRoute',
+                    'class'  => 'CFileLogRoute',
                     'levels' => 'error, warning',
-                    ),
                 ),
             ),
         ),
+    ),
     'params' => array(
         'test' => TRUE,
-        ),        
-    );
-?>
+    ),        
+);

@@ -17,6 +17,9 @@ class ServiceControllerTest extends CTestCase
     protected function tearDown() {
     }
 
+    /**
+     * @group manager
+     */    
     public function testLayoutFileExists() 
     {
         $this->_controller = new Controller('test');
