@@ -29,17 +29,20 @@ class Manager extends CActiveRecord
     public $password = NULL;
     
     /**
-     * @var boolean $rememberMe is TRUE or FALSE from appropriate checkbox of managers login form
+     * @var boolean $rememberMe is TRUE or FALSE from appropriate checkbox of 
+     * managers login form
      */
     public $rememberMe = FALSE;
 
     /**
-     * @var string $verifyCode is text from appropriate field of managers login form (captcha)
+     * @var string $verifyCode is text from appropriate field of managers login 
+     * form (ie captcha)
      */
     public $verifyCode = NULL;
     
     /**
-     * @var ManagerIdentity $_identity used for storage instance of ManagerIdentity class
+     * @var ManagerIdentity $_identity used for storage instance of 
+     * ManagerIdentity class
      */    
     private $_identity = NULL;
     
@@ -66,6 +69,7 @@ class Manager extends CActiveRecord
 
     /**
      * Define and return DB-table name
+     * 
      * @return string the name of the associated database table
      */
     public function tableName()
@@ -87,20 +91,22 @@ class Manager extends CActiveRecord
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
             array('verifyCode', 'captcha',
-                  'allowEmpty' => !Yii::app()->user->isGuest
-                                  || !extension_loaded('gd'),
+                  'allowEmpty' => ((!Yii::app()->user->isGuest)
+                                   || (!extension_loaded('gd'))),
                   'message' => 'Код защиты указан не верно!'),
         );
     }
 
     /**
      * Determines and returns the attributes and labels for form fields
-     * @return array array of the attribute labels are mainly used in error messages of validation
+     * 
+     * @return array array of the attribute labels are mainly used in error 
+     * messages of validation
      */
     public function attributeLabels()
     {
-        return array('username' => 'Логин',
-                     'password' => 'Пароль',
+        return array('username'   => 'Логин',
+                     'password'   => 'Пароль',
                      'rememberMe' => 'Запомнить меня на 30 дней',
                      'verifyCode' => 'Код защиты');
     }
@@ -123,6 +129,7 @@ class Manager extends CActiveRecord
 
     /**
      * Authenticate manager in system
+     * 
      * @return boolean result of the authentication 
      */
     public function authenticate()
@@ -152,13 +159,16 @@ class Manager extends CActiveRecord
     }
 
     /**
-     * Sets <var>rememberTime</var> property and return current instance of ManagerIdentity.
+     * Sets <var>rememberTime</var> property and return current instance of 
+     * ManagerIdentity.
+     * 
      * @return ManagerIdentity 
      */
     public function login()
     {
         if ($this->authenticate()) {
-            $duration = $this->rememberMe ? Yii::app()->controller->module->rememberTime : 0;
+            $duration = $this->rememberMe ? Yii::app()->controller->module->rememberTime 
+                                          : 0;
             $this->_identity->rememberTime = $duration;
         }
         return $this->_identity;

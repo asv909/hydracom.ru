@@ -10,4 +10,3 @@ echo 'Параметр: ' . SaltAndHashGenerator::$param . '<br/>';
 echo 'ХЭШ-1: ' . SaltAndHashGenerator::HashGen($salt);
 echo '<br/>Сравниваем:<br/>';
 echo 'ХЭШ-2: ' . SaltAndHashGenerator::checkHash($salt);
-

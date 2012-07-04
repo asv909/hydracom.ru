@@ -5,14 +5,16 @@
  *
  * @author asv
  */
-class UserController extends Controller {
-    
-    public function actionNew() {
-        $user=new User;
-        $this->render('new', array('user'=>$user));
+class UserController extends Controller 
+{
+    public function actionNew()
+    {
+        $user = new User;
+        $this->render('new', array('user' => $user));
     }
     
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $user = new User;
         $user->attributes = $_POST['User'];
         if ($user->save()) {
@@ -23,4 +25,3 @@ class UserController extends Controller {
         }
     }
 }
-?>
