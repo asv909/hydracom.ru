@@ -33,17 +33,6 @@ class ManagerTest extends CDbTestCase {
         $this->assertEquals($this->manager->tableName(),
                             $this->manager->tableSchema->name);
     }
-    
-    /**
-     * @group manager
-     */
-    public function testSetErrorMessage()
-    {
-        $this->manager = new Manager;
-        $this->manager->attributes = $this->valid_data;
-        $this->_identity = new ManagerIdentity($this->manager->username, $this->manager->password);
-        
-    }
 
     /**
      * @group manager
@@ -64,6 +53,7 @@ class ManagerTest extends CDbTestCase {
         $username = $this->manager->username;
         $this->manager->username = 'unknown';
         $this->assertFalse($this->manager->authenticate());
+        $this->assertEquals('Логин не зарегистрирован в системе!', $this->manager->getError('username'));
         $this->manager->username = $username;
     }
     
@@ -87,6 +77,7 @@ class ManagerTest extends CDbTestCase {
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertFalse($this->manager->authenticate());
+        $this->assertEquals('Пароль не совпадает с эталоном!', $this->manager->getError('password'));
     }
     
     /**

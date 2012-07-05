@@ -116,14 +116,12 @@ class Manager extends CActiveRecord
      */
     private function setErrorMessage()
     {
-        if ($this->_identity->errorCode === ManagerIdentity::ERROR_UNKNOWN_IDENTITY) {
-            $this->addError('password', 'Аутентификация не выполнена ...');
-        }
-        if ($this->_identity->errorCode === ManagerIdentity::ERROR_USERNAME_INVALID) {
-            $this->addError('username', 'Введенный Вами логин не зарегистрирован в системе!');
+        if (($this->_identity->errorCode === ManagerIdentity::ERROR_UNKNOWN_IDENTITY)
+            || ($this->_identity->errorCode === ManagerIdentity::ERROR_USERNAME_INVALID)) {
+            $this->addError('username', 'Логин не зарегистрирован в системе!');
         }
         if ($this->_identity->errorCode === ManagerIdentity::ERROR_PASSWORD_INVALID) {
-            $this->addError('password', 'Введенный Вами пароль не совпадает с эталоном!');
+            $this->addError('password', 'Пароль не совпадает с эталоном!');
         }
     }
 
@@ -140,8 +138,7 @@ class Manager extends CActiveRecord
                 $this->_record = $this->findByAttributes(array('login' => $this->username));
             }
             if (!isset($this->_record)) {
-                $this->addError('username',
-                                'Пользователь с таким логином в системе не зарегистрирован!');
+                $this->setErrorMessage();
                 return FALSE;                
             }
             $this->_identity->setRecord($this->_record);
