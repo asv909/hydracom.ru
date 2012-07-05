@@ -53,7 +53,8 @@ class ManagerTest extends CDbTestCase {
         $username = $this->manager->username;
         $this->manager->username = 'unknown';
         $this->assertFalse($this->manager->authenticate());
-        $this->assertEquals('Логин не зарегистрирован в системе!', $this->manager->getError('username'));
+        $this->assertEquals('Логин не зарегистрирован в системе!',
+                            $this->manager->getError('username'));
         $this->manager->username = $username;
     }
     
@@ -66,7 +67,9 @@ class ManagerTest extends CDbTestCase {
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertTrue($this->manager->authenticate());
-        // for wrong password having length > 12 char so that 1st condition if(!$this->hasErrors()) would FALSE
+        /* for wrong password having length > 12 char so that 1st condition 
+         * if(!$this->hasErrors()) would FALSE 
+         */
         $password = $this->manager->password;
         $this->manager->password = 'wrong_password';
         $this->assertFalse($this->manager->authenticate());
@@ -77,7 +80,8 @@ class ManagerTest extends CDbTestCase {
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertFalse($this->manager->authenticate());
-        $this->assertEquals('Пароль не совпадает с эталоном!', $this->manager->getError('password'));
+        $this->assertEquals('Пароль не совпадает с эталоном!',
+                            $this->manager->getError('password'));
     }
     
     /**
