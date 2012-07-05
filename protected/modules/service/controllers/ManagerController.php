@@ -140,8 +140,10 @@ class ManagerController extends ServiceController
                 Yii::app()->end();
             }
         }
-        
-        $this->render('_login', array('login_form' => $this->_manager));
+        $layout_ = Yii::app()->controller->layout;
+        Yii::app()->controller->layout = 'login';
+        $this->render('login', array('login_form' => $this->_manager));
+        Yii::app()->controller->layout = $layout_;
         Yii::app()->end();
     }
 

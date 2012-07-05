@@ -1,3 +1,4 @@
+<!-- Render with the layout /modules/views/layouts/login.php -->
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'login_form',
     'action' => Helpers::createUrl('/login'),
