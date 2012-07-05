@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>HYDRACOM - !электронный гипермаркет промышленных комплектующих!</title>
+        <title>HYDRACOM - авторизация менеджеров</title>
         <meta charset="utf-8">
     </head>
     <body>
