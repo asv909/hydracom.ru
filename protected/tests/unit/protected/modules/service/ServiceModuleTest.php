@@ -10,12 +10,13 @@ class ServiceModuleTest extends CTestCase
 {
     private $_serviceModule;
     
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
     }
 
-    protected function tearDown() {
-    }
+    protected function tearDown()
+    {}
 
     /**
      * @group manager

@@ -8,20 +8,21 @@ require_once dirname(__FILE__) . '/../../../../components/Helpers.php';
  */
 class HelpersTest extends CTestCase 
 {
-    protected function setUp(){
+    protected function setUp()
+    {
         parent::setUp();
     }
 
-    protected function tearDown(){
-    }
+    protected function tearDown()
+    {}
 
     /**
      * @group manager
      */    
     public function testCreateUrl()
     {
-        $resourceName_ = "/test";
-        $expected_ = "/index-test.php/test";
+        $resourceName_ = '/test';
+        $expected_ = '/index-test.php/test';
         $this->assertSame($expected_, Helpers::createUrl($resourceName_));
     }
 
@@ -30,12 +31,16 @@ class HelpersTest extends CTestCase
      */    
     public function testCreateHash()
     {
-        $expected_ = "cf798d919ced9e86f70814173745990e97b09bbd"; // reference hash of $username and $password that you see below
-        $username_ = "asv909";
-        $password_ = "ErTrd-2007";
-        $salt_ = "4fc5c61db89199.64581532"; // reference salt of $username and $password that you see above
-        $suffix_ = "249?6H3xyz!"; // this value must be equivalent to $suffix within /../../../../../../modules/service/ServiceModule.php
-        $this->assertSame($expected_, Helpers::createHash($username_, $password_, $salt_, $suffix_));
+        // reference hash of $username and $password that you see below
+        $expected_ = 'cf798d919ced9e86f70814173745990e97b09bbd';
+        $username_ = 'asv909';
+        $password_ = 'ErTrd-2007';
+        // reference salt of $username and $password that you see above
+        $salt_ = '4fc5c61db89199.64581532';
+        // this value must be equivalent to $suffix within /../../../../../../modules/service/ServiceModule.php
+        $suffix_ = '249?6H3xyz!'; 
+        $this->assertSame($expected_,
+                          Helpers::createHash($username_, $password_, $salt_, $suffix_));
     }
 
     /**
@@ -43,10 +48,7 @@ class HelpersTest extends CTestCase
      */    
     public function testRestrictNumberOfAttempts()
     {
-        $restricts_ = array(
-            'numberOfAttempts' => 2,
-            'timeout' => 5
-        );
+        $restricts_ = array('numberOfAttempts' => 2, 'timeout' => 5);
         $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts_));
         $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts_));
         sleep($restricts_['timeout']+1);

@@ -10,20 +10,20 @@ class WebTestCaseTest extends CTestCase
 {
     protected $object;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
     }
 
-    protected function tearDown() {
-    }
+    protected function tearDown()
+    {}
 
     /**
      * @group common
      */    
-    public function testForTesting() 
+    public function testForTesting()
     {
         $this->object = new WebTestCase;
         $this->assertTrue($this->object->forTesting());
     }
-
 }

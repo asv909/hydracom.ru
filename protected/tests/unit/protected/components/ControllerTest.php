@@ -9,22 +9,31 @@ require_once dirname(__FILE__) . '/../../../../components/Controller.php';
 class ControllerTest extends CTestCase 
 {
     private $_controller;
-    private $_layoutName = 'main'; //this value must be equivalent to $layout within /../../../../components/Controller.php
     
-    protected function setUp() {
+    //this value must be equivalent to $layout within /../../../../components/Controller.php
+    private $_layoutName = 'main';
+    
+    protected function setUp() 
+    {
         parent::setUp();
     }
 
-    protected function tearDown() {
-    }
+    protected function tearDown() 
+    {}
 
     /**
      * @group common
      */    
-    public function testLayoutFileExists() 
+    public function testLayoutFileExists()
     {
         $this->_controller = new Controller('test');
-        $this->assertEquals($this->_layoutName, $this->_controller->layout, "Имя используемого по умолчанию шаблона не совпадает с 'main'");
-        $this->assertTrue(file_exists(dirname(__FILE__) . '/../../../../views/layouts/' . $this->_layoutName . '.php'), "Файл шаблона, используемого по умолчанию, не обнаружен");
+        $this->assertEquals($this->_layoutName,
+                            $this->_controller->layout,
+                            "Имя используемого по умолчанию шаблона не совпадает с 'main'");
+        $this->assertFileExists(dirname(__FILE__)
+                                . '/../../../../views/layouts/'
+                                . $this->_layoutName
+                                . '.php',
+                                'Файл шаблона, используемого по умолчанию, не обнаружен');
     }
 }

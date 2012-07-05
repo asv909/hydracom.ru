@@ -21,12 +21,12 @@ class Manager extends CActiveRecord
     /**
      * @var string $username is text from appropriate field of managers login form
      */
-    public $username = NULL;
+    public $username;
     
     /**
      * @var string $password is text from appropriate field of managers login form
      */
-    public $password = NULL;
+    public $password;
     
     /**
      * @var boolean $rememberMe is TRUE or FALSE from appropriate checkbox of 
@@ -38,19 +38,19 @@ class Manager extends CActiveRecord
      * @var string $verifyCode is text from appropriate field of managers login 
      * form (ie captcha)
      */
-    public $verifyCode = NULL;
+    public $verifyCode;
     
     /**
      * @var ManagerIdentity $_identity used for storage instance of 
      * ManagerIdentity class
      */    
-    private $_identity = NULL;
+    private $_identity;
     
     /**
      * @var CActiveRecord $_record used for storage single db-record appropriate
      *  username or NULL if record doesn't find
      */
-    private $_record = NULL;
+    private $_record;
 
     /**
      * @var string $_suffix is a special string for additional security

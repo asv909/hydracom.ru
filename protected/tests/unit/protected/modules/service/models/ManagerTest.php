@@ -7,27 +7,42 @@ require_once dirname(__FILE__) . '/../../../../../../components/Helpers.php';
 class ManagerTest extends CDbTestCase {
 
     private $manager;
+    private $_identity;
+    
     private $valid_data = array(
-        'username' => 'asv909',
-        'password' => 'ErTrd-2007',
+        'username'   => 'asv909',
+        'password'   => 'ErTrd-2007',
         'rememberMe' => FALSE,
         'verifyCode' => 'dolotut'
         );
     
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
     }
 
-    protected function tearDown() {
+    protected function tearDown()
+    {}
+    
+    /**
+     * @group manager
+     */
+    public function testTableNameIsExist()
+    {
+        $this->manager = new Manager;
+        $this->assertEquals($this->manager->tableName(),
+                            $this->manager->tableSchema->name);
     }
     
     /**
      * @group manager
      */
-    public function testTableNameIsExist() 
+    public function testSetErrorMessage()
     {
         $this->manager = new Manager;
-        $this->assertEquals($this->manager->tableName(),$this->manager->tableSchema->name);
+        $this->manager->attributes = $this->valid_data;
+        $this->_identity = new ManagerIdentity($this->manager->username, $this->manager->password);
+        
     }
 
     /**
@@ -36,18 +51,18 @@ class ManagerTest extends CDbTestCase {
     public function testAutenticateAfterWrongValidation()
     {
         $this->manager = new Manager;
-        $this->manager->addError('password', "Необходимо заполнить поле!");
+        $this->manager->addError('password', 'Необходимо заполнить поле!');
         $this->assertFalse($this->manager->authenticate());
     }
     
     /**
      * @group manager
      */
-        public function testAuthenticateWithUnknownUsername() 
+        public function testAuthenticateWithUnknownUsername()
     {
         $this->manager = new Manager;
         $username = $this->manager->username;
-        $this->manager->username = "unknown";
+        $this->manager->username = 'unknown';
         $this->assertFalse($this->manager->authenticate());
         $this->manager->username = $username;
     }
@@ -55,7 +70,7 @@ class ManagerTest extends CDbTestCase {
     /**
      * @group manager
      */    
-    public function testAuthenticate() 
+    public function testAuthenticate()
     {
         // for valid data
         $this->manager = new Manager;
@@ -63,11 +78,12 @@ class ManagerTest extends CDbTestCase {
         $this->assertTrue($this->manager->authenticate());
         // for wrong password having length > 12 char so that 1st condition if(!$this->hasErrors()) would FALSE
         $password = $this->manager->password;
-        $this->manager->password = "wrong_password";
+        $this->manager->password = 'wrong_password';
         $this->assertFalse($this->manager->authenticate());
         $this->manager->password = $password;
         // for wrong password < 12 char
-        $this->valid_data['password'] = "wrong_pass";
+        $this->valid_data['password'] = 'wrong_pass';
+        
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
         $this->assertFalse($this->manager->authenticate());
@@ -76,7 +92,7 @@ class ManagerTest extends CDbTestCase {
     /**
      * @group manager
      */    
-    public function testLogin() 
+    public function testLogin()
     {
         $this->manager = new Manager;
         $this->manager->attributes = $this->valid_data;
@@ -86,7 +102,7 @@ class ManagerTest extends CDbTestCase {
     /**
      * @group manager
      */    
-    public function testAttributeLabels() 
+    public function testAttributeLabels()
     {
         $this->manager = new Manager;
         $this->assertType('array', $this->manager->attributeLabels());
@@ -99,7 +115,7 @@ class ManagerTest extends CDbTestCase {
     /**
      * @group manager
      */    
-    public function testRules() 
+    public function testRules()
     {
         $this->manager = new Manager;
         $this->assertType('array', $this->manager->rules());
