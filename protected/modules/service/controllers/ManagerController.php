@@ -127,11 +127,9 @@ class ManagerController extends ServiceController
             $this->_manager->attributes = $_POST['Manager'];
             if ($this->_manager->validate()) {
                 $identity_ = $this->_manager->login();
-//------------------------------>
-                //$this->_manager->skey = $identity_->securityKey;
-                //$this->_manager->update();
-//------------------------------<                
                 if ($identity_ !== NULL) {
+                    $identity_->setState('userID', $identity_->getId());
+                    $identity_->setState('securityKey', $identity_->securityKey);
                     Yii::app()->user->login($identity_, $identity_->rememberTime);
 //------------------------------>
 //------------------------------< 
