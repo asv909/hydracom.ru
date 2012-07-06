@@ -74,19 +74,40 @@ class ManagerController extends ServiceController
     }
 
     /**
+     * Checks and compares the two key security. First key stored in personal 
+     * DB-record of the manager, second key stored in browsers cookie.
+     * 
+     * @return boolean TRUE if the both keys exist and matched or FALSE otherwise
+     */
+    protected function checkSecutityKey()
+    {
+        $id_ = Yii::app()->user->id;
+        $skey_ = Yii::app()->user->getState('securityKey');
+        $record_ = Manager::model()->findByAttributes(array('id' => $id_));
+        if ((isset($record_))
+            && ($skey_ === $record_->skey)
+        ) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+    /**
      * Index action gives to browser main page for service module, but if is Guest 
      * then redirect to login page
      */
     public function actionIndex()
     {
-        if (Yii::app()->user->isGuest) {
-            $this->redirect(Yii::app()->user->returnUrl = 'login');
-        } else {
+        if ((!Yii::app()->user->isGuest)
+            && ($this->checkSecutityKey())
+        ) {
             $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
             $this->render('index', array('message' => $message_));
             Yii::app()->end();
         }
-    }
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->user->returnUrl = 'login');
+     }
 
     /**
      * AJAX-validates form data and returns the results to brouser in JSON format
@@ -107,9 +128,6 @@ class ManagerController extends ServiceController
      */
     public function actionLogin()
     {
-        if (!Yii::app()->user->isGuest) {
-            $this->redirect(Yii::app()->user->returnUrl = 'manager');
-        }
         //check the restriction by IP-address
         if (isset($this->module->restrictAuthenticate['officeIP'])
             && ($this->module->restrictAuthenticate['officeIP'] !== '')
@@ -131,9 +149,7 @@ class ManagerController extends ServiceController
                     $identity_->setState('userID', $identity_->getId());
                     $identity_->setState('securityKey', $identity_->securityKey);
                     Yii::app()->user->login($identity_, $identity_->rememberTime);
-//------------------------------>
-//------------------------------< 
-                    $this->redirect(Yii::app()->user->returnUrl);
+                    $this->redirect(Yii::app()->user->returnUrl = 'manager');
                 }
             }
             //check limits on the number of authentication attempts

@@ -135,7 +135,7 @@ class Manager extends CActiveRecord
         if (!$this->hasErrors()) {
             $this->_identity = new ManagerIdentity($this->username, $this->password);
             if (!isset($this->_record)) {
-                $this->_record = Manager::model()->findByAttributes(array('login' => $this->username));
+                $this->_record = $this->model()->findByAttributes(array('login' => $this->username));
             }
             if (!isset($this->_record)) {
                 $this->setErrorMessage();
