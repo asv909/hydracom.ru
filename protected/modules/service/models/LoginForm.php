@@ -135,7 +135,7 @@ class Manager extends CActiveRecord
         if (!$this->hasErrors()) {
             $this->_identity = new ManagerIdentity($this->username, $this->password);
             if (!isset($this->_record)) {
-                $this->_record = Manager::model()->findByAttributes(array('login' => $this->username));
+                $this->_record = $this->findByAttributes(array('login' => $this->username));
             }
             if (!isset($this->_record)) {
                 $this->setErrorMessage();
@@ -167,12 +167,8 @@ class Manager extends CActiveRecord
             $duration = $this->rememberMe ? Yii::app()->controller->module->rememberTime 
                                           : 0;
             $this->_identity->rememberTime = $duration;
-            if ($duration !== 0) {
-                $this->_record->skey = uniqid('', true);
-            } else {
-                $this->_record->skey = NULL;
-            }
-            $this->_record->saveAttributes(array('skey' => $this->_record->skey));
+            $this->_record->skey = uniqid('', true);
+            $this->_record->save();
             $this->_identity->securityKey = $this->_record->skey;
         }
         return $this->_identity;

@@ -42,6 +42,12 @@ class ManagerIdentity extends CUserIdentity
      *  autologin which based on cookies 
      */
     public $rememberTime;
+    
+    /**
+     * @var string $securityKey is unique string for additional security provides
+     *  protection from attempts to use obsolete cookie with autologin
+     */
+    public $securityKey;
 
     /**
      * Setter for private property $_record
