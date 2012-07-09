@@ -14,14 +14,15 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: ManagerController.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
+ * @subpackage Service module
  * @since 1.0
  */
 class ManagerController extends ServiceController 
 {
     /**
-     * @var Manager $_manager is instance of the Manager class. 
+     * @var Manager $_loginForm is instance of the Manager class. 
      */
-    private $_manager;
+    private $_loginForm;
     
     /**
      * Set filter performs authorization checks for the specified actions
@@ -57,7 +58,8 @@ class ManagerController extends ServiceController
      */
     public function actions()
     {
-        if (isset(Yii::app()->params->test) && (Yii::app()->params->test)) {
+        $test_ = Yii::app()->params->test;
+        if (isset($test_) && ($test_)) {
             return array(
                 'captcha' => array(
                     'class'           => 'CCaptchaAction',
@@ -84,9 +86,7 @@ class ManagerController extends ServiceController
         $id_ = Yii::app()->user->id;
         $skey_ = Yii::app()->user->getState('securityKey');
         $record_ = Manager::model()->findByAttributes(array('id' => $id_));
-        if ((isset($record_))
-            && ($skey_ === $record_->skey)
-        ) {
+        if ((isset($record_)) && ($skey_ === $record_->skey)) {
             return TRUE;
         }
         return FALSE;
@@ -98,9 +98,7 @@ class ManagerController extends ServiceController
      */
     public function actionIndex()
     {
-        if ((!Yii::app()->user->isGuest)
-            && ($this->checkSecutityKey())
-        ) {
+        if ((!Yii::app()->user->isGuest) && ($this->checkSecutityKey())) {
             $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
             $this->render('index', array('message' => $message_));
             Yii::app()->end();
@@ -114,10 +112,10 @@ class ManagerController extends ServiceController
      * 
      * @param Manager $manager current instance of the object model the Manager
      */
-    protected function performAjaxValidation($manager)
+    protected function performAjaxValidation($loginForm)
     {
         if (isset($_POST['ajax']) && ($_POST['ajax'] === 'login_form')) {
-            echo CActiveForm::validate($manager);
+            echo CActiveForm::validate($loginForm);
             Yii::app()->end();
         }
     }
@@ -129,22 +127,21 @@ class ManagerController extends ServiceController
     public function actionLogin()
     {
         //check the restriction by IP-address
-        if (isset($this->module->restrictAuthenticate['officeIP'])
-            && ($this->module->restrictAuthenticate['officeIP'] !== '')
-            && ($_SERVER['REMOTE_ADDR'] !== $this->module->restrictAuthenticate['officeIP'])) {
+        $officeIP_ = $this->module->restrictAuthenticate['officeIP'];
+        if (isset($officeIP_) && ($officeIP_ !== '') && ($_SERVER['REMOTE_ADDR'] !== $officeIP_)) {
             $this->render('forbidden', array(
                 'message' => 'Ваш текущий статус не соответствует одному из критериев допуска!'));
             Yii::app()->user->logout();
             Yii::app()->end();
         }
         
-        $this->_manager = new Manager;
-        $this->performAjaxValidation($this->_manager);
+        $this->_loginForm = new LoginForm;
+        $this->performAjaxValidation($this->_loginForm);
         
-        if (isset($_POST['Manager'])) {
-            $this->_manager->attributes = $_POST['Manager'];
-            if ($this->_manager->validate()) {
-                $identity_ = $this->_manager->login();
+        if (isset($_POST['LoginForm'])) {
+            $this->_loginForm->attributes = $_POST['LoginForm'];
+            if ($this->_loginForm->validate()) {
+                $identity_ = $this->_loginForm->login();
                 if ($identity_ !== NULL) {
                     $identity_->setState('userID', $identity_->getId());
                     $identity_->setState('securityKey', $identity_->securityKey);
@@ -156,13 +153,12 @@ class ManagerController extends ServiceController
             if (Helpers::restrictNumberOfAttempts($this->module->restrictAuthenticate)) {
                 $this->render('forbidden', array(
                     'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
-                Yii::app()->user->logout();
                 Yii::app()->end();
             }
         }
         $layout_ = Yii::app()->controller->layout;
         Yii::app()->controller->layout = 'login';
-        $this->render('login', array('login_form' => $this->_manager));
+        $this->render('login', array('login_form' => $this->_loginForm));
         Yii::app()->controller->layout = $layout_;
         Yii::app()->end();
     }

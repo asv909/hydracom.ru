@@ -68,8 +68,8 @@ class Helpers
         if ($attempt_ >= $restricts['numberOfAttempts']) {
             if ($session_->get('restrictTime', 0) === 0) {
                 $session_->add('restrictTime', time());
-            }
-            if ((time()-$session_->get('restrictTime', 0)) >= $restricts['timeout']) {
+                return TRUE;
+            } elseif ((time()-$session_->get('restrictTime', 0)) >= $restricts['timeout']) {
                 $session_->remove('restrictTime');
                 $session_->add('countOfAttempts', 1);
                 $session_->close();
@@ -83,6 +83,5 @@ class Helpers
             $session_->close();
             return FALSE;
         }
-        return FALSE;
     }
 }

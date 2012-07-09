@@ -71,8 +71,7 @@ class LoginForm extends CFormModel
             array('rememberMe', 'boolean'),
             array('password', 'authenticate'),
             array('verifyCode', 'captcha',
-                  'allowEmpty' => ((!Yii::app()->user->isGuest)
-                                   || (!extension_loaded('gd'))),
+                  'allowEmpty' => ((!Yii::app()->user->isGuest) || (!extension_loaded('gd'))),
                   'message' => 'Код защиты указан не верно!'),
         );
     }
@@ -94,13 +93,13 @@ class LoginForm extends CFormModel
     /**
      * Sets the error messages depending on the outcome of the authentication
      */
-    private function setErrorMessage()
+    private function setErrorMessage($errorCode)
     {
-        if (($this->_identity->errorCode === ManagerIdentity::ERROR_UNKNOWN_IDENTITY)
-            || ($this->_identity->errorCode === ManagerIdentity::ERROR_USERNAME_INVALID)) {
+        if (($errorCode === ManagerIdentity::ERROR_UNKNOWN_IDENTITY)
+            || ($errorCode === ManagerIdentity::ERROR_USERNAME_INVALID)) {
             $this->addError('username', 'Логин не зарегистрирован в системе!');
         }
-        if ($this->_identity->errorCode === ManagerIdentity::ERROR_PASSWORD_INVALID) {
+        if ($errorCode === ManagerIdentity::ERROR_PASSWORD_INVALID) {
             $this->addError('password', 'Пароль не совпадает с эталоном!');
         }
     }
@@ -115,10 +114,10 @@ class LoginForm extends CFormModel
         if (!$this->hasErrors()) {
             $this->_identity = new ManagerIdentity($this->username, $this->password);
             if (!isset($this->_record)) {
-                $this->_record = $this->findByAttributes(array('login' => $this->username));
+                $this->_record = Manager::model()->findByAttributes(array('login' => $this->username));
             }
             if (!isset($this->_record)) {
-                $this->setErrorMessage();
+                $this->setErrorMessage($this->_identity->errorCode);
                 return FALSE;                
             }
             $this->_identity->setRecord($this->_record);
@@ -127,7 +126,7 @@ class LoginForm extends CFormModel
                                                           $this->_record->salt,
                                                           $this->_suffix));
             if (!$this->_identity->authenticate()) {
-                $this->setErrorMessage();
+                $this->setErrorMessage($this->_identity->errorCode);
                 return FALSE;
             }
             return TRUE;
@@ -144,8 +143,7 @@ class LoginForm extends CFormModel
     public function login()
     {
         if ($this->authenticate()) {
-            $duration = $this->rememberMe ? Yii::app()->controller->module->rememberTime 
-                                          : 0;
+            $duration = $this->rememberMe ? Yii::app()->controller->module->rememberTime : 0;
             $this->_identity->rememberTime = $duration;
             $this->_record->skey = uniqid('', true);
             $this->_record->save();

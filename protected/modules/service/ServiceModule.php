@@ -14,6 +14,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: ServiceModule.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
+ * @subpackage Service module
  * @since 1.0
  */
 class ServiceModule extends CWebModule 
@@ -31,7 +32,7 @@ class ServiceModule extends CWebModule
     public $restrictAuthenticate = array(
         'officeIP'         => '127.0.0.1',
         'numberOfAttempts' => 3,
-        'timeout'          => 30,
+        'timeout'          => 300,
     );
     
     /**

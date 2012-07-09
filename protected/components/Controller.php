@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller class file
+ * Controller class file 
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
@@ -8,11 +8,11 @@
  */
 
 /**
- * The controller is a component of the main application and maintains a base 
- * controller class.
+ * The <var>Controller</var> is common component of the main application and 
+ * maintains a base controller class.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Controller.php v 1.0 2012-06-21 16:30:00 asv909 $
+ * @version $Id: Controller.php v 1.0 2012-07-09 11:40:00 asv909 $
  * @package HYDRACOM application.modules.service.
  * @since 1.0
  */

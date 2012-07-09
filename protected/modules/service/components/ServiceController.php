@@ -12,8 +12,9 @@
  * controller class.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: ServiceController.php v 1.0 2012-06-21 16:30:00 asv909 $
+ * @version $Id: ServiceController.php v 1.0 2012-07-09 14:45:00 asv909 $
  * @package HYDRACOM application.modules.service.
+ * @subpackage Service module
  * @since 1.0
  */
 class ServiceController extends CController 

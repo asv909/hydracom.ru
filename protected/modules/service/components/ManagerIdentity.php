@@ -15,6 +15,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: ManagerIdentity.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
+ * @subpackage Service module
  * @since 1.0
  */
 class ManagerIdentity extends CUserIdentity 

@@ -15,10 +15,10 @@ class AuthenticateManagerTest extends WebTestCase
     {
         $this->open("manager");
         $this->assertElementPresent('css=#login_form');
-        $this->type('css=#Manager_username','asv909');
-        $this->type('css=#Manager_password','ErTrd-2007');
-        $this->click('css=#Manager_rememberMe');
-        $this->type('css=#Manager_verifyCode', 'dolotut');
+        $this->type('css=#LoginForm_username','asv909');
+        $this->type('css=#LoginForm_password','ErTrd-2007');
+        $this->click('css=#LoginForm_rememberMe');
+        $this->type('css=#LoginForm_verifyCode', 'dolotut');
         $this->clickAndWait('css=#login_manager_button');
         $this->assertTextPresent('Здравствуйте Сергей Владимирович!');
     }
@@ -33,11 +33,11 @@ class AuthenticateManagerTest extends WebTestCase
     public function testUsernameOrPasswordIsEmpty() 
     {
         $this->open('manager');
-        $this->focus('css=#Manager_username');
-        $this->type('css=#Manager_username','');
-        $this->focus('css=#Manager_password');
-        $this->type('css=#Manager_password','');
-        $this->focus('css=#Manager_username');
+        $this->focus('css=#LoginForm_username');
+        $this->type('css=#LoginForm_username','');
+        $this->focus('css=#LoginForm_password');
+        $this->type('css=#LoginForm_password','');
+        $this->focus('css=#LoginForm_username');
         sleep(1);
         $this->assertTextPresent('Необходимо заполнить поле Логин!');
         $this->assertTextPresent('Необходимо заполнить поле Пароль!');
@@ -46,9 +46,9 @@ class AuthenticateManagerTest extends WebTestCase
     public function testCaptchaDoesNotMatch() 
     {
         $this->open('manager');
-        $this->type('css=#Manager_username','asv909');
-        $this->type('css=#Manager_password','ErTrd-2007');
-        $this->type('css=#Manager_verifyCode', 'wrongcode');
+        $this->type('css=#LoginForm_username','asv909');
+        $this->type('css=#LoginForm_password','ErTrd-2007');
+        $this->type('css=#LoginForm_verifyCode', 'wrongcode');
         $this->clickAndWait('css=#login_manager_button');
         $this->assertTextPresent('Код защиты указан не верно!');
     }    
