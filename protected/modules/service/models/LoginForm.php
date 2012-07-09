@@ -1,6 +1,6 @@
 <?php
 /**
- * Manager class file
+ * LoginForm class file
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
@@ -8,15 +8,15 @@
  */
 
 /**
- * <var>Manager</var> class is an AR-model for a database table `manager` and 
- * implements the business logic for managers authentication.
+ * <var>LoginForm</var> class is a model for a data of login form  and implements 
+ * the business logic for managers authentication
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: LoginForm.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @since 1.0
  */
-class Manager extends CActiveRecord 
+class LoginForm extends CFormModel
 {
     /**
      * @var string $username is text from appropriate field of managers login form
@@ -56,26 +56,6 @@ class Manager extends CActiveRecord
      * @var string $_suffix is a special string for additional security
      */
     private $_suffix = '249?6H3xyz!';
-
-    /**
-     * Override of parent method
-     * @param string $className active record class name
-     * @return CActiveRecord the static model of the specified AR class.
-     */
-    static public function model($className = __CLASS__)
-    {
-        return parent::model($className);
-    }
-
-    /**
-     * Define and return DB-table name
-     * 
-     * @return string the name of the associated database table
-     */
-    public function tableName()
-    {
-        return 'manager';
-    }
 
     /**
      * Determines and returns the validation rules

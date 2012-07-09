@@ -1,6 +1,6 @@
 <?php
 /**
- * Helpers class file
+ * ManagerController class file
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
@@ -8,11 +8,11 @@
  */
 
 /**
- * <var>Helpers</var> class is a set of static functions allocated to a separate
+ * <var>ManagerController</var> class is a set of static functions allocated to a separate
  *  class for reuse.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: ManagerController.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @since 1.0
  */

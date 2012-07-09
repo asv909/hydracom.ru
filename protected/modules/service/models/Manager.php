@@ -12,7 +12,7 @@
  * implements the business logic for managers authentication.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: Manager.php v 1.0 2012-06-21 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @since 1.0
  */
