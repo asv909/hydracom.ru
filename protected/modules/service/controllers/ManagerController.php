@@ -25,6 +25,11 @@ class ManagerController extends ServiceController
     private $_loginForm;
     
     /**
+     * @var CHttpSession $_session is instance of the CHttpSession class.
+     */
+    private $_session;
+    
+    /**
      * Set filter performs authorization checks for the specified actions
      * 
      * @return array 
@@ -93,16 +98,75 @@ class ManagerController extends ServiceController
     }
     
     /**
+     * 
+     */
+    private function Session($action, $data=array())
+    {
+        if (!isset($this->_session)) {
+            $this->_session = new CHttpSession;
+            $this->_session->setTimeout($this->module->rememberTime);
+        }
+        switch ($action) {
+            case 'start':
+                $this->_session->open();
+                if (isset($data)) {
+                    $this->_session->add('action', $data['action']);
+                }
+                $restrict_ = FALSE;
+                break;
+            case 'control':
+                $attempt_ = $this->_session->get('countOfAttempts', 0) + 1;
+                if ($attempt_ >= $data['numberOfAttempts']) {
+                    if ($this->_session->get('restrictTime', 0) === 0) {
+                        $this->_session->add('restrictTime', time());
+                        $this->_session->add('restrict', 1);
+                        $restrict_ = TRUE;
+                    } elseif ((time()-$this->_session->get('restrictTime', 0)) < $data['timeout']) {
+                        $restrict_ = TRUE;
+                    } else {
+                        $this->_session->remove('restrictTime');
+                        $this->_session->remove('restrict');
+                        $this->_session->add('countOfAttempts', 1);
+                        $restrict_ = FALSE;
+                    }
+                } else {
+                    $this->_session->add('countOfAttempts', $attempt_);
+                    $restrict_ = FALSE;
+                }                
+                break;
+            case 'check':
+                if ($this->_session->get('restrict', 0)) {
+                    $restrict_ = TRUE;
+                } else {
+                    $restrict_ = FALSE;
+                }
+                break;
+            case 'unset':
+                $this->_session->destroy();
+                $restrict_ = FALSE;
+                break;
+            default:
+                $this->_session->close();
+                $restrict_ = FALSE;
+                break;
+        }
+        return $restrict_;
+    }
+    
+    /**
      * Index action gives to browser main page for service module, but if is Guest 
      * then redirect to login page
      */
     public function actionIndex()
     {
+        $this->Session('start', array('action' => 'index'));
         if ((!Yii::app()->user->isGuest) && ($this->checkSecutityKey())) {
             $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
+            $this->Session('stop');
             $this->render('index', array('message' => $message_));
             Yii::app()->end();
         }
+        $this->Session('stop');
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->user->returnUrl = 'login');
      }
@@ -112,7 +176,7 @@ class ManagerController extends ServiceController
      * 
      * @param Manager $manager current instance of the object model the Manager
      */
-    protected function performAjaxValidation($loginForm)
+    private function performAjaxValidation($loginForm)
     {
         if (isset($_POST['ajax']) && ($_POST['ajax'] === 'login_form')) {
             echo CActiveForm::validate($loginForm);
@@ -126,12 +190,15 @@ class ManagerController extends ServiceController
      */
     public function actionLogin()
     {
+        $this->Session('start', array('action' => 'login'));
+
         //check the restriction by IP-address
         $officeIP_ = $this->module->restrictAuthenticate['officeIP'];
         if (isset($officeIP_) && ($officeIP_ !== '') && ($_SERVER['REMOTE_ADDR'] !== $officeIP_)) {
             $this->render('forbidden', array(
                 'message' => 'Ваш текущий статус не соответствует одному из критериев допуска!'));
             Yii::app()->user->logout();
+            $this->Session('stop');
             Yii::app()->end();
         }
         
@@ -139,6 +206,12 @@ class ManagerController extends ServiceController
         $this->performAjaxValidation($this->_loginForm);
         
         if (isset($_POST['LoginForm'])) {
+            if ($this->Session('control', $this->module->restrictAuthenticate)) {
+                $this->Session('stop');
+                $this->render('forbidden', array(
+                    'message' => 'Вы !исчерпали лимит попыток аутентификации, попробуйте позже!'));
+                Yii::app()->end();
+            }
             $this->_loginForm->attributes = $_POST['LoginForm'];
             if ($this->_loginForm->validate()) {
                 $identity_ = $this->_loginForm->login();
@@ -146,18 +219,20 @@ class ManagerController extends ServiceController
                     $identity_->setState('userID', $identity_->getId());
                     $identity_->setState('securityKey', $identity_->securityKey);
                     Yii::app()->user->login($identity_, $identity_->rememberTime);
+                    $this->Session('stop');
                     $this->redirect(Yii::app()->user->returnUrl = 'manager');
                 }
             }
-            //check limits on the number of authentication attempts
-            if (Helpers::restrictNumberOfAttempts($this->module->restrictAuthenticate)) {
-                $this->render('forbidden', array(
-                    'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
-                Yii::app()->end();
-            }
+        }
+        if ($this->Session('check')) {
+            $this->render('forbidden', array(
+                'message' => 'Вы !!исчерпали лимит попыток аутентификации, попробуйте позже!'));
+            $this->Session('stop');
+            Yii::app()->end();
         }
         $layout_ = Yii::app()->controller->layout;
         Yii::app()->controller->layout = 'login';
+        $this->Session('stop');
         $this->render('login', array('login_form' => $this->_loginForm));
         Yii::app()->controller->layout = $layout_;
         Yii::app()->end();
@@ -169,6 +244,7 @@ class ManagerController extends ServiceController
     public function actionLogout()
     {
         Yii::app()->user->logout();
+        $this->Session('unset');
         $this->redirect(Yii::app()->homeUrl);
     }
 }

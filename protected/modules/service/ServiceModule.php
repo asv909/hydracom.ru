@@ -32,7 +32,7 @@ class ServiceModule extends CWebModule
     public $restrictAuthenticate = array(
         'officeIP'         => '127.0.0.1',
         'numberOfAttempts' => 3,
-        'timeout'          => 300,
+        'timeout'          => 600,
     );
     
     /**
