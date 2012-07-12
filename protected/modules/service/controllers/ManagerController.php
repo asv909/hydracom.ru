@@ -218,17 +218,9 @@ class ManagerController extends ServiceController
             $this->Session('stop');
             Yii::app()->end();
         }
-        
         $this->_loginForm = new LoginForm;
         $this->performAjaxValidation($this->_loginForm);
-        
         if (isset($_POST['LoginForm'])) {
-            if ($this->Session('control', $this->module->restrictAuthenticate)) {
-                $this->Session('stop');
-                $this->render('forbidden', array(
-                    'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
-                Yii::app()->end();
-            }
             $this->_loginForm->attributes = $_POST['LoginForm'];
             if ($this->_loginForm->validate()) {
                 $identity_ = $this->_loginForm->login();
@@ -239,6 +231,12 @@ class ManagerController extends ServiceController
                     $this->Session('stop');
                     $this->redirect(Yii::app()->user->returnUrl = 'manager');
                 }
+            }
+            if ($this->Session('control', $this->module->restrictAuthenticate)) {
+                $this->Session('stop');
+                $this->render('forbidden', array(
+                    'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
+                Yii::app()->end();
             }
         }
         if ($this->Session('check')) {
