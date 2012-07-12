@@ -213,7 +213,7 @@ class ManagerController extends ServiceController
         $officeIP_ = $this->module->restrictAuthenticate['officeIP'];
         if (isset($officeIP_) && ($officeIP_ !== '') && ($_SERVER['REMOTE_ADDR'] !== $officeIP_)) {
             $this->render('forbidden', array(
-                'message' => 'Ваш текущий статус не соответствует одному из критериев допуска!'));
+                'message' => 'Ваш статус не соответствует критерю допуска!'));
             Yii::app()->user->logout();
             $this->Session('stop');
             Yii::app()->end();
@@ -235,13 +235,13 @@ class ManagerController extends ServiceController
             if ($this->Session('control', $this->module->restrictAuthenticate)) {
                 $this->Session('stop');
                 $this->render('forbidden', array(
-                    'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
+                    'message' => 'Вы исчерпали лимит попыток аутентификации!'));
                 Yii::app()->end();
             }
         }
         if ($this->Session('check')) {
             $this->render('forbidden', array(
-                'message' => 'Время запрета доступа к форме аутентификации еще не истекло!'));
+                'message' => 'Доступ к форме аутентификации временно запрещен!'));
             $this->Session('stop');
             Yii::app()->end();
         }
