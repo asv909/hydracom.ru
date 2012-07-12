@@ -56,9 +56,9 @@ class ManagerController extends ServiceController
     }
  
     /**
-     * Setting external action for class captcha
+     * Setting external action for a class Captcha
      * 
-     * Note: for test mode set 'fixedVerifyCode' property
+     * Note: for test mode sets 'fixedVerifyCode' property
      * @return array 
      */
     public function actions()
