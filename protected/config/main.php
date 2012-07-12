@@ -1,8 +1,24 @@
 <?php
 /**
- * Description of main.php - main configuration of application
- *
- * @author asv
+ * main.php file 
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @link http://www.eurotrade-et.ru/
+ * @copyright Copyright &#169; 2012 RGK LLC
+ * @license proprietary software, property of RGK LLC
+ */
+
+/**
+ * The <var>main.php</var> is main configuration of application HYDRACOM.
+ * 
+ * @author Sergey Alekseev <asv909@gmail.com>
+ * @version $Id: main.php v 1.0 2012-07-12 12:00:00 asv909 $
+ * @package HYDRACOM application.
+ * @since 1.0
+ */
+
+/**
+ * @return array main configuration of application
  */
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',

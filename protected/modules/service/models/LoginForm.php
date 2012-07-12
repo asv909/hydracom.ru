@@ -5,6 +5,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
  * @copyright Copyright &copy; 2012 RGK LLC
+ * @license proprietary software, property of RGK LLC
  */
 
 /**
@@ -12,8 +13,9 @@
  * the business logic for managers authentication
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: LoginForm.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: LoginForm.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
+ * @subpackage modules.service.
  * @since 1.0
  */
 class LoginForm extends CFormModel
@@ -72,7 +74,7 @@ class LoginForm extends CFormModel
             array('password', 'authenticate'),
             array('verifyCode', 'captcha',
                   'allowEmpty' => ((!Yii::app()->user->isGuest) || (!extension_loaded('gd'))),
-                  'message' => 'Код защиты указан не верно!'),
+                  'message'    => 'Код защиты указан не верно!'),
         );
     }
 

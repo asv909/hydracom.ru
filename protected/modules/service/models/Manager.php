@@ -5,6 +5,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
  * @copyright Copyright &copy; 2012 RGK LLC
+ * @license proprietary software, property of RGK LLC
  */
 
 /**
@@ -12,9 +13,9 @@
  * implements the business logic for managers authentication.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Manager.php v 1.0 2012-07-09 14:50:00 asv909 $
+ * @version $Id: Manager.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
- * @subpackage Service module
+ * @subpackage modules.service.
  * @since 1.0
  */
 class Manager extends CActiveRecord 

@@ -5,6 +5,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
  * @copyright Copyright &copy; 2012 RGK LLC
+ * @license proprietary software, property of RGK LLC
  */
 
 /**
@@ -13,9 +14,9 @@
  * and implement authenticate with the actual authentication scheme.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: ManagerIdentity.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: ManagerIdentity.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
- * @subpackage Service module
+ * @subpackage modules.service.
  * @since 1.0
  */
 class ManagerIdentity extends CUserIdentity 

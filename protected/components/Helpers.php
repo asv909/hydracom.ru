@@ -5,6 +5,7 @@
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
  * @copyright Copyright &copy; 2012 RGK LLC
+ * @license proprietary software, property of RGK LLC
  */
 
 /**
@@ -12,7 +13,7 @@
  *  class for reuse.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Helpers.php v 1.0 2012-06-21 12:00:00 asv909 $
+ * @version $Id: Helpers.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @since 1.0
  */
@@ -24,6 +25,7 @@ class Helpers
      * Function return appropriate URL.
      * 
      * @param string $route usually this is the route
+     * 
      * @return string URL
      */
     static function createUrl($route)
@@ -41,6 +43,7 @@ class Helpers
      * @param string $string3 is user salt, taken from appropriate DB-record
      * @param string $string4 is special string for added security, taken from 
      * variable $suffix that was set within class of appropriate model
+     * 
      * @return string hash string
      */
     static function createHash($string1, $string2, $string3, $string4)
