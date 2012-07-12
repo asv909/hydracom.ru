@@ -50,6 +50,7 @@ class Helpers
     }
 
     /**
+     * !!! NOTE: НИГДЕ НЕ ИСПОЛЬЗУЕТСЯ
      * <var>restrictNumberOfAttempts</var> function is used to restrict number 
      * of authenticate attempt and setting timeout between series of attempts. 
      * Function return TRUE or FALSE depending on the number attempt of 

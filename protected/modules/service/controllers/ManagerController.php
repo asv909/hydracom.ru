@@ -98,7 +98,24 @@ class ManagerController extends ServiceController
     }
     
     /**
+     * Performs all work with the sessions: 
+     * <ul>
+     * <li><var>start</var>: start new or exist session, store action name from 
+     * which the call is made Session;</li>
+     * <li><var>control</var>: controls to limit the number of authentication 
+     * attempts and sets the delay between the series of attempts;</li>
+     * <li><var>check</var>: checks the temporary ban on attempts to authenticate
+     *  is set or no;</li>
+     * <li><var>unset</var>: destroys the current session;</li>
+     * <li><var>default</var> this code is executed in all other cases, eg for 
+     * action 'stop'</li>
+     * </ul>
      * 
+     * @param string $action is short name (alias) of manipulation that will be 
+     * applied to the variables of the current session
+     * @param array $data is the data needed to perform the action
+     * @return boolean TRUE If set a restriction for the current session, or 
+     * FALSE otherwise
      */
     private function Session($action, $data=array())
     {
@@ -209,7 +226,7 @@ class ManagerController extends ServiceController
             if ($this->Session('control', $this->module->restrictAuthenticate)) {
                 $this->Session('stop');
                 $this->render('forbidden', array(
-                    'message' => 'Вы !исчерпали лимит попыток аутентификации, попробуйте позже!'));
+                    'message' => 'Вы исчерпали лимит попыток аутентификации, попробуйте позже!'));
                 Yii::app()->end();
             }
             $this->_loginForm->attributes = $_POST['LoginForm'];
@@ -226,7 +243,7 @@ class ManagerController extends ServiceController
         }
         if ($this->Session('check')) {
             $this->render('forbidden', array(
-                'message' => 'Вы !!исчерпали лимит попыток аутентификации, попробуйте позже!'));
+                'message' => 'Время запрета доступа к форме аутентификации еще не истекло!'));
             $this->Session('stop');
             Yii::app()->end();
         }
