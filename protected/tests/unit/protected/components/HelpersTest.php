@@ -42,17 +42,4 @@ class HelpersTest extends CTestCase
         $this->assertSame($expected_,
                           Helpers::createHash($username_, $password_, $salt_, $suffix_));
     }
-
-    /**
-     * @group manager
-     */    
-    public function testRestrictNumberOfAttempts()
-    {
-        $restricts_ = array('numberOfAttempts' => 2, 'timeout' => 5);
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts_));
-        $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts_));
-        $this->assertTrue(Helpers::restrictNumberOfAttempts($restricts_));
-        sleep($restricts_['timeout']+1);
-        $this->assertFalse(Helpers::restrictNumberOfAttempts($restricts_));
-    }
 }

@@ -98,7 +98,7 @@ class ManagerController extends ServiceController
     }
     
     /**
-     * Performs all work with the sessions: 
+     * Performs all work with the session: 
      * <ul>
      * <li><var>start</var>: start new or exist session, store action name from 
      * which the call is made Session;</li>
