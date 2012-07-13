@@ -15,7 +15,6 @@ class AdminPanelTest extends WebTestCase
     function testAdminPanelMenu()
     {
         $this->open("service");
-        $this->assertTextPresent('Производители');
         $this->assertElementContainsText('css=a[href="#"]', 'Производители');
     }
 }
