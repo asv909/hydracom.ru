@@ -87,7 +87,7 @@ class ManagerController extends ServiceController
      * 
      * @return boolean TRUE if the both keys exist and matched or FALSE otherwise
      */
-    protected function checkSecutityKey()
+    private function checkSecutityKey()
     {
         $id_ = Yii::app()->user->id;
         $skey_ = Yii::app()->user->getState('securityKey');
@@ -174,9 +174,7 @@ class ManagerController extends ServiceController
     {
         $this->Session('start');
         if ((!Yii::app()->user->isGuest) && ($this->checkSecutityKey())) {
-            $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
-            $this->render('index', array('message' => $message_));
-            Yii::app()->end();
+            $this->redirect(Yii::app()->user->returnUrl = 'service');
         }
         $this->Session('stop');
         Yii::app()->user->logout();

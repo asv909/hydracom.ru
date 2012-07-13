@@ -4,7 +4,8 @@ require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
 class AuthenticateManagerTest extends WebTestCase 
 {
-    function setUp() {
+    function setUp()
+    {
         parent::setUp();
         $this->setTimeout(5);
         $this->setBrowser("*googlechrome");

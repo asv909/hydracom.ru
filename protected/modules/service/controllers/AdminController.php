@@ -16,6 +16,70 @@
  * @package HYDRACOM application.modules.service.
  * @since 1.0
  */
-class AdminController extends ServiceController {
-    //put your code here
+class AdminController extends ServiceController 
+{
+    /**
+     * @var string $layout the default layout for the views
+     */
+    public $layout= 'column2';
+        
+    /**
+     * 
+     */
+    public function actionIndex()
+    {
+        if (!isset(Yii::app()->user->managerName)) {
+            $message_ = 'Здравствуйте!';
+        } else {
+            $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
+        }
+        $this->render('index', array('message' => $message_));
+        Yii::app()->end();
+
+    
+    }
+
+    /**
+     * 
+     */
+    public function actionSearch()
+    {
+    
+    }
+
+    /**
+     * 
+     */
+    public function actionUpdate()
+    {
+    
+    }
+    /**
+     * 
+     */
+    public function actionSave()
+    {
+    
+    }
+    /**
+     * 
+     */
+    public function actionNew()
+    {
+    
+    }
+    /**
+     * 
+     */
+    public function actionShow()
+    {
+    
+    }
+    /**
+     * 
+     */
+    public function actionFind()
+    {
+    
+    }
 }
