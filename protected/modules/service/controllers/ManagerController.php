@@ -120,6 +120,7 @@ class ManagerController extends ServiceController
      */
     private function Session($action, $data=array())
     {
+        $restrict_ = FALSE;
         if (!isset($this->_session)) {
             $this->_session = new CHttpSession;
             $this->_session->setTimeout($this->module->rememberTime);
@@ -127,11 +128,21 @@ class ManagerController extends ServiceController
         switch ($action) {
             case 'start':
                 $this->_session->open();
-                if (isset($data)) {
-                    $this->_session->add('action', $data['action']);
-                }
-                $restrict_ = FALSE;
                 break;
+            case 'unset':
+                $this->_session->destroy();
+                break;
+/* 
+ * break need only if session parameter 'restrict'='0', otherwise need execute 
+ * case 'control': also
+ */
+            case 'check':
+                if (!$this->_session->get('restrict', 0)) {
+                    break;
+                }
+/* 
+ * break not used because the default: must be execute also
+ */
             case 'control':
                 $attempt_ = $this->_session->get('countOfAttempts', 0) + 1;
                 if ($attempt_ >= $data['numberOfAttempts']) {
@@ -144,29 +155,13 @@ class ManagerController extends ServiceController
                     } else {
                         $this->_session->remove('restrictTime');
                         $this->_session->remove('restrict');
-                        $this->_session->add('countOfAttempts', 1);
-                        $restrict_ = FALSE;
+                        $this->_session->add('countOfAttempts', 0);
                     }
                 } else {
                     $this->_session->add('countOfAttempts', $attempt_);
-                    $restrict_ = FALSE;
-                }                
-                break;
-            case 'check':
-                if ($this->_session->get('restrict', 0)) {
-                    $restrict_ = TRUE;
-                } else {
-                    $restrict_ = FALSE;
                 }
-                break;
-            case 'unset':
-                $this->_session->destroy();
-                $restrict_ = FALSE;
-                break;
             default:
                 $this->_session->close();
-                $restrict_ = FALSE;
-                break;
         }
         return $restrict_;
     }
@@ -177,10 +172,9 @@ class ManagerController extends ServiceController
      */
     public function actionIndex()
     {
-        $this->Session('start', array('action' => 'index'));
+        $this->Session('start');
         if ((!Yii::app()->user->isGuest) && ($this->checkSecutityKey())) {
             $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
-            $this->Session('stop');
             $this->render('index', array('message' => $message_));
             Yii::app()->end();
         }
@@ -208,15 +202,14 @@ class ManagerController extends ServiceController
      */
     public function actionLogin()
     {
-        $this->Session('start', array('action' => 'login'));
-
+        $this->Session('start');
+        $restrict_ = $this->module->restrictAuthenticate;
+        $officeIP_ = $restrict_['officeIP'];
         //check the restriction by IP-address
-        $officeIP_ = $this->module->restrictAuthenticate['officeIP'];
         if (isset($officeIP_) && ($officeIP_ !== '') && ($_SERVER['REMOTE_ADDR'] !== $officeIP_)) {
             $this->render('forbidden', array(
                 'message' => 'Ваш статус не соответствует критерю допуска!'));
             Yii::app()->user->logout();
-            $this->Session('stop');
             Yii::app()->end();
         }
         $this->_loginForm = new LoginForm;
@@ -229,26 +222,22 @@ class ManagerController extends ServiceController
                     $identity_->setState('userID', $identity_->getId());
                     $identity_->setState('securityKey', $identity_->securityKey);
                     Yii::app()->user->login($identity_, $identity_->rememberTime);
-                    $this->Session('stop');
                     $this->redirect(Yii::app()->user->returnUrl = 'manager');
                 }
             }
-            if ($this->Session('control', $this->module->restrictAuthenticate)) {
-                $this->Session('stop');
+            if ($this->Session('control', $restrict_)) {
                 $this->render('forbidden', array(
                     'message' => 'Вы исчерпали лимит попыток аутентификации!'));
                 Yii::app()->end();
             }
         }
-        if ($this->Session('check')) {
+        if ($this->Session('check', $restrict_)) {
             $this->render('forbidden', array(
                 'message' => 'Доступ к форме аутентификации временно запрещен!'));
-            $this->Session('stop');
             Yii::app()->end();
         }
         $layout_ = Yii::app()->controller->layout;
         Yii::app()->controller->layout = 'login';
-        $this->Session('stop');
         $this->render('login', array('login_form' => $this->_loginForm));
         Yii::app()->controller->layout = $layout_;
         Yii::app()->end();
@@ -259,8 +248,8 @@ class ManagerController extends ServiceController
      */
     public function actionLogout()
     {
-        Yii::app()->user->logout();
         $this->Session('unset');
+        Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
 }

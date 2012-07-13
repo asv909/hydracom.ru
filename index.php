@@ -1,6 +1,7 @@
 <?php
 
 // change the following paths if necessary
+
 $yii = dirname(__FILE__) . '/../yii/framework/yii.php';
 
 // remove the following lines when in production mode
