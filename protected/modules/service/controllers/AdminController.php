@@ -22,6 +22,11 @@ class AdminController extends ServiceController
      * @var string $layout the default layout for the views
      */
     public $layout= 'column2';
+    
+    /*
+     * 
+     */
+    private $_model;
         
     /**
      * 
@@ -35,8 +40,18 @@ class AdminController extends ServiceController
         }
         $this->render('index', array('message' => $message_));
         Yii::app()->end();
+    }
 
-    
+    /**
+     * 
+     */
+    public function actionLookup()
+    {
+        if (!isset($_GET['id'])) {
+            echo 'У маршрута отстутствует параметр id';
+            Yii::app()->end();
+        }
+        $_model = new $_GET['id'];
     }
 
     /**

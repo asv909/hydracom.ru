@@ -17,9 +17,9 @@
 //		$this->endWidget();
 ?>
         <ul>
-            <li><a href="#">Производители</a></li>
-            <li><a href="#">Страны</a></li>
-            <li><a href="#">Единицы измерения</a></li>
+            <li><a href='service/admin/lookup/id/brand'>Производители</a></li>
+            <li><a href='service/admin/lookup/id/country'>Страны</a></li>
+            <li><a href='service/admin/lookup/id/measure'>Единицы измерения</a></li>
         </ul>
     </div><!-- sidebar -->
 </div>

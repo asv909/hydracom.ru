@@ -42,7 +42,7 @@ class ServiceModule extends CWebModule
      * Note: 43200 is result of 3600*12, where 3600 is value of seconds in one 
      * hour and 12 is value of hours for action autologin
      */
-    public $rememberTime = 43200;
+    public $rememberTime = 28800;
     
     /**
      * Sets the aliases that are used in the module. 
