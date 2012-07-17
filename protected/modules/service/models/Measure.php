@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brand class file 
+ * Measure class file 
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
@@ -13,12 +13,12 @@
  * The <var>Brand</var> is .
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Brand.php v 1.0 2012-07-12 12:00:00 asv909 $
+ * @version $Id: Measure.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @subpackage modules.service.
  * @since 1.0
  */
-class Brand extends CActiveRecord 
+class Measure extends CActiveRecord 
 {
     /**
      * Override of parent method
@@ -37,14 +37,6 @@ class Brand extends CActiveRecord
      */
     public function tableName()
     {
-        return 'brand';
-    }
-    
-    /**
-     * 
-     */
-    public function getName()
-    {
-        return array('', );
+        return 'measure';
     }
 }

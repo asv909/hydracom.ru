@@ -26,7 +26,7 @@ class AdminController extends ServiceController
     /*
      * 
      */
-    private $_model;
+    private $_lookupForm;
         
     /**
      * 
@@ -48,10 +48,13 @@ class AdminController extends ServiceController
     public function actionLookup()
     {
         if (!isset($_GET['id'])) {
-            echo 'У маршрута отстутствует параметр id';
+            echo 'У маршрута отстутствует параметр `id`';
             Yii::app()->end();
         }
-        $_model = new $_GET['id'];
+        $this->_lookupForm = new LookupForm;
+        $this->_lookupForm->getData();
+        $this->render('lookup', array('lookup_form' => $this->_lookupForm));
+        Yii::app()->end();
     }
 
     /**
