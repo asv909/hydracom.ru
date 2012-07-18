@@ -40,12 +40,12 @@ class AdminController extends ServiceController
     /**
      * Lists all models.
      */
-    public function actionLook($id)
+    public function actionLook($id = 'brand')
     {
-        $dataProvider=new CActiveDataProvider($id);
+        $dataProvider = new CActiveDataProvider($id);
         $this->render('look', array(
             'dataProvider' => $dataProvider,
-            'title'        => ucfirst($id),
+            'id'           => $id,
         ));
     }
 

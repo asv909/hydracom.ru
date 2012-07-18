@@ -21,6 +21,11 @@
 class Brand extends CActiveRecord 
 {
     /**
+     * 
+     */
+    public $title = 'Справочник производителей товара';
+
+    /**
      * Override of parent method
      * @param string $className active record class name
      * @return CActiveRecord the static model of the specified AR class.

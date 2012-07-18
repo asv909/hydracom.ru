@@ -7,10 +7,10 @@ $this->menu=array(
 );
 */?>
 
-<h1><?php echo $title ?></h1>
+<h1><?php echo $title = $dataProvider->model->title ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider' => $dataProvider,
 	'itemView'     => '_view',
-        'viewData'     => array('title' => $title),
+        'viewData'     => array('title' => $title, 'id'    => $id),
 )); ?>

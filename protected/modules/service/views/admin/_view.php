@@ -4,7 +4,7 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
         
-        <b><?php if ($widget->viewData['title'] === 'Measure') {
+        <b><?php if ($id === 'measure') {
                     echo CHtml::encode($data->getAttributeLabel('unite'));
                     echo ':</b> ' . CHtml::encode($data->unite);
                  } else {
