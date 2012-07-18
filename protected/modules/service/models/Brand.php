@@ -39,12 +39,38 @@ class Brand extends CActiveRecord
     {
         return 'brand';
     }
-    
+
     /**
-     * 
+     * @return array validation rules for model attributes.
      */
-    public function getName()
+    public function rules()
     {
-        return array('', );
+        return array(
+            array('name', 'required'),
+            array('name', 'length', 'max'=>45),
+            array('id, name', 'safe', 'on'=>'search'),
+        );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array('id'   => 'ID',
+                     'name' => 'Бренд');
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models 
+     * based on the search/filter conditions.
+     */
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->compare('id', $this->id);
+        $criteria->compare('name', $this->name, true);
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 }

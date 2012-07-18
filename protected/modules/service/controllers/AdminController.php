@@ -41,20 +41,16 @@ class AdminController extends ServiceController
         $this->render('index', array('message' => $message_));
         Yii::app()->end();
     }
-
+        
     /**
-     * 
+     * Lists all models.
      */
-    public function actionLookup()
+    public function actionLook($id)
     {
-        if (!isset($_GET['id'])) {
-            echo 'У маршрута отстутствует параметр `id`';
-            Yii::app()->end();
-        }
-        $this->_lookupForm = new LookupForm;
-        $this->_lookupForm->getData();
-        $this->render('lookup', array('lookup_form' => $this->_lookupForm));
-        Yii::app()->end();
+        $dataProvider=new CActiveDataProvider($id);
+        $this->render('index',array(
+            'dataProvider'=>$dataProvider,
+        ));
     }
 
     /**
