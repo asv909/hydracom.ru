@@ -21,24 +21,19 @@ class AdminController extends ServiceController
     /**
      * @var string $layout the default layout for the views
      */
-    public $layout= 'column2';
+    public $layout = 'column2';
     
-    /*
-     * 
-     */
-    private $_lookupForm;
-        
     /**
      * 
      */
     public function actionIndex()
     {
         if (!isset(Yii::app()->user->managerName)) {
-            $message_ = 'Здравствуйте!';
+            $message = 'Здравствуйте!';
         } else {
-            $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
+            $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
         }
-        $this->render('index', array('message' => $message_));
+        $this->render('index', array('message' => $message));
         Yii::app()->end();
     }
         
@@ -48,8 +43,9 @@ class AdminController extends ServiceController
     public function actionLook($id)
     {
         $dataProvider=new CActiveDataProvider($id);
-        $this->render('index',array(
-            'dataProvider'=>$dataProvider,
+        $this->render('look', array(
+            'dataProvider' => $dataProvider,
+            'title'        => ucfirst($id),
         ));
     }
 

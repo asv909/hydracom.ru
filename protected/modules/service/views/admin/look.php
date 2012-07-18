@@ -1,13 +1,16 @@
-<?php $count = count($lookup_form->data); ?>
-<table border="1" bordercolor="339900">
-<?php for ($i =0; $i < $count; $i++) {
-          $row = $lookup_form->data[$i];
-          echo '<tr><td>' . $row['id'] . '</td>';
-          if (isset($row['name'])) {
-              echo '<td>' . $row['name'] . '</td></tr>';
-          } else {
-              echo '<td>' . $row['unite'] . '</td></tr>';
-          }
-      }
-?>
-</table>
+<?php
+/*$this->breadcrumbs=array('Users',);
+
+$this->menu=array(
+	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>'Manage User', 'url'=>array('admin')),
+);
+*/?>
+
+<h1><?php echo $title ?></h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider' => $dataProvider,
+	'itemView'     => '_view',
+        'viewData'     => array('title' => $title),
+)); ?>
