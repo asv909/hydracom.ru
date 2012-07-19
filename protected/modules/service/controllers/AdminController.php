@@ -42,11 +42,12 @@ class AdminController extends ServiceController
      */
     public function actionLook($id = 'brand')
     {
-        $dataProvider = new CActiveDataProvider($id);
-        $this->render('look', array(
-            'dataProvider' => $dataProvider,
-            'id'           => $id,
+        $dataProvider = new CActiveDataProvider($id, array(
+            'criteria'=>array('order'=>'id ASC'),
+            'pagination'=>array('pageSize'=>10),
         ));
+        $this->render('look', array('dataProvider' => $dataProvider,));
+        Yii::app()->end();
     }
 
     /**

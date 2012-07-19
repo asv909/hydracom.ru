@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Country class file 
+ * Org class file 
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @link http://www.eurotrade-et.ru/
@@ -10,21 +10,21 @@
  */
 
 /**
- * The <var>Country</var> is .
+ * The <var>Org</var> is .
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
- * @version $Id: Country.php v 1.0 2012-07-12 12:00:00 asv909 $
+ * @version $Id: Org.php v 1.0 2012-07-12 12:00:00 asv909 $
  * @package HYDRACOM application.
  * @subpackage modules.service.
  * @since 1.0
  */
-class Country extends CActiveRecord 
+class Org extends CActiveRecord 
 {
     /**
      * 
      */
-    public $title = 'Справочник: "Cтраны"';
-    
+    public $title = 'Справочник: "ОПФ"';
+
     /**
      * Override of parent method
      * @param string $className active record class name
@@ -42,7 +42,7 @@ class Country extends CActiveRecord
      */
     public function tableName()
     {
-        return 'country';
+        return 'org';
     }
 
     /**
@@ -52,7 +52,7 @@ class Country extends CActiveRecord
     {
         return array(
             array('name', 'required'),
-            array('name', 'length', 'max'=>45),
+            array('name', 'length', 'max'=>4),
             array('id, name', 'safe', 'on'=>'search'),
         );
     }
@@ -63,7 +63,7 @@ class Country extends CActiveRecord
     public function attributeLabels()
     {
         return array('id'   => 'ID',
-                     'name' => 'Страна');
+                     'name' => 'ОПФ');
     }
 
     /**

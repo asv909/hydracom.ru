@@ -23,7 +23,7 @@ class Measure extends CActiveRecord
     /**
      * 
      */
-    public $title = 'Справочник единиц измерения';
+    public $title = 'Справочник: "Eдиницы измерения"';
 
     /**
      * Override of parent method
@@ -75,7 +75,7 @@ class Measure extends CActiveRecord
     {
         $criteria=new CDbCriteria;
         $criteria->compare('id', $this->id);
-        $criteria->compare('unite', $this->unite, true);
+        $criteria->compare('name', $this->name, true);
         return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 }

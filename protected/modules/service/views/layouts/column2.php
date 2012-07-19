@@ -17,9 +17,21 @@
 //		$this->endWidget();
 ?>
         <ul>
-            <li><a href='/service/admin/look/id/brand'>Производители</a></li>
-            <li><a href='/service/admin/look/id/country'>Страны</a></li>
-            <li><a href='/service/admin/look/id/measure'>Единицы измерения</a></li>
+            <li>Справочники для номенклатуры
+                <ul>
+                    <li><a href='/service/admin/look/id/brand'>Бренды</a></li>
+                    <li><a href='/service/admin/look/id/country'>Страны</a></li>
+                    <li><a href='/service/admin/look/id/measure'>Единицы измерения</a></li>
+                </ul>
+            </li>
+            <li>Справочники для контрагентов
+                <ul>
+                    <li><a href='/service/admin/look/id/post'>Индексы</a></li>
+                    <li><a href='/service/admin/look/id/region'>Регионы</a></li>
+                    <li><a href='/service/admin/look/id/city'>Города</a></li>
+                    <li><a href='/service/admin/look/id/org'>ОПФ</a></li>
+                </ul>
+            </li>
         </ul>
     </div><!-- sidebar -->
 </div>

@@ -23,7 +23,7 @@ class Brand extends CActiveRecord
     /**
      * 
      */
-    public $title = 'Справочник производителей товара';
+    public $title = 'Справочник: "Бренды"';
 
     /**
      * Override of parent method
