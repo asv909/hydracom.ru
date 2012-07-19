@@ -12,6 +12,6 @@ class WelcomeTest extends WebTestCase
     function testMyTestCase() 
     {
         $this->open("");
-        $this->assertTextPresent('Welcome');
+        $this->assertTextPresent('Добро пожаловать');
     }
 }
