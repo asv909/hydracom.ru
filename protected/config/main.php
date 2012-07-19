@@ -22,7 +22,7 @@
  */
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name'     => 'HYDRACOM - электронный гипермаркет промышленных комплектующих!',
+    'name'     => 'HYDRACOM - гипермаркет промышленных комплектующих!',
 
     'preload'  => array('log'),
 

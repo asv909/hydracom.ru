@@ -21,6 +21,11 @@
 class ManagerController extends ServiceController 
 {
     /**
+     * @var string $layout the default layout for the controller view. 
+     */
+    public $layout = '/layouts/column1';
+
+    /**
      * @var Manager $_loginForm is instance of the Manager class. 
      */
     private $_loginForm;
@@ -207,7 +212,6 @@ class ManagerController extends ServiceController
         if (isset($officeIP_) && ($officeIP_ !== '') && ($_SERVER['REMOTE_ADDR'] !== $officeIP_)) {
             $this->render('forbidden', array(
                 'message' => 'Ваш статус не соответствует критерю допуска!'));
-            Yii::app()->user->logout();
             Yii::app()->end();
         }
         $this->_loginForm = new LoginForm;
@@ -234,11 +238,7 @@ class ManagerController extends ServiceController
                 'message' => 'Доступ к форме аутентификации временно запрещен!'));
             Yii::app()->end();
         }
-        $layout_ = Yii::app()->controller->layout;
-        Yii::app()->controller->layout = 'login';
         $this->render('login', array('login_form' => $this->_loginForm));
-        Yii::app()->controller->layout = $layout_;
-        Yii::app()->end();
     }
 
     /**

@@ -19,11 +19,6 @@
 class AdminController extends ServiceController 
 {
     /**
-     * @var string $layout the default layout for the views
-     */
-    public $layout = 'column2';
-    
-    /**
      * 
      */
     public function actionIndex()
@@ -34,7 +29,6 @@ class AdminController extends ServiceController
             $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
         }
         $this->render('index', array('message' => $message));
-        Yii::app()->end();
     }
         
     /**
@@ -47,7 +41,6 @@ class AdminController extends ServiceController
             'pagination'=>array('pageSize'=>10),
         ));
         $this->render('look', array('dataProvider' => $dataProvider,));
-        Yii::app()->end();
     }
 
     /**
