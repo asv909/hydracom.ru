@@ -64,7 +64,7 @@
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Сервис', 
-                                  'url'     => array('/manager'), 
+                                  'url'     => array('/service'), 
                                   'visible' => Yii::app()->user->isGuest),			),
 		)); ?>
             </div><!-- mainmenu -->

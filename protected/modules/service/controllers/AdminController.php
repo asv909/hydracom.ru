@@ -23,14 +23,22 @@ class AdminController extends ServiceController
      */
     public function actionIndex()
     {
-        if (!isset(Yii::app()->user->managerName)) {
-            $message = 'Здравствуйте!';
-        } else {
-            $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
+        $this->Session('start');
+        if ((Yii::app()->user->isGuest) || (!$this->checkSecutityKey())) {
+            $this->redirect('/manager');
         }
+        $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
         $this->render('index', array('message' => $message));
     }
+
+    /*
+     * show list of item for selected group and display admin options for this
+     */
+    public function actionView($id)
+    {
         
+    }
+
     /**
      * Lists all models.
      */

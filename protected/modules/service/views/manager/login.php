@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
+$this->pageTitle = Yii::app()->name . ' - Login';
+$this->breadcrumbs = array(
 	'Login',
 );
 ?>
@@ -14,7 +14,7 @@ $this->breadcrumbs=array(
     <!-- Render with the layout /modules/views/layouts/login.php -->
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'login_form',
-        'action' => Helpers::createUrl('/login'),
+        'action' => Helpers::createUrl('/manager'),
         'enableAjaxValidation'=>true,
         'focus'=>array($login_form, 'username'),
     ))?>

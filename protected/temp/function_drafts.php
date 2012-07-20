@@ -38,10 +38,47 @@ class Drafts
         }
     }
 }
+
 ?>
+
 <?php
-$this->pageTitle=Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs=array(
+    $this->pageTitle=Yii::app()->name . ' - Contact Us';
+    $this->breadcrumbs=array(
 	'Contact',
 );
 ?>
+
+
+    /**
+     * Index action gives to browser main page for service module, but if is Guest 
+     * then redirect to login page
+     */
+    public function actionIndex()
+    {
+        $this->Session('start');
+        if ((!Yii::app()->user->isGuest) && ($this->checkSecutityKey())) {
+            $this->redirect(Yii::app()->user->returnUrl = 'service');
+        }
+        $this->Session('stop');
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->user->returnUrl = 'login');
+    }
+
+    <!--        <ul>
+            <li>Справочники для номенклатуры
+                <ul>
+                    <li><a href='/service/admin/look/id/brand'>Бренды</a></li>
+                    <li><a href='/service/admin/look/id/country'>Страны</a></li>
+                    <li><a href='/service/admin/look/id/measure'>Единицы измерения</a></li>
+                </ul>
+            </li>
+            <li>Справочники для контрагентов
+                <ul>
+                    <li><a href='/service/admin/look/id/post'>Индексы</a></li>
+                    <li><a href='/service/admin/look/id/region'>Регионы</a></li>
+                    <li><a href='/service/admin/look/id/city'>Города</a></li>
+                    <li><a href='/service/admin/look/id/org'>ОПФ</a></li>
+                </ul>
+            </li>
+        </ul>
+-->

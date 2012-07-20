@@ -39,20 +39,24 @@
             <div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
                         'items'=>array(
+                            array('label'   => 'Home',
+                                  'url'     => array('/service/admin/index'),
+                                  'visible' => !Yii::app()->user->isGuest),
+                            
                             array('label'   => 'Номенклатура',
-                                  'url'     => array('/product/view'),
+                                  'url'     => array('/service/admin/view/id/product'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Клиенты',
-                                  'url'     => array('/customer/view'),
+                                  'url'     => array('/service/admin/view/id/customer'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Заказы',
-                                  'url'     => array('/order/view'),
+                                  'url'     => array('/service/admin/view/id/order'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Справочники',
-                                  'url'     => array('/reference/view'),
+                                  'url'     => array('/service/admin/view/id/reference'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Вход',
@@ -66,7 +70,11 @@
 		)); ?>
             </div><!-- mainmenu -->
             
-            <!-- breadcrumbs -->
+            <?php if(isset($this->breadcrumbs)):?>
+                    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'links' => $this->breadcrumbs,
+                    )); ?><!-- breadcrumbs -->
+            <?php endif?>
             
             <?php echo $content; ?>
             
