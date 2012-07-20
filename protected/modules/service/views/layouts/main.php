@@ -40,31 +40,31 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
                         'items'=>array(
                             array('label'   => 'Home',
-                                  'url'     => array('/service/admin/index'),
+                                  'url'     => array('service/admin/index'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Номенклатура',
-                                  'url'     => array('/service/admin/view/id/product'),
+                                  'url'     => array('service/admin/view/id/product'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Клиенты',
-                                  'url'     => array('/service/admin/view/id/customer'),
+                                  'url'     => array('service/admin/view/id/customer'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Заказы',
-                                  'url'     => array('/service/admin/view/id/order'),
+                                  'url'     => array('service/admin/view/id/order'),
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Справочники',
-                                  'url'     => array('/service/admin/view/id/reference'),
-                                  'visible' => !Yii::app()->user->isGuest),
+                                  'url'     => array('service/admin/view/id/reference'),
+                                  'visible' => !Yii::app()->user->isGuest,),
                             
                             array('label'   => 'Вход',
-                                  'url'     => array('/service/manager/login'),
+                                  'url'     => array('service/manager/login'),
                                   'visible' => Yii::app()->user->isGuest),
                             
                             array('label'   => 'Выход ('.Yii::app()->user->name.')',
-                                  'url'     => array('/service/manager/logout'),
+                                  'url'     => array('service/manager/logout'),
                                   'visible' => !Yii::app()->user->isGuest),
 			),
 		)); ?>

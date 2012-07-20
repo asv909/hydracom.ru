@@ -8,7 +8,7 @@
 
 <div class="span-5 last">
     <div id="sidebar">
-        <?php
+        <?php 
             $this->beginWidget('zii.widgets.CPortlet', array(
                 'title' => 'Operations',
             ));

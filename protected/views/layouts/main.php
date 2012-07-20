@@ -53,18 +53,18 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
                         'items'=>array(
                             array('label' => 'Home',
-                                  'url'   => array('/home/index')),
+                                  'url'   => array('home/index')),
                             
                             array('label'   =>'Вход',
-                                  'url'     => array('/home/login'),
+                                  'url'     => array('home/login'),
                                   'visible' => Yii::app()->user->isGuest),
                             
                             array('label'   => 'Выход ('.Yii::app()->user->name.')', 
-                                  'url'     => array('/home/logout'), 
+                                  'url'     => array('home/logout'), 
                                   'visible' => !Yii::app()->user->isGuest),
                             
                             array('label'   => 'Сервис', 
-                                  'url'     => array('/service'), 
+                                  'url'     => array('service/admin/index'), 
                                   'visible' => Yii::app()->user->isGuest),			),
 		)); ?>
             </div><!-- mainmenu -->

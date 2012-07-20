@@ -34,9 +34,10 @@ class AdminController extends ServiceController
     /*
      * show list of item for selected group and display admin options for this
      */
-    public function actionView($id)
+    public function actionView($id = 'product')
     {
-        
+        $dataProvider = new CActiveDataProvider('menuitem');
+        $this->render('view', array('dataProvider' => $dataProvider,));
     }
 
     /**

@@ -82,3 +82,12 @@ class Drafts
             </li>
         </ul>
 -->
+
+                                  'items'   => array(
+                                      array('label' => 'Бренды',
+                                            'url'   => array('/service/admin/look/id/brand')),
+                                      array('label' => 'Страны',
+                                            'url'   => array('/service/admin/look/id/country')),
+                                      array('label' => 'Единицы измерения',
+                                            'url'   => array('/service/admin/look/id/measure')),
+                                      ),

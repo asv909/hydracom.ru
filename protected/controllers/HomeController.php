@@ -23,4 +23,15 @@ class HomeController extends Controller
     {
         $this->render('index');
     }
+    
+    public function actionLogin()
+    {
+        $this->render('index');
+    }
+
+    public function actionLogout()
+    {
+        Yii::app()->user->logout();
+        $this->render('index');
+    }
 }
