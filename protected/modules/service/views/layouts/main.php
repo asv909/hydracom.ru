@@ -38,33 +38,57 @@
 
             <div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
-                        'items'=>array(
-                            array('label'   => 'Home',
-                                  'url'     => array('service/admin/index'),
+                        'htmlOptions' => array('class' => 'menu',),
+                        'items' => array(
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[0]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[0]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[0]),
                                   'visible' => !Yii::app()->user->isGuest),
                             
-                            array('label'   => 'Номенклатура',
-                                  'url'     => array('service/admin/view/id/product'),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[1]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[1]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[1]),
                                   'visible' => !Yii::app()->user->isGuest),
                             
-                            array('label'   => 'Клиенты',
-                                  'url'     => array('service/admin/view/id/customer'),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[2]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[2]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[2]),
                                   'visible' => !Yii::app()->user->isGuest),
                             
-                            array('label'   => 'Заказы',
-                                  'url'     => array('service/admin/view/id/order'),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[3]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[3]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[3]),
                                   'visible' => !Yii::app()->user->isGuest),
                             
-                            array('label'   => 'Справочники',
-                                  'url'     => array('service/admin/view/id/reference'),
-                                  'visible' => !Yii::app()->user->isGuest,),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[4]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[4]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[4]),
+                                  'visible' => !Yii::app()->user->isGuest,
+                                  'items'   => array(
+                                      array('label' => 'Названия фирм-производителей',
+                                            'url'   => array('admin/view', 'id' => 'brand')),
+                                      array('label' => 'Страны происхождения',
+                                            'url'   => array('admin/view', 'id' => 'country')),
+                                      array('label' => 'Единицы измерения',
+                                            'url'   => array('admin/view', 'id' => 'measure')),
+                                      array('label' => 'Почтовые индексы РФ',
+                                            'url'   => array('admin/view', 'id' => 'post')),
+                                      array('label' => 'Регионы РФ',
+                                            'url'   => array('admin/view', 'id' => 'region')),
+                                      array('label' => 'Города РФ',
+                                            'url'   => array('admin/view', 'id' => 'city')),
+                                      array('label' => 'Орг.-прав. формы',
+                                            'url'   => array('admin/view', 'id' => 'org')),
+                                  )),
                             
-                            array('label'   => 'Вход',
-                                  'url'     => array('service/manager/login'),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[5]]['label'],
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[5]]['url'],
+                                  'active'  => $this->isActiveItem($this->menuItemAlias[5]),
                                   'visible' => Yii::app()->user->isGuest),
                             
-                            array('label'   => 'Выход ('.Yii::app()->user->name.')',
-                                  'url'     => array('service/manager/logout'),
+                            array('label'   => $this->menuItemData[$this->menuItemAlias[6]]['label']
+                                               . ' (' . Yii::app()->user->name.')',
+                                  'url'     => $this->menuItemData[$this->menuItemAlias[6]]['url'],
                                   'visible' => !Yii::app()->user->isGuest),
 			),
 		)); ?>

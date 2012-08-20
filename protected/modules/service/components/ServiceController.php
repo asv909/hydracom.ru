@@ -139,4 +139,54 @@ class ServiceController extends CController
         }
         return FALSE;
     }
+
+//
+//::Start code for control of main menu (/modules/service/views/layouts/main.php)
+//
+    /**
+     * @var string alias for menu item is currently active (url of menu item and
+     *  current page is match)
+     */
+    public $activeItem;
+
+    /**
+     * Is some menu item currently active or not?
+     * 
+     * @param string $item is alias of some menu item that will be tested
+     * @return boolean 
+     */
+    public function isActiveItem($item = '')
+    {
+        if ($item === $this->activeItem)
+            return TRUE;
+        else
+            return FALSE;
+    }
+    
+    /**
+     * @var array aliases of main menu items
+     */
+    public $menuItemAlias = array('home', 'good', 'cust', 'order', 'reference',
+                                'login', 'logout');
+    
+    /**
+     * @var array attributes of main menu items
+     */
+    public $menuItemData = array(
+        'home'      => array('label' => 'Главная',
+                             'url'   => array('admin/index')),
+        'good'      => array('label' => 'Номенклатура',
+                             'url'   => array('admin/view', 'id' => 'product')),
+        'cust'      => array('label' => 'Клиенты',
+                             'url'   => array('admin/view', 'id' => 'customer')),
+        'order'     => array('label' => 'Заказы',
+                             'url'   => array('admin/view', 'id' => 'order')),
+        'reference' => array('label' => 'Справочники',
+                             'url'   => array('admin/view', 'id' => 'reference')),
+        'login'     => array('label' => 'Вход',
+                             'url'   => array('manager/login')),
+        'logout'    => array('label' => 'Выход',
+                             'url'   => array('manager/logout')),        
+    );
+//::End code for control of main menu
 }

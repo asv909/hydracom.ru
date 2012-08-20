@@ -49,7 +49,6 @@ return array(
             'rules'          => array(
                 '/'       => 'home/index',
                 'manager' => 'service/manager/login',
-                'service' => 'service/admin/index',
                 '<controller:\w+>/<id:\d+>'              => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'          => '<controller>/<action>',

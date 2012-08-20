@@ -84,6 +84,7 @@ class ManagerController extends ServiceController
     public function actionLogin()
     {
         $this->Session('start');
+        $this->activeItem = $this->menuItemAlias[5];
         $restrict = $this->module->restrictAuthenticate;
         $officeIP = $restrict['officeIP'];
         //check the restriction by IP-address
@@ -102,7 +103,7 @@ class ManagerController extends ServiceController
                     $identity->setState('userID', $identity->getId());
                     $identity->setState('securityKey', $identity->securityKey);
                     Yii::app()->user->login($identity, $identity->rememberTime);
-                    $this->redirect('/service');
+                    $this->redirect('/service/admin/index');
                 }
             }
             if ($this->Session('control', $restrict)) {

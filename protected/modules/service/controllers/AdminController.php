@@ -24,11 +24,14 @@ class AdminController extends ServiceController
     public function actionIndex()
     {
         $this->Session('start');
+        $this->activeItem = $this->menuItemAlias[0];
+        
         if ((Yii::app()->user->isGuest) || (!$this->checkSecutityKey())) {
             $this->redirect('/manager');
         }
+        
         $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
-        $this->render('index', array('message' => $message));
+        $this->render('index', array('message' => $message,));
     }
 
     /*
