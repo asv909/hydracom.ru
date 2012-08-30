@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Measure class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Brand</var> is .
+ * The <var>Measure</var> class is an AR-model for DB table `measure`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Measure.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class Measure extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of measure units
      */
     public $title = 'Справочник: "Eдиницы измерения"';
 
@@ -62,8 +61,8 @@ class Measure extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array('id'    => 'ID',
-                     'unite' => 'Ед.изм.');
+        return array('id'   => 'ID',
+                     'name' => 'Ед.изм.');
     }
 
     /**

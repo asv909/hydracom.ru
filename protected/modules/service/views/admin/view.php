@@ -1,11 +1,15 @@
-<div class="view">
+<?php
+/*$this->breadcrumbs=array('Users',);
 
-?	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-?	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-?	<br />
-        
-?       <b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-?       <?php echo CHtml::encode($data->name); ?>
-?	<br />
-        
-</div>
+$this->menu=array(
+	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>'Manage User', 'url'=>array('admin')),
+);
+*/?>
+
+<h1><?php echo $dataProvider->model->title ?></h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider' => $dataProvider,
+	'itemView'     => '_view',
+)); ?>

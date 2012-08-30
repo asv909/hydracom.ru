@@ -1,5 +1,4 @@
 <?php
-
 /**
  * AdminController class file 
  * 
@@ -19,83 +18,39 @@
 class AdminController extends ServiceController 
 {
     /**
-     * 
+     * Index action gives to browser the manager's Home page.
      */
     public function actionIndex()
     {
-        $this->Session('start');
-        $this->activeItem = $this->menuItemAlias[0];
-        
-        if ((Yii::app()->user->isGuest) || (!$this->checkSecutityKey())) {
-            $this->redirect('/manager');
-        }
+        $this->initAction('home');
         
         $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
         $this->render('index', array('message' => $message,));
     }
 
     /*
-     * show list of item for selected group and display admin options for this
+     * Gives to browser the page with overview of data for selected menu item.
+     * Default it's gives to browser the product items overview.
      */
-    public function actionView($id = 'product')
+    public function actionView($item = 'product')
     {
-        $dataProvider = new CActiveDataProvider('menuitem');
+        $this->initAction($item);
+        
+        $dataProvider = new CActiveDataProvider($item);
         $this->render('view', array('dataProvider' => $dataProvider,));
     }
 
     /**
-     * Lists all models.
+     * 
      */
     public function actionLook($id = 'brand')
     {
+        $this->initAction($id);
+
         $dataProvider = new CActiveDataProvider($id, array(
             'criteria'=>array('order'=>'id ASC'),
             'pagination'=>array('pageSize'=>10),
         ));
         $this->render('look', array('dataProvider' => $dataProvider,));
-    }
-
-    /**
-     * 
-     */
-    public function actionSearch()
-    {
-    
-    }
-
-    /**
-     * 
-     */
-    public function actionUpdate()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionSave()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionNew()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionShow()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionFind()
-    {
-    
     }
 }

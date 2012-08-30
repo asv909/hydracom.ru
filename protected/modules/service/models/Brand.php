@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Brand class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Brand</var> is .
+ * The <var>Brand</var> class is an AR-model for DB table `brand`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Brand.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class Brand extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of brand name
      */
     public $title = 'Справочник: "Бренды"';
 

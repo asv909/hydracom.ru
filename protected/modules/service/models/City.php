@@ -1,5 +1,4 @@
 <?php
-
 /**
  * City class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>City</var> is .
+ * The <var>City</var> is an AR-model for DB table `city`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: City.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class City extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of city names 
      */
     public $title = 'Справочник: "Города"';
 

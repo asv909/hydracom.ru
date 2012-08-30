@@ -10,7 +10,7 @@
 
 /**
  * <var>ServiceController</var> is a component of the service module and maintains
- *  a base controller class.
+ * a base controller class.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: ServiceController.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -24,6 +24,15 @@ class ServiceController extends CController
      * @var string $layout the default layout for the controller view. 
      */
     public $layout = '/layouts/column2';
+    
+    /**
+     * @var string active menu item name (alias). 
+     * Typically, this property is set automatically ($GET['item'] value) through
+     * parameter of function initAction($item).
+     * For manual set select the appropriate value from the column 'name' DB-table's
+     * 'menu_item' оr 'submenu_item'.
+     */
+    public $activeMenuItem;
     
     /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
@@ -139,54 +148,29 @@ class ServiceController extends CController
         }
         return FALSE;
     }
-
-//
-//::Start code for control of main menu (/modules/service/views/layouts/main.php)
-//
+    
     /**
-     * @var string alias for menu item is currently active (url of menu item and
-     *  current page is match)
+     * Check is whether the manager logged and reliable
      */
-    public $activeItem;
-
-    /**
-     * Is some menu item currently active or not?
-     * 
-     * @param string $item is alias of some menu item that will be tested
-     * @return boolean 
-     */
-    public function isActiveItem($item = '')
+    private function isManagerLogged()
     {
-        if ($item === $this->activeItem)
-            return TRUE;
-        else
-            return FALSE;
+        if ((Yii::app()->user->isGuest) || (!$this->checkSecutityKey())) {
+            Yii::app()->user->logout();
+            $this->redirect('/manager');
+        }
     }
     
     /**
-     * @var array aliases of main menu items
+     * Preliminary manipulation before execution Action: 
+     *  - start new or old Session;
+     *  - check is Guest or Logged Manager
+     *  - check is Manager reliable
+     *  - set property <var>$activeMenuItem</var>
      */
-    public $menuItemAlias = array('home', 'good', 'cust', 'order', 'reference',
-                                'login', 'logout');
-    
-    /**
-     * @var array attributes of main menu items
-     */
-    public $menuItemData = array(
-        'home'      => array('label' => 'Главная',
-                             'url'   => array('admin/index')),
-        'good'      => array('label' => 'Номенклатура',
-                             'url'   => array('admin/view', 'id' => 'product')),
-        'cust'      => array('label' => 'Клиенты',
-                             'url'   => array('admin/view', 'id' => 'customer')),
-        'order'     => array('label' => 'Заказы',
-                             'url'   => array('admin/view', 'id' => 'order')),
-        'reference' => array('label' => 'Справочники',
-                             'url'   => array('admin/view', 'id' => 'reference')),
-        'login'     => array('label' => 'Вход',
-                             'url'   => array('manager/login')),
-        'logout'    => array('label' => 'Выход',
-                             'url'   => array('manager/logout')),        
-    );
-//::End code for control of main menu
+    protected function initAction($activeItem) 
+    {
+        $this->Session('start');
+        $this->isManagerLogged();
+        $this->activeMenuItem = $activeItem;
+    }
 }

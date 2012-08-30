@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Post class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Post</var> is .
+ * The <var>Post</var> class is an AR-model for a DB table `post`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Post.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class Post extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of RusFed postcodes
      */
     public $title = 'Справочник: "Почтовые индексы"';
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Region class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Region</var> is .
+ * The <var>Region</var> class is an AR-model for DB table `region`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Region.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class Region extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of RusFed regions
      */
     public $title = 'Справочник: "Регионы"';
 

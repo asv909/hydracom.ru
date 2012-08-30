@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Org class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Org</var> is .
+ * The <var>Org</var> class is an AR-model for DB table `org`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Org.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,9 +20,9 @@
 class Org extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of corporate legal statuses
      */
-    public $title = 'Справочник: "ОПФ"';
+    public $title = 'Справочник: "Огр.-правовые формы"';
 
     /**
      * Override of parent method

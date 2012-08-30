@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Country class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Country</var> is .
+ * The <var>Country</var> is an AR-model for DB table `country`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Country.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -21,7 +20,7 @@
 class Country extends CActiveRecord 
 {
     /**
-     * 
+     * @var string $title is the header for data set of country names
      */
     public $title = 'Справочник: "Cтраны"';
     

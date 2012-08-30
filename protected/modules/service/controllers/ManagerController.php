@@ -26,7 +26,7 @@ class ManagerController extends ServiceController
     public $layout = '/layouts/column1';
     
     /**
-     * 
+     * Set other default actions, different from index
      */
     public $defaultAction = 'login';
 
@@ -78,13 +78,14 @@ class ManagerController extends ServiceController
     }
     
     /**
-     * Login action gives to brouser the manager login form, validate form's 
+     * Login action gives to browser the manager login form, validate form's 
      * data and authenticate user (ie manager)
      */
     public function actionLogin()
     {
         $this->Session('start');
-        $this->activeItem = $this->menuItemAlias[5];
+        $this->activeMenuItem = 'login';
+        
         $restrict = $this->module->restrictAuthenticate;
         $officeIP = $restrict['officeIP'];
         //check the restriction by IP-address
@@ -117,16 +118,16 @@ class ManagerController extends ServiceController
                 'message' => 'Доступ к форме аутентификации временно запрещен!'));
             Yii::app()->end();
         }
-        $this->render('login', array('login_form' => $this->_loginForm));
+        $this->render('login', array('login_form'    => $this->_loginForm,));
     }
 
     /**
-     * Logout and redirect to home page
+     * Logout and redirect to Login page
      */
     public function actionLogout()
     {
         $this->Session('unset');
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
+        $this->redirect('/manager');
     }
 }
