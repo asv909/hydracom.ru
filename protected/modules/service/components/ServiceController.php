@@ -162,7 +162,7 @@ class ServiceController extends CController
     
     /**
      * Preliminary manipulation before execution Action: 
-     *  - start new or old Session;
+     *  - start new or continue Session;
      *  - check is Guest or Logged Manager
      *  - check is Manager reliable
      *  - set property <var>$activeMenuItem</var>
