@@ -1,2 +1,1 @@
-<p><?php echo $message; ?></p>
-<p><a href="service/manager/logout">Выйти из системы</a></p>
+<p class='info'><i><?php echo $message; ?></i></p>

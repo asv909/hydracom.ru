@@ -1,5 +1,4 @@
 <?php
-
 /**
  * AdminController class file 
  * 
@@ -19,82 +18,39 @@
 class AdminController extends ServiceController 
 {
     /**
-     * @var string $layout the default layout for the views
-     */
-    public $layout= 'column2';
-    
-    /*
-     * 
-     */
-    private $_model;
-        
-    /**
-     * 
+     * Index action gives to browser the manager's Home page.
      */
     public function actionIndex()
     {
-        if (!isset(Yii::app()->user->managerName)) {
-            $message_ = 'Здравствуйте!';
-        } else {
-            $message_ = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
-        }
-        $this->render('index', array('message' => $message_));
-        Yii::app()->end();
+        $this->initAction('home');
+        
+        $message = 'Здравствуйте ' . Yii::app()->user->managerName . '!';
+        $this->render('index', array('message' => $message,));
+    }
+
+    /*
+     * Gives to browser the page with overview of data for selected menu item.
+     * Default it's gives to browser the product items overview.
+     */
+    public function actionView($item = 'product')
+    {
+        $this->initAction($item);
+        
+        $dataProvider = new CActiveDataProvider($item);
+        $this->render('view', array('dataProvider' => $dataProvider,));
     }
 
     /**
      * 
      */
-    public function actionLookup()
+    public function actionLook($id = 'brand')
     {
-        if (!isset($_GET['id'])) {
-            echo 'У маршрута отстутствует параметр id';
-            Yii::app()->end();
-        }
-        $_model = new $_GET['id'];
-    }
+        $this->initAction($id);
 
-    /**
-     * 
-     */
-    public function actionSearch()
-    {
-    
-    }
-
-    /**
-     * 
-     */
-    public function actionUpdate()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionSave()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionNew()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionShow()
-    {
-    
-    }
-    /**
-     * 
-     */
-    public function actionFind()
-    {
-    
+        $dataProvider = new CActiveDataProvider($id, array(
+            'criteria'=>array('order'=>'id ASC'),
+            'pagination'=>array('pageSize'=>10),
+        ));
+        $this->render('look', array('dataProvider' => $dataProvider,));
     }
 }

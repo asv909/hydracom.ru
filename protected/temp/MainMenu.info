@@ -1,0 +1,49 @@
+3. Тестовые SQL:
+==============
+SELECT `menu_item`.`id` , `menu_item`.`name` , `menu_item`.`label` , `url`.`url` 
+FROM `menu_item` , `url` 
+WHERE `menu_item`.`url_id` = `url`.`id` 
+ORDER BY `menu_item`.`id` ASC 
+LIMIT 0 , 30
+===============
+SELECT `submenu_item`.`id` , `submenu_item`.`name` , `submenu_item`.`label` , `url`.`url` 
+FROM `submenu_item` , `url` 
+WHERE `submenu_item`.`menu_item_id` = '5'
+AND `submenu_item`.`url_id` = `url`.`id` 
+ORDER BY `submenu_item`.`id` ASC 
+LIMIT 0 , 30
+===============
+
+4. Шаблон свойств CMenu:
+=====================
+1. $this->widget('zii.widgets.CMenu', $properties);
+
+2. $properties = array($properties[1], $properties[2], …, $properties[N],);
+
+3. Например, $properties[1] = $htmlOptions = “‘htmlOptions' => array('class' => 'menu',)”;
+
+$properties[N] = $items = array($items[1], $items[2], …, $items[N],);
+
+$items[1] = array($label, $url, $active, $visible, $subitems);
+
+$label = “'label' => $value1”;
+
+$url = “'url' => $value2”;
+
+$active = “'active' => $value3”;
+
+$visible = “'visible' => $value4”;
+
+$subitems = array($subitems[1], $subitems[2], ..., $subitems[N], )
+$subitems[1] = array($label, $url, $active, $visible,);
+$label = “'label' => $value1”;
+$url = “'url' => $value2”;
+$active = “'active' => $value3”;
+$visible = “'visible' => $value4”;
+=====================
+
+5. Модели для mainmenu и submenu: 
+==============================
+Menu_item.php
+Submenu_item.php
+==============================

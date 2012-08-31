@@ -22,7 +22,7 @@
  */
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name'     => 'HYDRACOM',
+    'name'     => 'HYDRACOM - гипермаркет промышленных комплектующих!',
 
     'preload'  => array('log'),
 
@@ -48,8 +48,7 @@ return array(
             'showScriptName' => false,
             'rules'          => array(
                 '/'       => 'home/index',
-                'manager' => 'service/manager/index',
-                'login'   => 'service/manager/login',
+                'manager' => 'service/manager/login',
                 'service' => 'service/admin/index',
                 '<controller:\w+>/<id:\d+>'              => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -67,6 +66,7 @@ return array(
         ),
     ),
     'params' => array(
-        'test' => TRUE,
+        // must be 'some_string' for test mode or NULL othervise
+        'test' => 'dolotut', 
     ),        
 );

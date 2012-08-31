@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Brand class file 
  * 
@@ -10,7 +9,7 @@
  */
 
 /**
- * The <var>Brand</var> is .
+ * The <var>Brand</var> class is an AR-model for DB table `brand`.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: Brand.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -20,6 +19,11 @@
  */
 class Brand extends CActiveRecord 
 {
+    /**
+     * @var string $title is the header for data set of brand name
+     */
+    public $title = 'Справочник: "Бренды"';
+
     /**
      * Override of parent method
      * @param string $className active record class name
@@ -38,5 +42,39 @@ class Brand extends CActiveRecord
     public function tableName()
     {
         return 'brand';
+    }
+
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+            array('name', 'required'),
+            array('name', 'length', 'max'=>45),
+            array('id, name', 'safe', 'on'=>'search'),
+        );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array('id'   => 'ID',
+                     'name' => 'Бренд');
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models 
+     * based on the search/filter conditions.
+     */
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->compare('id', $this->id);
+        $criteria->compare('name', $this->name, true);
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 }

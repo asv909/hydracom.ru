@@ -11,7 +11,7 @@ class ControllerTest extends CTestCase
     private $_controller;
     
     //this value must be equivalent to $layout within /../../../../components/Controller.php
-    private $_layoutName = 'main';
+    private $_layoutName = '//layouts/column1';
     
     protected function setUp() 
     {
@@ -31,7 +31,7 @@ class ControllerTest extends CTestCase
                             $this->_controller->layout,
                             "Имя используемого по умолчанию шаблона не совпадает с 'main'");
         $this->assertFileExists(dirname(__FILE__)
-                                . '/../../../../views/layouts/'
+                                . '/../../../../views'
                                 . $this->_layoutName
                                 . '.php',
                                 'Файл шаблона, используемого по умолчанию, не обнаружен');

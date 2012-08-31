@@ -9,7 +9,7 @@
  */
 
 /**
- * <var>Manager</var> class is an AR-model for a database table `manager` and 
+ * <var>Manager</var> class is an AR-model for DB table `manager` and 
  * implements the business logic for managers authentication.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
