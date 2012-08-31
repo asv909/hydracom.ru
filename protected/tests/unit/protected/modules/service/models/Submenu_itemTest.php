@@ -1,10 +1,10 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../modules/service/models/Url.php';
+require_once dirname(__FILE__) . '/../../../../../../modules/service/models/Submenu_item.php';
 
-class UrlTest extends CDbTestCase 
+class Submenu_itemTest extends CDbTestCase 
 {
-    private $_url;
+    private $_submenuItem;
 
     protected function setUp()
     {
@@ -16,15 +16,15 @@ class UrlTest extends CDbTestCase
     
     public function testTableNameIsExist()
     {
-        $this->_url = new Url;
-        $this->assertEquals($this->_url->tableName(),
-                            $this->_url->tableSchema->name);
+        $this->_submenuItem = new Submenu_item;
+        $this->assertEquals($this->_submenuItem->tableName(),
+                            $this->_submenuItem->tableSchema->name);
     }
     
     public function testModel()
     {
-        $this->_url = new Url;
-        $this->assertNotEmpty($this->_url->model());
+        $this->_submenuItem = new Submenu_item;
+        $this->assertNotEmpty($this->_submenuItem->model());
     }
     
     public function testRelations()

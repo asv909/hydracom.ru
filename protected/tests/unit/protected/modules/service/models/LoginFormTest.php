@@ -4,8 +4,8 @@ require_once dirname(__FILE__) . '/../../../../../../modules/service/models/Logi
 require_once dirname(__FILE__) . '/../../../../../../modules/service/components/ManagerIdentity.php';
 require_once dirname(__FILE__) . '/../../../../../../components/Helpers.php';
 
-class LoginFormTest extends CTestCase {
-
+class LoginFormTest extends CTestCase 
+{
     private $_loginForm;
     private $_identity;
     
@@ -14,7 +14,7 @@ class LoginFormTest extends CTestCase {
         'password'   => 'ErTrd-2007',
         'rememberMe' => FALSE,
         'verifyCode' => 'dolotut'
-        );
+    );
     
     protected function setUp()
     {

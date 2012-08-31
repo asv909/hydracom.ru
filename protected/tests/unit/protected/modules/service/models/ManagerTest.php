@@ -2,8 +2,8 @@
 
 require_once dirname(__FILE__) . '/../../../../../../modules/service/models/Manager.php';
 
-class ManagerTest extends CDbTestCase {
-
+class ManagerTest extends CDbTestCase 
+{
     private $manager;
     private $_identity;
     
@@ -12,7 +12,7 @@ class ManagerTest extends CDbTestCase {
         'password'   => 'ErTrd-2007',
         'rememberMe' => FALSE,
         'verifyCode' => 'dolotut'
-        );
+    );
     
     protected function setUp()
     {
