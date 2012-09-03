@@ -36,8 +36,11 @@ class AdminController extends ServiceController
     {
         $this->initAction($item);
         
-        $dataProvider = new CActiveDataProvider($item);
-        $this->render('view', array('dataProvider' => $dataProvider,));
+        $dataProvider = new CActiveDataProvider($item, array(
+            'criteria'=>array(
+                'order'=>'id ASC',
+        )));
+        $this->render('view', array('dataProvider' => $dataProvider));
     }
 
     /**

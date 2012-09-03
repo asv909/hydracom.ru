@@ -1,8 +1,6 @@
 <?php
 $this->pageTitle = Yii::app()->name . ' - Login';
-$this->breadcrumbs = array(
-	'Login',
-);
+$this->breadcrumbs = array('Login');
 ?>
 
 <h1>Аутентификация менеджера</h1>

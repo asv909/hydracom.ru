@@ -118,7 +118,7 @@ class ManagerController extends ServiceController
                 'message' => 'Доступ к форме аутентификации временно запрещен!'));
             Yii::app()->end();
         }
-        $this->render('login', array('login_form'    => $this->_loginForm,));
+        $this->render('login', array('login_form' => $this->_loginForm,));
     }
 
     /**

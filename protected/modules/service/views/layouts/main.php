@@ -45,9 +45,12 @@
             </div><!-- mainmenu -->
             
             <?php if(isset($this->breadcrumbs)):?>
-                    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                            'links' => $this->breadcrumbs,
-                    )); ?><!-- breadcrumbs -->
+                    <?php $homeLink = CHtml::link('Главная', array('admin/index'));
+                          $this->widget('zii.widgets.CBreadcrumbs', array(
+                              'homeLink' => $homeLink,    
+                              'links' => $this->breadcrumbs,
+                          )); 
+                    ?><!-- breadcrumbs -->
             <?php endif?>
             
             <?php echo $content; ?>

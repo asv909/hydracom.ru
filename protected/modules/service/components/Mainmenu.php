@@ -64,6 +64,7 @@ class Mainmenu
             }
             if (($mainMenuData[$i]->name === 'login')
                 && (!Yii::app()->user->isGuest)
+                || (Yii::app()->params['testenv'])                              // this condition need for unit-test's
             ) {
                 $item['visible'] = FALSE;
             } 
@@ -77,7 +78,7 @@ class Mainmenu
             if ($url[0] === '#') {                                               // items also will be have submenu with previous items
                 $subMenuData = Submenu_item::model()->with('url')->findAll(
                     'menu_item_id=:menu_item_id', 
-                    array(':menu_item_id' => $i+1)                               // obligatorily $i+1, because for DB records id field (column) start with 1
+                    array(':menu_item_id' => $i+1)                               // obligatorily $i+1, because for DB records id value start from 1
                 );
                 $rows[1] = count($subMenuData);
                 if ($rows[1] !== 0) {

@@ -1,11 +1,11 @@
 <?php
-/*$this->breadcrumbs=array('Users',);
+$this->breadcrumbs = array($dataProvider->model->title);
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+	array('label'=>'Добавить новый', 'url'=>array('admin/add_new', 'item' => $dataProvider->model->tableName())),
+	array('label'=>'Редактировать', 'url'=>array('admin/edit', 'item' => $dataProvider->model->tableName())),
 );
-*/?>
+?>
 
 <h1><?php echo $dataProvider->model->title ?></h1>
 
