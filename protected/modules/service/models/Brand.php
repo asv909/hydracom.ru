@@ -22,7 +22,7 @@ class Brand extends CActiveRecord
     /**
      * @var string $title is the header for data set of brand name
      */
-    public $title = 'Справочник: "Бренды"';
+    public $title = 'Справочник: "Производители"';
 
     /**
      * Override of parent method

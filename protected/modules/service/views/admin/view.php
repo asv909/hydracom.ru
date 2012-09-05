@@ -9,7 +9,15 @@ $this->menu=array(
 
 <h1><?php echo $dataProvider->model->title ?></h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $dataProvider,
-	'itemView'     => '_view',
+	'columns' => array(
+            'id',
+            array(
+                'class'=>'CLinkColumn',
+                'labelExpression' => '$data->name',
+                'urlExpression' => '"/service/admin/look/item/" . $data->tableName() . "/id/" . $data->id',
+                'header' => $dataProvider->model->getAttributeLabel('name'),
+            ),
+        ),
 )); ?>

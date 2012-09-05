@@ -32,7 +32,7 @@ class AdminController extends ServiceController
      * Gives to browser the page with overview of data for selected menu item.
      * Default it's gives to browser the product items overview.
      */
-    public function actionView($item = 'product')
+    public function actionReview($item = 'product')
     {
         $this->initAction($item);
         
