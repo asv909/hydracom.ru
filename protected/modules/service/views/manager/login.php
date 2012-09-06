@@ -11,7 +11,7 @@ $this->breadcrumbs = array('Login');
 
     <!-- Render with the layout /modules/views/layouts/login.php -->
     <?php $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'login_form',
+        'id' => $form_id,
         'action' => Helpers::createUrl('/manager'),
         'enableAjaxValidation'=>true,
         'focus'=>array($login_form, 'username'),

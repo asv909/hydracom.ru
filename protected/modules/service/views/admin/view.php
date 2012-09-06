@@ -3,7 +3,7 @@ $this->breadcrumbs = array($dataProvider->model->title);
 
 $this->menu=array(
 	array('label'=>'Добавить новый', 'url'=>array('admin/add_new', 'item' => $dataProvider->model->tableName())),
-	array('label'=>'Редактировать', 'url'=>array('admin/edit', 'item' => $dataProvider->model->tableName())),
+	//array('label'=>'Редактировать', 'url'=>array('admin/edit', 'item' => $dataProvider->model->tableName())),
 );
 ?>
 
@@ -11,8 +11,9 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider' => $dataProvider,
+        //'summaryText' => 'Показано {start}-{end} из {count}.',
 	'columns' => array(
-            'id',
+            //'id',
             array(
                 'class'=>'CLinkColumn',
                 'labelExpression' => '$data->name',

@@ -124,10 +124,10 @@ class ServiceController extends CController
      * 
      * @param Manager $manager current instance of the object model the Manager
      */
-    protected function performAjaxValidation($loginForm)
+    protected function performAjaxValidation($data, $form_id)
     {
-        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'login_form')) {
-            echo CActiveForm::validate($loginForm);
+        if (isset($_POST['ajax']) && ($_POST['ajax'] === $form_id)) {
+            echo CActiveForm::validate($data);
             Yii::app()->end();
         }
     }

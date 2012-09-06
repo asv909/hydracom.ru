@@ -50,9 +50,10 @@ class Measure extends CActiveRecord
     public function rules()
     {
         return array(
-            array('unite', 'required'),
-            array('unite', 'length', 'max'=>9),
-            array('id, unite', 'safe', 'on'=>'search'),
+            array('name', 'unique', 'message' => 'Такой элемент уже существует!'),
+            array('name', 'required', 'message' => 'Введите данные!'),
+            array('name', 'length', 'max'=>45, 'message' => 'Введен слишком длинный текст!'),
+            //array('id, name', 'safe', 'on'=>'search'),
         );
     }
 

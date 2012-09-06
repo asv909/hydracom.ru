@@ -38,11 +38,37 @@ class AdminController extends ServiceController
         
         $dataProvider = new CActiveDataProvider($item, array(
             'criteria'=>array(
-                'order'=>'id ASC',
+                'order'=>'name ASC',
         )));
         $this->render('view', array('dataProvider' => $dataProvider));
     }
 
+    /**
+     * 
+     */
+    public function actionAdd_new($item = 'product')
+    {
+        $this->initAction($item);
+
+        $model = ucfirst($item);
+        $new_item = new $model;
+        
+        $form_id = 'new_item';
+        $this->performAjaxValidation($new_item, $form_id);
+        
+        if (isset($_POST[$model])) {
+            $new_item->name = $_POST[$model]['name'];
+            $new_item->manager_id = Yii::app()->user->id;
+            if ($new_item->validate()) {
+                $new_item->save();
+                $this->redirect('/service/admin/review/item/' . $item);
+            }
+        } 
+        $this->render('new_item', array('new_item' => $new_item,
+                                       'item' => $item,
+                                       'form_id' => $form_id,));
+    }
+    
     /**
      * 
      */

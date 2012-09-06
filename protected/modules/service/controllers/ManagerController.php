@@ -95,7 +95,10 @@ class ManagerController extends ServiceController
             Yii::app()->end();
         }
         $this->_loginForm = new LoginForm;
-        $this->performAjaxValidation($this->_loginForm);
+        
+        $form_id = 'login_form';
+        $this->performAjaxValidation($this->_loginForm, $form_id);
+        
         if (isset($_POST['LoginForm'])) {
             $this->_loginForm->attributes = $_POST['LoginForm'];
             if ($this->_loginForm->validate()) {
@@ -118,7 +121,7 @@ class ManagerController extends ServiceController
                 'message' => 'Доступ к форме аутентификации временно запрещен!'));
             Yii::app()->end();
         }
-        $this->render('login', array('login_form' => $this->_loginForm,));
+        $this->render('login', array('login_form' => $this->_loginForm, 'form_id' => $form_id,));
     }
 
     /**
