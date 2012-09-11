@@ -53,7 +53,7 @@ class City extends CActiveRecord
             array('name', 'unique', 'message' => 'Такой элемент уже существует!'),
             array('name', 'required', 'message' => 'Введите данные!'),
             array('name', 'length', 'max'=>45, 'message' => 'Введен слишком длинный текст!'),
-            //array('id, name', 'safe', 'on'=>'search'),
+            array('name', 'safe', 'on'=>'search'),
         );
     }
 
@@ -74,8 +74,8 @@ class City extends CActiveRecord
     public function search()
     {
         $criteria=new CDbCriteria;
-        $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
+        
         return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 }

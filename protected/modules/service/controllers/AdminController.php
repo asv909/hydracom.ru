@@ -79,7 +79,7 @@ class AdminController extends ServiceController
         $Model = ucfirst($item);
         $editRaw = $Model::model()->findByPk($id);
         if ($editRaw === NULL) {
-            throw new CHttpException(404, 'Ошибка: элемент с номером {$id} в {$model->title} не обнаружен!');
+            throw new CHttpException(404, 'Ошибка: элемент с номером ' . $id . ' в ' . $Model::model()->title . ' не обнаружен!');
         }
         $formName = 'edit';
         
