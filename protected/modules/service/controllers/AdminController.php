@@ -50,36 +50,51 @@ class AdminController extends ServiceController
     {
         $this->initAction($item);
 
-        $model = ucfirst($item);
-        $new_item = new $model;
+        $Model = ucfirst($item);
+        $newItem = new $Model();
+        $formName = 'new_item';
         
-        $form_id = 'new_item';
-        $this->performAjaxValidation($new_item, $form_id);
+        $this->performAjaxValidation($newItem, $formName);
         
-        if (isset($_POST[$model])) {
-            $new_item->name = $_POST[$model]['name'];
-            $new_item->manager_id = Yii::app()->user->id;
-            if ($new_item->validate()) {
-                $new_item->save();
+        if (isset($_POST[$Model])) {
+            $newItem->name = $_POST[$Model]['name'];
+            $newItem->manager_id = Yii::app()->user->id;
+            if ($newItem->validate()) {
+                $newItem->save();
                 $this->redirect('/service/admin/review/item/' . $item);
             }
         } 
-        $this->render('new_item', array('new_item' => $new_item,
-                                       'item' => $item,
-                                       'form_id' => $form_id,));
+        $this->render('new_item', array('newItem'  => $newItem,
+                                        'item'     => $item,
+                                        'formName' => $formName,));
     }
     
     /**
      * 
      */
-    public function actionLook($id = 'brand')
+    public function actionEdit($item = 'product', $id = '1')
     {
         $this->initAction($id);
 
-        $dataProvider = new CActiveDataProvider($id, array(
-            'criteria'=>array('order'=>'id ASC'),
-            'pagination'=>array('pageSize'=>10),
-        ));
-        $this->render('look', array('dataProvider' => $dataProvider,));
+        $Model = ucfirst($item);
+        $editRaw = $Model::model()->findByPk($id);
+        if ($editRaw === NULL) {
+            throw new CHttpException(404, 'Ошибка: элемент с номером {$id} в {$model->title} не обнаружен!');
+        }
+        $formName = 'edit';
+        
+        $this->performAjaxValidation($editRaw, $formName);
+        
+        if (isset($_POST[$Model])) {
+            $editRaw->name = $_POST[$Model]['name'];
+            $editRaw->manager_id = Yii::app()->user->id;
+            if ($editRaw->validate() && $editRaw->save()) {
+                $this->redirect('/service/admin/review/item/' . $item);
+            }
+        }
+	$this->render('edit', array('data'    => $editRaw,
+                                    'item'     => $item,
+                                    'id'       => $id,
+                                    'formName' => $formName,));
     }
 }

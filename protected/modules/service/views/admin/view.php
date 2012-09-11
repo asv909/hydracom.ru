@@ -17,7 +17,7 @@ $this->menu=array(
             array(
                 'class'=>'CLinkColumn',
                 'labelExpression' => '$data->name',
-                'urlExpression' => '"/service/admin/look/item/" . $data->tableName() . "/id/" . $data->id',
+                'urlExpression' => '"/service/admin/edit/item/" . $data->tableName() . "/id/" . $data->id',
                 'header' => $dataProvider->model->getAttributeLabel('name'),
             ),
         ),

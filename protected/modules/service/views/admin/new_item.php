@@ -11,18 +11,18 @@ $this->breadcrumbs = array('Добавить новый элемент');
 
     <!-- Render with the layout /modules/views/layouts/login.php -->
     <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => $form_id,
+            'id' => $formName,
             'action' => Helpers::createUrl('/service/admin/add_new/item/' . $item),
             'enableAjaxValidation'=>true,
-            'focus'=>array($new_item, 'name'),
+            'focus'=>array($newItem, 'name'),
     ))?>
 
     <p class="note">Поля с пометкой <span class="required">*</span> являются обязательными.</p>
 
     <div class="row">
-        <?php echo $form->labelEx($new_item, 'name'); ?>
-        <?php echo $form->textField($new_item, 'name'); ?>
-        <?php echo $form->error($new_item, 'name'); ?>
+        <?php echo $form->labelEx($newItem, 'name'); ?>
+        <?php echo $form->textField($newItem, 'name'); ?>
+        <?php echo $form->error($newItem, 'name'); ?>
         <label for="check">Проверить</label>
     </div>
    
@@ -31,7 +31,7 @@ $this->breadcrumbs = array('Добавить новый элемент');
     </div>
     
     <div>
-        <?php echo $form->errorSummary($new_item, 'При заполнении формы были допущены следующие ошибки:'); ?>
+        <?php echo $form->errorSummary($newItem, 'При заполнении формы были допущены следующие ошибки:'); ?>
     </div>
 
 <?php $this->endWidget(); ?>
