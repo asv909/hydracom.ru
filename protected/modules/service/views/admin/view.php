@@ -1,24 +1,51 @@
 <?php
-$this->breadcrumbs = array($dataProvider->model->title);
+/**
+ * used AdminController.actionReview
+ */
 
-$this->menu=array(
-	array('label'=>'Добавить новый', 'url'=>array('admin/add_new', 'item' => $dataProvider->model->tableName())),
-	//array('label'=>'Редактировать', 'url'=>array('admin/edit', 'item' => $dataProvider->model->tableName())),
-);
+$this->breadcrumbs = array($model->title);
+
+$this->menu = array(array('label' => 'Добавить новый', 
+                          'url'   => array('admin/add_new', 
+                                           'item' => $model->tableName())),);
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('user-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
 ?>
 
-<h1><?php echo $dataProvider->model->title ?></h1>
+<h1><?php echo $model->title ?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider' => $dataProvider,
-        //'summaryText' => 'Показано {start}-{end} из {count}.',
+        'id'           => 'user-grid',
+	'dataProvider' => $model->search(),
+        'filter'       => $model,
+        'summaryText'  => 'Показано {start}-{end} из {count}.',
+        'pager'        => array(
+            'class'         => 'CLinkPager',
+            'header'        => 'Перейти на стр.: ',
+            'prevPageLabel' => '&lt',
+            'nextPageLabel' => '&gt',
+        ),
 	'columns' => array(
-            //'id',
             array(
-                'class'=>'CLinkColumn',
-                'labelExpression' => '$data->name',
-                'urlExpression' => '"/service/admin/edit/item/" . $data->tableName() . "/id/" . $data->id',
-                'header' => $dataProvider->model->getAttributeLabel('name'),
+                'name'  => 'name',
+                'value' => 'CHtml::link($data->name, array(
+                    "/service/admin/edit/item/"
+                    . $data->tableName()
+                    . "/id/"
+                    . $data->id))',
+                'type'     => 'html',
+                'sortable' => TRUE,
             ),
         ),
 )); ?>

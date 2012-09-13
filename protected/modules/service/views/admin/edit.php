@@ -1,4 +1,7 @@
 <?php
+/**
+ * used AdminController.actionEdit
+ */
 $this->pageTitle = Yii::app()->name . ' - Редактирование элемента справочника';
 $this->breadcrumbs = array('Редактировать элемент');
 ?>
@@ -9,7 +12,6 @@ $this->breadcrumbs = array('Редактировать элемент');
 
 <div class="form">
 
-    <!-- Render with the layout /modules/views/layouts/login.php -->
     <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => $formName,
             'action' => Helpers::createUrl('/service/admin/edit/item/' . $item . '/id/' . $id),

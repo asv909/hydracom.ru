@@ -8,7 +8,8 @@
  */
 
 /**
- * The <var>AdminController</var> is .
+ * The <var>AdminController</var> is main controller providing administrative
+ * functionality of system.
  * 
  * @author Sergey Alekseev <asv909@gmail.com>
  * @version $Id: AdminController.php v 1.0 2012-07-12 12:00:00 asv909 $
@@ -18,7 +19,19 @@
 class AdminController extends ServiceController 
 {
     /**
-     * Index action gives to browser the manager's Home page.
+     * This is name of current Model
+     * @var string 
+     */
+    private $_Model;
+    
+    /**
+     * This is instance of current Model
+     * @var ActiveRecord instance
+     */
+    private $_model;
+    
+    /**
+     * Index action gives into browser the manager's Home page.
      */
     public function actionIndex()
     {
@@ -29,70 +42,88 @@ class AdminController extends ServiceController
     }
 
     /*
-     * Gives to browser the page with overview of data for selected menu item.
-     * Default it's gives to browser the product items overview.
+     * Gives into browser the page with overview collection of data for selected
+     * menu item. Default it's gives into browser the product items collection 
+     * overview.
+     * 
+     * @param string $item is name of item's (directory's) for review
      */
     public function actionReview($item = 'product')
     {
         $this->initAction($item);
         
-        $dataProvider = new CActiveDataProvider($item, array(
-            'criteria'=>array(
-                'order'=>'name ASC',
-        )));
-        $this->render('view', array('dataProvider' => $dataProvider));
+        $_Model = ucfirst($item);
+        $_model = new $_Model('search');
+	$_model->unsetAttributes();  // clear any default values
+	
+        if (isset($_GET[$_Model])) {
+            $_model->attributes=$_GET[$_Model];
+        }
+	$this->render('view', array('model' => $_model, 'item' => $item,));
     }
 
     /**
+     * It's generate and display form for add new item element then validate 
+     * input data and save into DB
      * 
+     * @param string $item is name of item's (directory's) to which will add a
+     * new element
      */
     public function actionAdd_new($item = 'product')
     {
         $this->initAction($item);
 
-        $Model = ucfirst($item);
-        $newItem = new $Model();
+        $_Model  = ucfirst($item);
+        $_model  = new $_Model();
         $formName = 'new_item';
         
-        $this->performAjaxValidation($newItem, $formName);
+        $this->performAjaxValidation($_model, $formName);
         
-        if (isset($_POST[$Model])) {
-            $newItem->name = $_POST[$Model]['name'];
-            $newItem->manager_id = Yii::app()->user->id;
-            if ($newItem->validate()) {
-                $newItem->save();
+        if (isset($_POST[$_Model])) {
+            $_model->name = $_POST[$_Model]['name'];
+            $_model->manager_id = Yii::app()->user->id;
+            if ($_model->validate()) {
+                $_model->save();
                 $this->redirect('/service/admin/review/item/' . $item);
             }
         } 
-        $this->render('new_item', array('newItem'  => $newItem,
+        $this->render('new_item', array('newItem'  => $_model,
                                         'item'     => $item,
                                         'formName' => $formName,));
     }
     
     /**
+     * This action perform search required element in DB, generates and displayes
+     * edit form, then validates and saves edited data into DB
      * 
+     * @param string $item is name of item's (directory's) which to be edited
+     * @param mixed $id is number rows containing the data to be edited
      */
     public function actionEdit($item = 'product', $id = '1')
     {
         $this->initAction($id);
 
-        $Model = ucfirst($item);
-        $editRaw = $Model::model()->findByPk($id);
-        if ($editRaw === NULL) {
-            throw new CHttpException(404, 'Ошибка: элемент с номером ' . $id . ' в ' . $Model::model()->title . ' не обнаружен!');
+        $_Model = ucfirst($item);
+        $_model = $_Model::model()->findByPk($id);
+        if ($_model === NULL) {
+            throw new CHttpException(404, 'Ошибка: элемент с номером ' 
+                                           . $id 
+                                           . ' в ' 
+                                           . $_Model::model()->title 
+                                           . ' не обнаружен!');
         }
         $formName = 'edit';
         
-        $this->performAjaxValidation($editRaw, $formName);
+        $this->performAjaxValidation($_model, $formName);
         
-        if (isset($_POST[$Model])) {
-            $editRaw->name = $_POST[$Model]['name'];
-            $editRaw->manager_id = Yii::app()->user->id;
-            if ($editRaw->validate() && $editRaw->save()) {
+        if (isset($_POST[$_Model])) {
+            $_model->name = $_POST[$_Model]['name'];
+            $_model->manager_id = Yii::app()->user->id;
+            if ($_model->validate() && $_model->save()) {
                 $this->redirect('/service/admin/review/item/' . $item);
             }
         }
-	$this->render('edit', array('data'    => $editRaw,
+	$this->render('edit', array('data'     => $_model,
                                     'item'     => $item,
                                     'id'       => $id,
                                     'formName' => $formName,));

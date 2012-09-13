@@ -50,10 +50,13 @@ class Measure extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name', 'unique', 'message' => 'Такой элемент уже существует!'),
-            array('name', 'required', 'message' => 'Введите данные!'),
-            array('name', 'length', 'max'=>45, 'message' => 'Введен слишком длинный текст!'),
-            //array('id, name', 'safe', 'on'=>'search'),
+            array('name', 'unique',
+                  'message' => 'Такой элемент уже существует!'),
+            array('name', 'required',
+                  'message' => 'Введите данные!'),
+            array('name', 'length', 'max' => 9,
+                  'message' => 'Введен слишком длинный текст!'),
+            array('name', 'safe', 'on' => 'search'),
         );
     }
 
@@ -68,14 +71,17 @@ class Measure extends CActiveRecord
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     * 
      * @return CActiveDataProvider the data provider that can return the models 
      * based on the search/filter conditions.
      */
     public function search()
     {
         $criteria=new CDbCriteria;
-        $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        
+        return new CActiveDataProvider($this, array(
+            'criteria'   => $criteria,
+            'pagination' => array('pageSize' => 15)));
     }
 }

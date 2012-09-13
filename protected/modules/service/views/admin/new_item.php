@@ -1,4 +1,8 @@
 <?php
+/**
+ * used AdminController.actionAdd_new
+ */
+
 $this->pageTitle = Yii::app()->name . ' - Новый элемент справочника';
 $this->breadcrumbs = array('Добавить новый элемент');
 ?>
@@ -9,12 +13,11 @@ $this->breadcrumbs = array('Добавить новый элемент');
 
 <div class="form">
 
-    <!-- Render with the layout /modules/views/layouts/login.php -->
     <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => $formName,
+            'id'     => $formName,
             'action' => Helpers::createUrl('/service/admin/add_new/item/' . $item),
-            'enableAjaxValidation'=>true,
-            'focus'=>array($newItem, 'name'),
+            'enableAjaxValidation' => true,
+            'focus'  => array($newItem, 'name'),
     ))?>
 
     <p class="note">Поля с пометкой <span class="required">*</span> являются обязательными.</p>

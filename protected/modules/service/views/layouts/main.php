@@ -40,7 +40,7 @@
                 <?php $this->widget('zii.widgets.CMenu', array(
                         'htmlOptions' => array('class' => 'menu'),
                         'items'       => Mainmenu::getConf($this->activeMenuItem),
-                    )); 
+                      )); 
                 ?>
             </div><!-- mainmenu -->
             
@@ -48,7 +48,7 @@
                     <?php $homeLink = CHtml::link('Главная', array('admin/index'));
                           $this->widget('zii.widgets.CBreadcrumbs', array(
                               'homeLink' => $homeLink,    
-                              'links' => $this->breadcrumbs,
+                              'links'    => $this->breadcrumbs,
                           )); 
                     ?><!-- breadcrumbs -->
             <?php endif?>
