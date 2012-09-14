@@ -21,18 +21,21 @@ class AdminPanelTest extends WebTestCase
         $this->type('css=#LoginForm_verifyCode', 'dolotut');
         
         $this->clickAndWait('css=#login_manager_button');
-        
+        //actionIndex
         $this->assertTextPresent('Здравствуйте Сергей Владимирович!');
         $this->assertElementContainsText('css=a[href="/service/admin/review/item/org"]', 'Организационно- правовые формы');
         
         $this->clickAndWait('css=a[href="/service/admin/review/item/org"]');
+        //actionReview
+        $this->assertElementContainsText('css=a[href="/service/admin/edit/item/org/id/2"]', 'ЗАО');
         
-        $this->assertElementContainsText('css=a[href="/service/admin/look/item/org/id/2"]', 'ЗАО');
+        //$this->clickAndWait('css=a[href="/service/admin/edit/item/org/id/2"]');
+        //actionEdit
         
-        //$this->clickAndWait('css=a[href="/service/admin/look/item/org/id/2"]');
+        ////$this->clickAndWait('css=a[href="/service/admin/add_new/item/org"]');
+        //actionAdd_new
         
-        //$this->assertTextPresent('ЗАО');
-        //$this->assertElementContainsText('css=a[href="/service/admin/look/item/org/id/2"]', '2');
+        
     }
 }
 ?>

@@ -19,13 +19,13 @@
 class AdminController extends ServiceController 
 {
     /**
-     * This is name of current Model
+     * It's name of current Model
      * @var string 
      */
     private $_Model;
     
     /**
-     * This is instance of current Model
+     * It's instance of current Model
      * @var ActiveRecord instance
      */
     private $_model;
