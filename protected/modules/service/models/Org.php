@@ -82,6 +82,6 @@ class Org extends CActiveRecord
         
         return new CActiveDataProvider($this, array(
             'criteria'   => $criteria,
-            'pagination' => array('pageSize' => 15)));
+            'pagination' => array('pageSize' => Yii::app()->params->pageSize)));
     }
 }

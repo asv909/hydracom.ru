@@ -67,6 +67,7 @@ return array(
     ),
     'params' => array(
         // must be 'some_string' for test mode or NULL othervise
-        'test' => 'dolotut', 
+        'test' => 'dolotut',
+        'pageSize' => 12,
     ),        
 );
