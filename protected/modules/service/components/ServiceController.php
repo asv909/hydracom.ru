@@ -30,9 +30,10 @@ class ServiceController extends CController
      * Typically, this property is set automatically ($GET['item'] value) through
      * parameter of function initAction($item).
      * For manual set select the appropriate value from the column 'name' DB-table's
-     * 'menu_item' оr 'submenu_item'.
+     * 'menu_item' оr 'submenu_item'. 
+     * By default 'home'.
      */
-    public $activeMenuItem;
+    public $activeMenuItem = 'home';
     
     /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.

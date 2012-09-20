@@ -59,17 +59,12 @@ class Mainmenu
             }
         /* visible */
             $item['visible'] = TRUE;
-            if (Yii::app()->user->isGuest) {
-                $item['visible'] = FALSE;
-            }
-            if (($mainMenuData[$i]->name === 'login')
-                && (!Yii::app()->user->isGuest)
-                || (Yii::app()->params['testenv'])                              // this condition need for unit-test's
-            ) {
-                $item['visible'] = FALSE;
-            } 
-            if (($mainMenuData[$i]->name === 'logout')
-                && (Yii::app()->user->isGuest)
+            if (((Yii::app()->user->isGuest)
+                 && (Yii::app()->params->testenv === ''))                         // this condition need for unit-test's
+                || (($mainMenuData[$i]->name === 'login')
+                    && (!Yii::app()->user->isGuest))
+                || (($mainMenuData[$i]->name === 'logout')
+                    && (Yii::app()->user->isGuest))
             ) {
                 $item['visible'] = FALSE;
             }
