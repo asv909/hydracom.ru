@@ -115,7 +115,7 @@ class AdminController extends ServiceController
             $this->initAction($item);
         }
 
-        $Model = ucfirst($item);     // $Model @var string is name for initialise of current Model
+        $Model = ucfirst($item);                                                 // $Model @var string is name for initialise of current Model
         $this->_model = $Model::model()->findByPk($id);
         if ($this->_model === NULL) {
             throw new CHttpException(404, 'Ошибка: элемент с номером ' 
